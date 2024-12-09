@@ -13,7 +13,16 @@ extension URLRequest {
         request.timeoutInterval = 60
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        ////        request.setValue("Bearer LKJASLKJASLKJD", forHTTPHeaderField: "Authorization")
+//        request.setValue("Bearer LKJASLKJASLKJD", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    static func get(_ endPoint: EndPoint) -> URLRequest {
+        var request = URLRequest(url: endPoint.url)
+        request.timeoutInterval = 60
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        //       request.setValue("Bearer LKJASLKJASLKJD", forHTTPHeaderField: "Authorization")
         return request
     }
     

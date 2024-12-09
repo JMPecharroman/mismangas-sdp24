@@ -8,7 +8,7 @@
 import Foundation
 
 struct ListMangasDTO: Codable {
-    let metada: Metadata
+    let metadata: Metadata
     let items: [MangaDTO]
 }
 

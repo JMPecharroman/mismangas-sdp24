@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MangasRepository {
-    func getList() async throws -> [Manga]
+    func getList(page: Int, per: Int) async throws -> [Manga]
 }

@@ -8,17 +8,10 @@
 import Foundation
 
 struct MangasRepositoryProd: MangasRepository, NetworkInteractor {
-    
     let urlSession: URLSession
     
-    func getList() async throws -> [Manga] {
-        try await getJSON(
-            request: .get(.listMangas),
-            type: ListMangasDTO.self
-        )
-        .items.compactMap {
-            $0.toManga
-        }
+    func getList(page: Int, per: Int) async throws -> [Manga] {
+        try await getJSON(request: .get(.listMangas), type: ListMangasDTO.self).items.compactMap(\.toManga)
     }
 }
 
