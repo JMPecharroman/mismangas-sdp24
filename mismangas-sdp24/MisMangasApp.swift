@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct mismangas_sdp24App: App {
+struct MisMangasApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
