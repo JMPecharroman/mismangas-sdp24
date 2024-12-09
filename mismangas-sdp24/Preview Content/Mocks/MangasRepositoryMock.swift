@@ -7,8 +7,6 @@
 
 import Foundation
 
-@testable import mismangas_sdp24
-
 extension MangasRepository where Self == MangasRepositoryProd {
     static var mock: MangasRepository {
         MangasRepositoryProd(urlSession: .mock)

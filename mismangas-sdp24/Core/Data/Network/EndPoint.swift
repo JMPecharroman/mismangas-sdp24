@@ -8,10 +8,13 @@
 import Foundation
 
 enum EndPoint {
+    case bestMangas
     case listMangas(page: Int)
     
     var url: URL {
         switch self {
+            case .bestMangas:
+                    .apiProductionUrl.appendingPathComponent("list/bestMangas")
             case .listMangas(let page):
                     .apiProductionUrl.appendingPathComponent("list/mangas").appending(queryItems: [.page(page)])
         }

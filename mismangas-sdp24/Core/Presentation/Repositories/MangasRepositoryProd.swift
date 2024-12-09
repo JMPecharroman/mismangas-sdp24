@@ -7,11 +7,16 @@
 
 import Foundation
 
-struct MangasRepositoryProd: MangasRepository, NetworkInteractor {
+struct MangasRepositoryProd: MangasRepository, NetworkInteractor, Sendable {
+    
     let urlSession: URLSession
     
+    func getBestMangas() async throws -> [Manga] {
+        try await getJSON(request: .get(.bestMangas), type: ListMangasDTO.self).items.compactMap(\.toManga)
+    }
+    
     func getList(page: Int, per: Int) async throws -> [Manga] {
-        try await getJSON(request: .get(.listMangas), type: ListMangasDTO.self).items.compactMap(\.toManga)
+        try await getJSON(request: .get(.listMangas(page: page)), type: ListMangasDTO.self).items.compactMap(\.toManga)
     }
 }
 

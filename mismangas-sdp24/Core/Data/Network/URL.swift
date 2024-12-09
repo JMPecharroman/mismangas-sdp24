@@ -10,5 +10,6 @@ import Foundation
 extension URL {
     static let apiProductionUrl = URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
     
-    static let listMangas: URL = .apiProductionUrl.appendingPathComponent("list/mangas")
+//    static let bestMangas: URL = .apiProductionUrl.appendingPathComponent("list/bestMangas")
+//    static let listMangas: URL = .apiProductionUrl.appendingPathComponent("list/mangas")
 }

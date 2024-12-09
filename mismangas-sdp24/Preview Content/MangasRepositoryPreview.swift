@@ -8,6 +8,10 @@
 import Foundation
 
 struct MangasRepositoryPreview: MangasRepository {
+    func getBestMangas() async throws -> [Manga] {
+        return [.preview]
+    }
+    
     func getList(page: Int, per: Int) async throws -> [Manga] {
         return [.preview]
     }
@@ -16,5 +20,11 @@ struct MangasRepositoryPreview: MangasRepository {
 extension MangasRepository where Self == MangasRepositoryPreview {
     static var preview: MangasRepository {
         MangasRepositoryPreview()
+    }
+}
+
+extension MangasRepository where Self == MangasRepositoryProd {
+    static var mock: MangasRepository {
+        MangasRepositoryProd(urlSession: .mock)
     }
 }
