@@ -22,6 +22,7 @@ struct HomeView: View {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading) {
                     SectionHeader(text: "Destacados")
+                        .padding(.horizontal)
                     if mangasVM.bestMangas.isEmpty {
                         VStack {
                             ProgressView()
@@ -34,12 +35,14 @@ struct HomeView: View {
                         ScrollView(.horizontal) {
                             LazyHStack(spacing: 16.0) {
                                 ForEach(mangasVM.bestMangas) { manga in
-                                    ImageCached(url: manga.mainPictute)
-                                        .scaledToFill()
-                                        .frame(width: 150.0, height: 225.0)
-                                        .background(.thinMaterial)
-                                        .clipShape(RoundedRectangle(cornerRadius: 12.0))
-                                        .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+                                    NavigationLink(value: manga) {
+                                        ImageCached(url: manga.mainPictute)
+                                            .scaledToFill()
+                                            .frame(width: 150.0, height: 225.0)
+                                            .background(.thinMaterial)
+                                            .clipShape(RoundedRectangle(cornerRadius: 12.0))
+                                            .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+                                    }
                                 }
                             }
                             .padding(.horizontal)
@@ -51,6 +54,7 @@ struct HomeView: View {
                 }
             }
             .navigationTitle(Self.viewTitle)
+            .navigationDestinations()
         }
     }
 }
