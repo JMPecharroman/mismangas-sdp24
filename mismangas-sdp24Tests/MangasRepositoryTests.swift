@@ -14,6 +14,13 @@ import Testing
 struct MangasRepositoryTests {
     
     let repository: MangasRepository = .mock
+    
+    @Test("Mejores mangas")
+    func bestMangas() async throws {
+        let mangas = try await repository.getBestMangas()
+        
+        #expect(mangas.count == 10)
+    }
 
     @Test("Lista de mangas")
     func getList() async throws {

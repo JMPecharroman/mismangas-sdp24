@@ -22,9 +22,3 @@ extension MangasRepository where Self == MangasRepositoryPreview {
         MangasRepositoryPreview()
     }
 }
-
-extension MangasRepository where Self == MangasRepositoryProd {
-    static var mock: MangasRepository {
-        MangasRepositoryProd(urlSession: .mock)
-    }
-}

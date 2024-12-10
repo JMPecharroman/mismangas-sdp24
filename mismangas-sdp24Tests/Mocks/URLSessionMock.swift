@@ -8,6 +8,10 @@
 import Foundation
 
 extension URL {
+    static var bestMangasMockData: URL {
+        Bundle.main.url(forResource: "BestMangasMockData", withExtension: "json")!
+    }
+    
     static var listMangasMockData: URL {
         Bundle.main.url(forResource: "ListMangasMockData", withExtension: "json")!
     }
@@ -39,16 +43,24 @@ final class URLSessionMock: URLProtocol {
     }
     
     override func startLoading() {
-        if let url = request.url {
-            // TODO: Comprobar el list/
-            if url.lastPathComponent == "mangas" {
-                guard let data = try? Data(contentsOf: .listMangasMockData) else { return }
-                guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json; charset=utf-8"]) else { return }
-                
-                client?.urlProtocol(self, didLoad: data)
-                client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-            }
+        guard let url = request.url else { return }
+        
+        let path = url.path()
+        
+        if path == "/list/bestMangas" {
+            guard let data = try? Data(contentsOf: .bestMangasMockData) else { return }
+            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json; charset=utf-8"]) else { return }
+            
+            client?.urlProtocol(self, didLoad: data)
+            client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        } else if path == "/list/mangas" {
+            guard let data = try? Data(contentsOf: .listMangasMockData) else { return }
+            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json; charset=utf-8"]) else { return }
+            
+            client?.urlProtocol(self, didLoad: data)
+            client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
         }
+        
         client?.urlProtocolDidFinishLoading(self)
     }
     
