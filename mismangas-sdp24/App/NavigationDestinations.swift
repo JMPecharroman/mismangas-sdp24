@@ -11,7 +11,7 @@ struct NavigationDestinationsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationDestination(for: Manga.self) {
-                MangaView(manga: $0)
+                MangaView(vm: MangaViewModel($0))
             }
     }
 }
