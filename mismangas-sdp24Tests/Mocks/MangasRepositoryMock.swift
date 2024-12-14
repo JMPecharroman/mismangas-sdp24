@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension MangasRepository where Self == MangasRepositoryProd {
+extension MangasRepository where Self == MangasRepositoryNetwork {
     static var mock: MangasRepository {
-        MangasRepositoryProd(urlSession: .mock)
+        MangasRepositoryNetwork(urlSession: .mock)
     }
 }

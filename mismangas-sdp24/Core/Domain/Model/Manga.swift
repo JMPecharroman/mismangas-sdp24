@@ -15,21 +15,5 @@ struct Manga: Identifiable, Hashable {
     let synopsis: String
     let background: String
     let url: URL?
-}
-
-extension MangaDTO {
-    var toManga: Manga? {
-        
-        let mainPicture: URL? = URL(string: self.mainPicture.replacingOccurrences(of: "\"", with: ""))
-        
-        return Manga(
-            id: self.id, 
-            title: self.title,
-            titleJapanese: self.titleJapanese,
-            mainPictute: mainPicture,
-            synopsis: self.sypnosis,
-            background: self.background,
-            url: URL(string: self.url)
-        )
-    }
+    let themes: [Theme]
 }

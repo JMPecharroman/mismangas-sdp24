@@ -102,7 +102,7 @@ struct MangaView: View {
                     }
 
                     SectionHeader(text: "Categorías", button: "Ver todas") {
-                        MangaCategoriesView(vm: vm)
+                        MangaCategoriesView(manga: vm.manga)
                     }
                     .padding(.horizontal)
                     

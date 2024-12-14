@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MangaCategoriesView: View {
     
-    @State var vm: MangaViewModel
+    let manga: Manga
     
     var body: some View {
         List {
@@ -20,27 +20,31 @@ struct MangaCategoriesView: View {
                     Text("Terror")
                 }
             }
-            Section("Temáticas") {
-                NavigationLink {
-                    Text("Terror")
-                } label: {
-                    Text("Terror")
+            if !manga.themes.isEmpty {
+                Section("Temáticas") {
+                    ForEach(manga.themes) { theme in
+                        NavigationLink {
+                            Text(theme.name)
+                        } label: {
+                            Text(theme.name)
+                        }
+                    }
                 }
             }
             Section("Demografía") {
                 NavigationLink {
-                    Text("Terror")
+                    Text("Terror22")
                 } label: {
-                    Text("Terror")
+                    Text("Terrr2")
                 }
             }
         }
-        .navigationTitle(vm.manga.title)
+        .navigationTitle(manga.title)
     }
 }
 
 #Preview {
     NavigationStack {
-        MangaCategoriesView(vm: MangaViewModel(.preview))
+        MangaCategoriesView(manga: .preview)
     }
 }

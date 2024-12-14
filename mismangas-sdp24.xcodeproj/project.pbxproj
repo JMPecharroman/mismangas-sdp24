@@ -42,6 +42,7 @@
 				Core/Data/Repositories/MangasRepositoryNetwork.swift,
 				Core/Domain/Interfaces/MangasRepository.swift,
 				Core/Domain/Model/Manga.swift,
+				Core/Domain/Model/Theme.swift,
 				"Preview Content/Data/BestMangasMockData.json",
 				"Preview Content/Data/ListMangasMockData.json",
 			);
