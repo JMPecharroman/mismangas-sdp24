@@ -8,15 +8,18 @@
 import Foundation
 
 enum EndPoint {
+    
+    static let apiURL = URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
+    
     case bestMangas
     case listMangas(page: Int)
     
     var url: URL {
         switch self {
             case .bestMangas:
-                    .apiProductionUrl.appendingPathComponent("list/bestMangas")
+                Self.apiURL.appendingPathComponent("list/bestMangas")
             case .listMangas(let page):
-                    .apiProductionUrl.appendingPathComponent("list/mangas").appending(queryItems: [.page(page)])
+                Self.apiURL.appendingPathComponent("list/mangas").appending(queryItems: [.page(page)])
         }
     }
 }
