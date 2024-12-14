@@ -39,9 +39,9 @@
 				Core/Data/Network/URLQueryItem.swift,
 				Core/Data/Network/URLRequest.swift,
 				Core/Data/Network/URLSession.swift,
-				Core/Presentation/Interfaces/MangasRepository.swift,
-				Core/Presentation/Model/Manga.swift,
-				Core/Presentation/Repositories/MangasRepositoryProd.swift,
+				Core/Data/Repositories/MangasRepositoryNetwork.swift,
+				Core/Domain/Interfaces/MangasRepository.swift,
+				Core/Domain/Model/Manga.swift,
 				"Preview Content/Data/BestMangasMockData.json",
 				"Preview Content/Data/ListMangasMockData.json",
 			);

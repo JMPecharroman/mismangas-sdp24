@@ -59,9 +59,15 @@ struct SectionHeader<Destination: View>: View {
 
 #Preview {
     NavigationStack {
-        VStack(alignment: .leading, spacing: 24.0) {
-            SectionHeader(text: "Sólo texto")
-            SectionHeader(text: "Con botón", button: "Ver más") {}
+        ScrollView(.vertical) {
+            VStack(alignment: .leading, spacing: 24.0) {
+                SectionHeader(text: "Sólo texto")
+                SectionHeader(text: "Con botón", button: "Ver más") {}
+                SectionHeader(text: "Con navegación", button: "Ver más") {
+                    Text("Hello world!")
+                }
+            }
+            .padding()
         }
         .navigationTitle("Cabeceras")
     }

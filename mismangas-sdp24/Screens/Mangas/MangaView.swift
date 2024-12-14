@@ -9,63 +9,59 @@ import SwiftUI
 
 struct MangaView: View {
     
-    let manga: Manga
+    @State var vm: MangaViewModel
+    @State private var textSheetData: TextSheetData?
+    
+    private let genres = ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Mystery", "Romance", "Sci-Fi", "Slice of Life"]
+    
+    private let columns = [
+        GridItem(.adaptive(minimum: 72.0, maximum: 120.0), spacing: 4.0)
+    ]
     
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0.0) {
                 VStack(spacing: 8.0) {
-                    ImageCached(url: manga.mainPictute)
+                    ImageCached(url: vm.manga.mainPictute)
                         .frame(width: 150.0, height: 225.0)
                         .background(.thinMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 12.0))
                         .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                         .padding()
                     
-                    Text(manga.title)
+                    Text(vm.manga.title)
                         .font(.title)
                         .bold()
                         .padding(.horizontal, 16.0)
                     
-                    if !manga.titleJapanese.isEmpty {
-                        Text(manga.titleJapanese)
+                    if !vm.manga.titleJapanese.isEmpty {
+                        Text(vm.manga.titleJapanese)
                             .font(.subheadline)
                             .lineLimit(2)
                             .padding(.horizontal, 16.0)
                             .frame(maxWidth: 360.0)
                             .padding(.bottom, 4.0)
                     }
-                    
-//                    HStack {
-//                        Text("2021")
-//                            .font(.headline)
-//                        Text("Finished")
-//                            .font(.subheadline)
-//                            .padding(.horizontal, 6.0)
-//                            .padding(.vertical, 2.0)
-//                            .background {
-//                                RoundedRectangle(cornerRadius: 4.0)
-//                                    .fill(.red)
-//                            }
-//                    }
-                    
                 }
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 
-                HStack {
-                    Text("2021")
-                        .font(.headline)
-                    Text("Finished")
-                        .font(.subheadline)
-                        .padding(.horizontal, 6.0)
-                        .padding(.vertical, 2.0)
-                        .background {
-                            RoundedRectangle(cornerRadius: 4.0)
-                                .fill(.red)
-                        }
+                VStack {
+                    HStack(spacing: 16.0) {
+                        Text("2021")
+                        Text("\(Image(systemName: "star.fill")) 5.0")
+                        Text("Finished")
+                            .font(.subheadline)
+                            .padding(.horizontal, 6.0)
+                            .padding(.vertical, 2.0)
+                            .background {
+                                RoundedRectangle(cornerRadius: 4.0)
+                                    .fill(.red)
+                            }
+                    }
+                    .font(.headline)
                 }
-                .frame(height: 50.0)
+                .frame(minHeight: 50.0)
                 .frame(maxWidth: .infinity)
                 .background {
                     LinearGradient(
@@ -77,24 +73,10 @@ struct MangaView: View {
                         endPoint: .bottom
                     )
                 }
-                
+
                 LazyVStack(alignment: .leading) {
-//                    HStack {
-//                        Image(systemName: "star.fill")
-//                        Text("5.0")
-//                            .padding(.leading, -4.0)
-//                        Text("Finished")
-//                            .padding(.horizontal, 8.0)
-//                            .padding(.vertical, 4.0)
-//                            .background {
-//                                RoundedRectangle(cornerRadius: 4.0)
-//                                    .fill(.red)
-//                            }
-//                    }
-                    
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
-                    
                     ScrollView(.horizontal) {
                         LazyHStack {
                             VStack {
@@ -118,54 +100,61 @@ struct MangaView: View {
                         }
                         .padding(.horizontal)
                     }
-                    
-                    VStack(alignment: .leading) {
-                        SectionHeader(text: "Sinopsis")
-                        Text(manga.synopsis)
-                            .font(.callout)
-                            .lineLimit(3)
-                            .padding(.top, -4.0)
+
+                    SectionHeader(text: "Categorías", button: "Ver todas") {
+                        MangaCategoriesView(vm: vm)
                     }
                     .padding(.horizontal)
+                    
+                    LazyVGrid(columns: columns, spacing: 4.0) {
+                        ForEach(genres, id: \.self) { genre in
+                            Text(genre)
+                                .font(.caption)
+                                .foregroundStyle(.primary)
+                                .lineLimit(1)
+                                .frame(height: 32.0)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .background {
+                                    Capsule(style: .continuous)
+                                        .fill(Color(.systemGray5))
+                                }
+                        }
+                    }
+                    .padding(.horizontal)
+
+                    VStack(alignment: .leading) {
+                        SectionHeader(text: "Sinopsis", button: "Ver más") {
+                            textSheetData =  TextSheetData(title: vm.manga.title, text: vm.manga.synopsis)
+                        }
+                        Text(vm.manga.synopsis)
+                            .font(.callout)
+                            .lineLimit(3)
+                        SectionHeader(text: "Background", button: "Ver más") {
+                            textSheetData =  TextSheetData(title: vm.manga.title, text: vm.manga.background)
+                        }
+                        Text(vm.manga.background)
+                            .font(.callout)
+                            .lineLimit(3)
+                        SectionHeader(text: "Información")
+                        VStack(alignment: .leading, spacing: 12.0) {
+                            MangaData(data: "Título japonés", value: "dejkqb eqwkj deqwlkb")
+                            MangaData(data: "Título inglés", value: "sdkjbf odjk fn")
+                            MangaData(data: "Fecha de inicio", value: "5 de junio de 2008")
+                            MangaData(data: "Fecha de finalización", value: "23 de agosto de 2013")
+                            MangaData(data: "Número de personajes", value: "326")
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
                     .frame(maxWidth: .infinity)
                     .background(Color(.secondarySystemBackground))
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color(.systemBackground))
-                
-//                VStack(alignment: .leading, spacing: 12) {
-                    
-                    
-                    
-//                    HStack(spacing: 16) {
-//                        Label(String(format: "%.1f", manga.score), systemImage: "star.fill")
-//                            .foregroundStyle(.yellow)
-//                        if let volumes = manga.volumes {
-//                            Text("\(volumes) volumes")
-//                        }
-//                        if let date = manga.startDate {
-//                            Text(date.formatted(.dateTime.year()))
-//                        }
-//                    }
-//                    .font(.headline)
-                    
-//                    if let authors = manga.authors.first {
-//                        Text("By \(authors.firstName) \(authors.lastName)")
-//                            .font(.subheadline)
-//                            .foregroundStyle(.secondary)
-//                    }
-//                }
-//                .padding()
-//                .background(.blue)
-//                .background(.ultraThinMaterial)
-                
-                
             }
-//            .frame(maxWidth: .infinity)
-//            .background(.red)
         }
         .background {
-            ImageCached(url: manga.mainPictute)
+            ImageCached(url: vm.manga.mainPictute)
                 .scaledToFill()
                 .blur(radius: 12.0)
 //                .overlay(.ultraThinMaterial.opacity(1))
@@ -182,13 +171,30 @@ struct MangaView: View {
                 }
                 .ignoresSafeArea()
         }
-        .navigationTitle(manga.title)
+        .navigationTitle(vm.manga.title)
         .navigationBarTitleDisplayMode(.inline)
+        .textSheet(data: $textSheetData)
     }
 }
 
 #Preview {
     NavigationStack {
-        MangaView(manga: .preview)
+        MangaView(vm: MangaViewModel(.preview))
+    }
+}
+
+struct MangaData: View {
+    
+    let data: String
+    let value: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2.0) {
+            Text(data)
+                .font(.headline)
+            Text(value)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
     }
 }

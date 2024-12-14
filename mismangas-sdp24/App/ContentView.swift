@@ -14,10 +14,6 @@ struct ContentView: View {
                 .tabItem {
                     Label(HomeView.viewTitle, systemImage: "house")
                 }
-            MangasList()
-                .tabItem {
-                    Label(MangasList.viewTitle, systemImage: "book")
-                }
         }
     }
 }

@@ -9,7 +9,8 @@ import Foundation
 
 struct MangasRepositoryPreview: MangasRepository {
     func getBestMangas() async throws -> [Manga] {
-        return [.preview]
+        let mangas: ListMangasDTO = try Bundle.main.getJSON("ListMangasMockData")
+        return mangas.items.compactMap(\.toManga)
     }
     
     func getList(page: Int, per: Int) async throws -> [Manga] {
