@@ -13,33 +13,30 @@ struct MangaCategoriesView: View {
     
     var body: some View {
         List {
-            Section("Categorías") {
-                NavigationLink {
-                    Text("Terror")
-                } label: {
-                    Text("Terror")
-                }
-            }
-            if !manga.themes.isEmpty {
-                Section("Temáticas") {
-                    ForEach(manga.themes) { theme in
-                        NavigationLink {
-                            Text(theme.name)
-                        } label: {
-                            Text(theme.name)
+            if manga.categories.isEmpty {
+                ContentUnavailableView(
+                    "Sin categorías",
+                    systemImage: "xmark.circle",
+                    description: Text("No se han encontrado categorías para \(manga.title)")
+                )
+            } else {
+                ForEach(CategoryGroup.allCases, id: \.self) { group in
+                    if !manga.categories.filter({ $0.group == group }).isEmpty {
+                        Section("\(group)") {
+                            ForEach(manga.categories.filter({ $0.group == group })) { theme in
+                                NavigationLink {
+                                    Text(theme.name)
+                                } label: {
+                                    Text(theme.name)
+                                }
+                            }
                         }
                     }
                 }
             }
-            Section("Demografía") {
-                NavigationLink {
-                    Text("Terror22")
-                } label: {
-                    Text("Terrr2")
-                }
-            }
         }
         .navigationTitle(manga.title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
