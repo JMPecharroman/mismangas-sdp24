@@ -1,0 +1,59 @@
+//
+//  MangaListCell.swift
+//  mismangas-sdp24
+//
+//  Created by José Mª Pecharromán on 15/12/24.
+//
+
+import SwiftUI
+
+struct MangaListCell: View {
+    
+    let manga: Manga
+    
+    var body: some View {
+        HStack {
+            Poster(manga: manga)
+            VStack(alignment: .leading, spacing: 8.0) {
+                Text(manga.title)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .lineLimit(2)
+                    .padding(.top)
+                HStack(spacing: 16.0) {
+                    Text("2021")
+                    Text("\(Image(systemName: "star.fill"))")
+                        .font(.footnote)
+                    + Text(" 5.0")
+                    Text("Finished")
+                        .font(.subheadline)
+                        .padding(.horizontal, 6.0)
+                        .padding(.vertical, 2.0)
+                        .background {
+                            RoundedRectangle(cornerRadius: 4.0)
+                                .fill(.red)
+                        }
+                }
+                .font(.callout)
+                Text(manga.synopsis)
+                    .font(.caption)
+                    .lineLimit(5)
+                    .layoutPriority(0.5)
+                Spacer()
+            }
+            .padding(.leading)
+            .padding(.vertical, -12.0)
+        }
+        .frame(height: 120.0)
+    }
+}
+
+#Preview {
+    NavigationStack {
+        List {
+            MangaListCell(manga: .preview)
+        }
+        .navigationTitle("MangaListCell")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
