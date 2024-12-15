@@ -23,11 +23,11 @@ struct MangaCategoriesView: View {
                 ForEach(CategoryGroup.allCases, id: \.self) { group in
                     if !manga.categories.filter({ $0.group == group }).isEmpty {
                         Section("\(group)") {
-                            ForEach(manga.categories.filter({ $0.group == group })) { theme in
+                            ForEach(manga.categories.filter({ $0.group == group })) { category in
                                 NavigationLink {
-                                    Text(theme.name)
+                                    MangasByCategoryView(vm: .init(category))
                                 } label: {
-                                    Text(theme.name)
+                                    Text(category.name)
                                 }
                             }
                         }
