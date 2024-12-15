@@ -15,5 +15,5 @@ struct Manga: Identifiable, Hashable {
     let synopsis: String
     let background: String
     let url: URL?
-    let themes: [Theme]
+    let categories: [Category]
 }

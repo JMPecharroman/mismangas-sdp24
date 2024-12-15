@@ -11,6 +11,10 @@ extension MangaDTO {
     var toManga: Manga? {
         
         let mainPicture: URL? = URL(string: self.mainPicture.replacingOccurrences(of: "\"", with: ""))
+        var categories: [Category] = []
+        categories.append(contentsOf: themes.compactMap(\.toCategory))
+        categories.append(contentsOf: genres.compactMap(\.toCategory))
+        categories.append(contentsOf: demographics.compactMap(\.toCategory))
         
         return Manga(
             id: self.id,
@@ -20,7 +24,7 @@ extension MangaDTO {
             synopsis: self.sypnosis,
             background: self.background,
             url: URL(string: self.url),
-            themes: self.themes.compactMap(\.toTheme)
+            categories: categories
         )
     }
 }
