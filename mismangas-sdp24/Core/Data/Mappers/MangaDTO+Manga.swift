@@ -11,6 +11,17 @@ extension MangaDTO {
     var toManga: Manga? {
         
         let mainPicture: URL? = URL(string: self.mainPicture.replacingOccurrences(of: "\"", with: ""))
+        
+        let status = MangaStatus(rawValue: self.status)
+        
+        let startDate: Date? = DateFormatter.apiDate.date(from: self.startDate)
+        let endDate: Date? = if let date = endDate { DateFormatter.apiDate.date(from: date)
+        } else {
+            nil
+        }
+        
+        let score: Double = Double(self.score)
+        
         var categories: [Category] = []
         categories.append(contentsOf: themes.compactMap(\.toCategory))
         categories.append(contentsOf: genres.compactMap(\.toCategory))
@@ -20,9 +31,13 @@ extension MangaDTO {
             id: self.id,
             title: self.title,
             titleJapanese: self.titleJapanese,
-            mainPictute: mainPicture,
-            synopsis: self.sypnosis,
             background: self.background,
+            mainPictute: mainPicture,
+            status: status,
+            startDate: startDate,
+            endDate: endDate,
+            score: score,
+            synopsis: self.sypnosis,
             url: URL(string: self.url),
             categories: categories
         )
