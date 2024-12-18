@@ -12,10 +12,6 @@ struct MangaView: View {
     @State var vm: MangaViewModel
     @State private var textSheetData: TextSheetData?
     
-    private let columns = [
-        GridItem(.adaptive(minimum: 90.0, maximum: 120.0), spacing: 4.0)
-    ]
-    
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0.0) {
@@ -73,30 +69,15 @@ struct MangaView: View {
                 LazyVStack(alignment: .leading) {
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
+                    
                     MangaAuthorsCarrousel(authors: vm.manga.authors)
 
                     SectionHeader(text: "Categorías", button: "Ver todas") {
                         MangaCategoriesView(manga: vm.manga)
                     }
                     .padding(.horizontal)
+                    MangaCategoriesGrid(manga: vm.manga)
                     
-                    LazyVGrid(columns: columns, spacing: 4.0) {
-                        ForEach(vm.manga.categories, id: \.self) { category in
-                            Text(category.name)
-                                .font(.caption)
-                                .foregroundStyle(.primary)
-                                .lineLimit(1)
-                                .frame(height: 32.0)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .background {
-                                    Capsule(style: .continuous)
-                                        .fill(Color(.systemGray5))
-                                }
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom)
-
                     MangaInfoSection(manga: vm.manga)
                 }
                 .frame(maxWidth: .infinity)
@@ -104,22 +85,7 @@ struct MangaView: View {
             }
         }
         .background {
-            ImageCached(url: vm.manga.mainPictute)
-                .scaledToFill()
-                .blur(radius: 12.0)
-//                .overlay(.ultraThinMaterial.opacity(1))
-                .overlay {
-                    LinearGradient(
-                        colors: [
-                            .clear,
-                            Color(.systemBackground).opacity(0.7),
-                            Color(.systemBackground)
-                        ],
-                        startPoint: .top,
-                        endPoint: .init(x: 0.5, y: 0.75)
-                    )
-                }
-                .ignoresSafeArea()
+            MangaBackground(manga: vm.manga)
         }
         .navigationTitle(vm.manga.title)
         .navigationBarTitleDisplayMode(.inline)
