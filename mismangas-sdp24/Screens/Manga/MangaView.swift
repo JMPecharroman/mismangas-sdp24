@@ -12,21 +12,16 @@ struct MangaView: View {
     @State var vm: MangaViewModel
     @State private var textSheetData: TextSheetData?
     
-    private let genres = ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Mystery", "Romance", "Sci-Fi", "Slice of Life"]
-    
     private let columns = [
-        GridItem(.adaptive(minimum: 72.0, maximum: 120.0), spacing: 4.0)
+        GridItem(.adaptive(minimum: 90.0, maximum: 120.0), spacing: 4.0)
     ]
     
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0.0) {
                 VStack(spacing: 8.0) {
-                    ImageCached(url: vm.manga.mainPictute)
-                        .frame(width: 150.0, height: 225.0)
-                        .background(.thinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 12.0))
-                        .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+                    Poster(manga: vm.manga)
+                        .frame(width: 150.0)
                         .padding()
                     
                     Text(vm.manga.title)
@@ -40,26 +35,27 @@ struct MangaView: View {
                             .lineLimit(2)
                             .padding(.horizontal, 16.0)
                             .frame(maxWidth: 360.0)
-                            .padding(.bottom, 4.0)
+                            .padding(.bottom)
                     }
                 }
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 
-                VStack {
-                    HStack(spacing: 16.0) {
-                        Text("2021")
-                        Text("\(Image(systemName: "star.fill")) 5.0")
-                        Text("Finished")
-                            .font(.subheadline)
-                            .padding(.horizontal, 6.0)
-                            .padding(.vertical, 2.0)
-                            .background {
-                                RoundedRectangle(cornerRadius: 4.0)
-                                    .fill(.red)
-                            }
+                VStack(spacing: 12.0) {
+                    MangaBadgesView(manga: vm.manga)
+                        .font(.headline)
+                    
+                    Button {
+                        textSheetData =  TextSheetData(title: vm.manga.title, text: vm.manga.synopsis)
+                    } label: {
+                        Text(vm.manga.synopsis)
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(3)
+                            .padding(.horizontal)
+                            .frame(maxWidth: 360.0, alignment: .center)
                     }
-                    .font(.headline)
+                    .buttonStyle(.plain)
                 }
                 .frame(minHeight: 50.0)
                 .frame(maxWidth: .infinity)
@@ -83,7 +79,7 @@ struct MangaView: View {
                                 Image(systemName: "person")
                                     .resizable()
                                     .aspectRatio(1.0, contentMode: .fill)
-                                    .frame(width: 80.0)
+                                    .frame(width: 90.0)
                                     .background(.regularMaterial)
                                     .clipShape(Circle())
                                     .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
@@ -107,8 +103,8 @@ struct MangaView: View {
                     .padding(.horizontal)
                     
                     LazyVGrid(columns: columns, spacing: 4.0) {
-                        ForEach(genres, id: \.self) { genre in
-                            Text(genre)
+                        ForEach(vm.manga.categories, id: \.self) { category in
+                            Text(category.name)
                                 .font(.caption)
                                 .foregroundStyle(.primary)
                                 .lineLimit(1)
@@ -121,21 +117,18 @@ struct MangaView: View {
                         }
                     }
                     .padding(.horizontal)
+                    .padding(.bottom)
 
                     VStack(alignment: .leading) {
-                        SectionHeader(text: "Sinopsis", button: "Ver más") {
-                            textSheetData =  TextSheetData(title: vm.manga.title, text: vm.manga.synopsis)
+                        if let background = vm.manga.background {
+                            SectionHeader(text: "Información", button: "Ver más") {
+                                textSheetData =  TextSheetData(title: vm.manga.title, text: background)
+                            }
+                            Text(background)
+                                .font(.callout)
+                                .lineLimit(3)
                         }
-                        Text(vm.manga.synopsis)
-                            .font(.callout)
-                            .lineLimit(3)
-                        SectionHeader(text: "Background", button: "Ver más") {
-                            textSheetData =  TextSheetData(title: vm.manga.title, text: vm.manga.background)
-                        }
-                        Text(vm.manga.background)
-                            .font(.callout)
-                            .lineLimit(3)
-                        SectionHeader(text: "Información")
+                        SectionHeader(text: "Ficha técnica")
                         VStack(alignment: .leading, spacing: 12.0) {
                             MangaData(data: "Título japonés", value: "dejkqb eqwkj deqwlkb")
                             MangaData(data: "Título inglés", value: "sdkjbf odjk fn")
@@ -189,7 +182,7 @@ struct MangaData: View {
     let value: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 2.0) {
+        VStack(alignment: .leading, spacing: 4.0) {
             Text(data)
                 .font(.headline)
             Text(value)
