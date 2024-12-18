@@ -41,7 +41,7 @@ struct MangaView: View {
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 
-                VStack(spacing: 12.0) {
+                VStack(spacing: 16.0) {
                     MangaBadgesView(manga: vm.manga)
                         .font(.headline)
                     
@@ -73,29 +73,7 @@ struct MangaView: View {
                 LazyVStack(alignment: .leading) {
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
-                    ScrollView(.horizontal) {
-                        LazyHStack {
-                            VStack {
-                                Image(systemName: "person")
-                                    .resizable()
-                                    .aspectRatio(1.0, contentMode: .fill)
-                                    .frame(width: 90.0)
-                                    .background(.regularMaterial)
-                                    .clipShape(Circle())
-                                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-                                    .padding(8.0)
-                                Text("George Morikawa")
-                                    .font(.subheadline)
-                                    .lineLimit(1)
-                                Text("Story & Art")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                    .lineLimit(1)
-                            }
-                            .frame(width: 120.0)
-                        }
-                        .padding(.horizontal)
-                    }
+                    AuthorsCarrouselView(authors: vm.manga.authors)
 
                     SectionHeader(text: "Categorías", button: "Ver todas") {
                         MangaCategoriesView(manga: vm.manga)

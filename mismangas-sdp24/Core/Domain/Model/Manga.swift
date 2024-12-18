@@ -19,5 +19,6 @@ struct Manga: Identifiable, Hashable {
     let score: Double
     let synopsis: String
     let url: URL?
+    let authors: [Author]
     let categories: [Category]
 }

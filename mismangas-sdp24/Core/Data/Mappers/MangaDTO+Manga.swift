@@ -22,6 +22,8 @@ extension MangaDTO {
         
         let score: Double = Double(self.score)
         
+        let authors = authors.compactMap(\.toAuthor)
+        
         var categories: [Category] = []
         categories.append(contentsOf: themes.compactMap(\.toCategory))
         categories.append(contentsOf: genres.compactMap(\.toCategory))
@@ -39,6 +41,7 @@ extension MangaDTO {
             score: score,
             synopsis: self.sypnosis,
             url: URL(string: self.url),
+            authors: authors,
             categories: categories
         )
     }

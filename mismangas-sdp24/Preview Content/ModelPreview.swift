@@ -7,6 +7,18 @@
 
 import Foundation
 
+extension Author {
+    static var preview: Author {
+        Manga.preview.authors.first!
+    }
+}
+
+extension Array where Element == Author {
+    static var preview: [Author] {
+        Manga.preview.authors
+    }
+}
+
 extension Category {
     static var preview: Category {
         Manga.preview.categories.first!

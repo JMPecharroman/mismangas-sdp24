@@ -41,6 +41,7 @@
 				Core/Data/Network/URLSession.swift,
 				Core/Data/Repositories/MangasRepositoryNetwork.swift,
 				Core/Domain/Interfaces/MangasRepository.swift,
+				Core/Domain/Model/Author.swift,
 				Core/Domain/Model/Category.swift,
 				Core/Domain/Model/Manga.swift,
 				Core/Domain/Model/MangasResponse.swift,
@@ -173,11 +174,12 @@
 				};
 			};
 			buildConfigurationList = 204BDA552CFFA69F003A2989 /* Build configuration list for PBXProject "mismangas-sdp24" */;
-			developmentRegion = en;
+			developmentRegion = es;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 204BDA512CFFA69F003A2989;
 			minimizedProjectReferenceProxies = 1;
