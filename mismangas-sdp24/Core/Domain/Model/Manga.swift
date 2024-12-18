@@ -11,9 +11,13 @@ struct Manga: Identifiable, Hashable {
     let id: Int
     let title: String
     let titleJapanese: String
+    let background: String?
     let mainPictute: URL?
+    let status: MangaStatus
+    let startDate: Date?
+    let endDate: Date?
+    let score: Double
     let synopsis: String
-    let background: String
     let url: URL?
     let categories: [Category]
 }

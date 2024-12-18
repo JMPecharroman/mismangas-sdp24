@@ -8,5 +8,5 @@
 import Foundation
 
 extension URL {
-    static let apiProductionUrl = URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
+    static let apiBaseURL = URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
 }

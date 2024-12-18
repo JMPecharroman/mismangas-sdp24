@@ -20,21 +20,8 @@ struct MangaListCell: View {
                     .fontWeight(.bold)
                     .lineLimit(2)
                     .padding(.top)
-                HStack(spacing: 16.0) {
-                    Text("2021")
-                    Text("\(Image(systemName: "star.fill"))")
-                        .font(.footnote)
-                    + Text(" 5.0")
-                    Text("Finished")
-                        .font(.subheadline)
-                        .padding(.horizontal, 6.0)
-                        .padding(.vertical, 2.0)
-                        .background {
-                            RoundedRectangle(cornerRadius: 4.0)
-                                .fill(.red)
-                        }
-                }
-                .font(.callout)
+                MangaBadgesView(manga: manga)
+                    .font(.callout)
                 Text(manga.synopsis)
                     .font(.caption)
                     .lineLimit(5)

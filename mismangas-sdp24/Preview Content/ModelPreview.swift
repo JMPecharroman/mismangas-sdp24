@@ -7,6 +7,12 @@
 
 import Foundation
 
+extension Category {
+    static var preview: Category {
+        Manga.preview.categories.first!
+    }
+}
+
 extension Manga {
     static var preview: Manga {
         MangaDTO.preview.toManga!

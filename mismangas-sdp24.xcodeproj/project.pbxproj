@@ -43,8 +43,11 @@
 				Core/Domain/Interfaces/MangasRepository.swift,
 				Core/Domain/Model/Category.swift,
 				Core/Domain/Model/Manga.swift,
+				Core/Domain/Model/MangasResponse.swift,
+				Core/Domain/Model/MangaStatus.swift,
 				"Preview Content/Data/BestMangasMockData.json",
 				"Preview Content/Data/ListMangasMockData.json",
+				"Preview Content/Data/MangasByGenre.json",
 			);
 			target = 205285912D0709A8005247E8 /* mismangas-sdp24Tests */;
 		};
