@@ -9,8 +9,20 @@ import Foundation
 
 extension Manga {
     
+    var chaptersLabel: String {
+        "\(chapters)"
+    }
+    
+    var endDateLabel: String? {
+        endDate?.formatted(date: .long, time: .omitted)
+    }
+    
     var scoreLabel: String {
         score.formatted(.number.precision(.fractionLength(1)))
+    }
+    
+    var startDateLabel: String? {
+        startDate?.formatted(date: .long, time: .omitted)
     }
     
     var yearLabel: String {

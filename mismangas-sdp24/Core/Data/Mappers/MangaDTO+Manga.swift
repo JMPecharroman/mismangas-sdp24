@@ -32,9 +32,12 @@ extension MangaDTO {
         return Manga(
             id: self.id,
             title: self.title,
+            titleEnglish: self.titleEnglish,
             titleJapanese: self.titleJapanese,
             background: self.background,
             mainPictute: mainPicture,
+            volumes: self.volumes ?? 0,
+            chapters: self.chapters ?? 0,
             status: status,
             startDate: startDate,
             endDate: endDate,

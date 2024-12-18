@@ -10,9 +10,12 @@ import Foundation
 struct Manga: Identifiable, Hashable {
     let id: Int
     let title: String
+    let titleEnglish: String?
     let titleJapanese: String
     let background: String?
     let mainPictute: URL?
+    let volumes: Int
+    let chapters: Int
     let status: MangaStatus
     let startDate: Date?
     let endDate: Date?

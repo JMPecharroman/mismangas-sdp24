@@ -1,5 +1,5 @@
 //
-//  AuthorsCarrouselView.swift
+//  MangaAuthorsCarrousel.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 18/12/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AuthorsCarrouselView: View {
+struct MangaAuthorsCarrousel: View {
     
     let authors: [Author]
     
@@ -50,7 +50,7 @@ struct AuthorsCarrouselView: View {
 #Preview {
     ScrollView {
         VStack {
-            AuthorsCarrouselView(authors: .preview)
+            MangaAuthorsCarrousel(authors: .preview)
         }
     }
 }

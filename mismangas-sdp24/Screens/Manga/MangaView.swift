@@ -73,7 +73,7 @@ struct MangaView: View {
                 LazyVStack(alignment: .leading) {
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
-                    AuthorsCarrouselView(authors: vm.manga.authors)
+                    MangaAuthorsCarrousel(authors: vm.manga.authors)
 
                     SectionHeader(text: "Categorías", button: "Ver todas") {
                         MangaCategoriesView(manga: vm.manga)
@@ -97,28 +97,7 @@ struct MangaView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
 
-                    VStack(alignment: .leading) {
-                        if let background = vm.manga.background {
-                            SectionHeader(text: "Información", button: "Ver más") {
-                                textSheetData =  TextSheetData(title: vm.manga.title, text: background)
-                            }
-                            Text(background)
-                                .font(.callout)
-                                .lineLimit(3)
-                        }
-                        SectionHeader(text: "Ficha técnica")
-                        VStack(alignment: .leading, spacing: 12.0) {
-                            MangaData(data: "Título japonés", value: "dejkqb eqwkj deqwlkb")
-                            MangaData(data: "Título inglés", value: "sdkjbf odjk fn")
-                            MangaData(data: "Fecha de inicio", value: "5 de junio de 2008")
-                            MangaData(data: "Fecha de finalización", value: "23 de agosto de 2013")
-                            MangaData(data: "Número de personajes", value: "326")
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(.secondarySystemBackground))
+                    MangaInfoSection(manga: vm.manga)
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color(.systemBackground))
