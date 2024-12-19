@@ -10,63 +10,109 @@ import SwiftUI
 struct MangaView: View {
     
     @State var vm: MangaViewModel
-    @State private var textSheetData: TextSheetData?
     
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0.0) {
-                VStack(spacing: 8.0) {
-                    Poster(manga: vm.manga)
-                        .frame(width: 150.0)
-                        .padding()
-                    
-                    Text(vm.manga.title)
-                        .font(.title)
-                        .bold()
-                        .padding(.horizontal, 16.0)
-                    
-                    if !vm.manga.titleJapanese.isEmpty {
-                        Text(vm.manga.titleJapanese)
-                            .font(.subheadline)
-                            .lineLimit(2)
-                            .padding(.horizontal, 16.0)
-                            .frame(maxWidth: 360.0)
-                            .padding(.bottom)
-                    }
-                }
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-                
-                VStack(spacing: 16.0) {
-                    MangaBadgesView(manga: vm.manga)
-                        .font(.headline)
-                    
-                    Button {
-                        textSheetData =  TextSheetData(title: vm.manga.title, text: vm.manga.synopsis)
-                    } label: {
-                        Text(vm.manga.synopsis)
-                            .font(.callout)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(3)
-                            .padding(.horizontal)
-                            .frame(maxWidth: 360.0, alignment: .center)
-                    }
-                    .buttonStyle(.plain)
-                }
-                .frame(minHeight: 50.0)
-                .frame(maxWidth: .infinity)
-                .background {
-                    LinearGradient(
-                        colors: [
-                            .clear,
-                            Color(.systemBackground)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                }
+                MangaHeader(manga: vm.manga)
+                    .padding(.bottom)
 
                 LazyVStack(alignment: .leading) {
+                    
+                    SectionHeader(text: "Mi colección")
+                        .padding(.horizontal)
+                    VStack(spacing: 16.0) {
+//                        Text("24 volúmenes")
+//                            .fontWeight(.bold)
+                        HStack {
+//                            VStack {
+//                                Gauge(value: 1.0) {
+//                                    Text("Value")
+//                                        .padding(.top, 10)
+//                                        .frame(maxWidth: .infinity)
+//                                } currentValueLabel: {
+//                                    Text("12")
+//                                }
+//                                .gaugeStyle(.accessoryCircularCapacity)
+//                                .tint(.red)
+//                                Text("Volúmenes")
+//                                    .foregroundStyle(.red)
+//                                    .fontWeight(.semibold)
+//                            }
+//                            .frame(minWidth: 0, maxWidth: .infinity)
+//                            Spacer()
+                            VStack {
+                                Text("1234")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                                    .frame(width: 60.0, height: 60.0, alignment: .center)
+                                    .background {
+                                        Circle()
+                                            .strokeBorder(.orange, lineWidth: 6.0)
+                                    }
+                                Text("Volúmenes")
+                                    .foregroundStyle(.orange)
+                                    .fontWeight(.semibold)
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            VStack {
+                                Gauge(value: 0.3) {
+                                    Text("Value")
+                                } currentValueLabel: {
+                                    Text("12")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                }
+                                .gaugeStyle(.accessoryCircularCapacity)
+                                .tint(.blue)
+                                Text("Comprados")
+                                    .foregroundStyle(.blue)
+                                    .fontWeight(.semibold)
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            VStack {
+                                Gauge(value: 0.3) {
+                                    Text("Value")
+                                } currentValueLabel: {
+                                    Text("12")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                }
+                                .gaugeStyle(.accessoryCircularCapacity)
+                                .tint(.green)
+                                Text("Leídos")
+                                    .foregroundStyle(.green)
+                                    .fontWeight(.semibold)
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity)
+//                            Spacer()
+                        }
+                        
+//                        Button {
+//                            
+//                        } label: {
+//                            Text("Marcar volumen 3 como leído")
+//                                .frame(maxWidth: .infinity, alignment: .center)
+//                        }
+//                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 8.0)
+                            .fill(.regularMaterial)
+                    }
+                    .padding(.horizontal)
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Marcar volumen 3 como leído")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal)
+                    .padding(.top, 8.0)
+                    
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
                     
@@ -89,7 +135,6 @@ struct MangaView: View {
         }
         .navigationTitle(vm.manga.title)
         .navigationBarTitleDisplayMode(.inline)
-        .textSheet(data: $textSheetData)
     }
 }
 
