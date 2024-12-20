@@ -25,6 +25,10 @@ extension Manga {
         startDate?.formatted(date: .long, time: .omitted)
     }
     
+    var volumesLabel: String {
+        "\(volumes)"
+    }
+    
     var yearLabel: String {
         if let startDate {
             String(Calendar.current.component(.year, from: startDate))
