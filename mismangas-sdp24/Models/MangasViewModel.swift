@@ -46,12 +46,20 @@ final class MangasViewModel {
     func onAppear() {
         guard mangas.isEmpty else { return }
         
+        refreshMangas()
+    }
+    
+    func refreshMangas() {
+        guard !isLoadingMangas else { return }
+        
+        mangas.removeAll()
+        page = 1
         loadMoreMangas()
     }
     
-    // MARK: - Logic
+    // MARK: - Internal
     
-    @MangasActor
+    @ModelsActor
     private func getBestMangas() async {
         do {
             let mangas = try await repository.getBestMangas()
@@ -66,7 +74,7 @@ final class MangasViewModel {
         }
     }
     
-    @MangasActor
+    @ModelsActor
     private func getMangas() async {
         do {
             let mangas = try await repository.getList(page: self.page, per: 10)
@@ -82,8 +90,4 @@ final class MangasViewModel {
             }
         }
     }
-}
-
-@globalActor actor MangasActor: GlobalActor {
-    static let shared = MangasActor()
 }

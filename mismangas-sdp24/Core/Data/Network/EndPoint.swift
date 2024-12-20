@@ -10,6 +10,7 @@ import Foundation
 enum EndPoint {
     
     case bestMangas
+    case listAuthors
     case listMangas(page: Int)
     case mangasByDemographic(demographic: Category, page: Int)
     case mangasByGenre(genre: Category, page: Int)
@@ -19,6 +20,8 @@ enum EndPoint {
         switch self {
             case .bestMangas:
                 .apiBaseURL.appendingPathComponent("list/bestMangas")
+            case .listAuthors:
+                .apiBaseURL.appendingPathComponent("list/authors")
             case .listMangas(let page):
                 .apiBaseURL.appendingPathComponent("list/mangas").appending(queryItems: [.page(page)])
             case .mangasByDemographic(let demographic, let page):

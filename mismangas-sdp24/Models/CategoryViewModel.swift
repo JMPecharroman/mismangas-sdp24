@@ -9,6 +9,7 @@ import SwiftUI
 
 @Observable @MainActor
 final class CategoryViewModel {
+    
     let category: Category
     let repository: MangasRepository
     
@@ -18,6 +19,7 @@ final class CategoryViewModel {
     private(set) var mangas: [Manga] = []
     private var page: Int = 1
     
+    // MARK: - Initialization
     
     init (_ category: Category, repository: MangasRepository = .api) {
         self.category = category
@@ -40,12 +42,20 @@ final class CategoryViewModel {
     func onAppear() {
         guard mangas.isEmpty else { return }
         
+        refresh()
+    }
+    
+    func refresh() {
+        guard !isLoading else { return }
+        
+        mangas.removeAll()
+        page = 1
         loadMore()
     }
     
     // MARK: - Internal
     
-    @CategoryActor
+    @ModelsActor
     private func getMangas() async {
         do {
             let response = switch category.group {
@@ -69,8 +79,4 @@ final class CategoryViewModel {
             }
         }
     }
-}
-
-@globalActor actor CategoryActor: GlobalActor {
-    static let shared = CategoryActor()
 }

@@ -11,6 +11,7 @@ struct HomeView: View {
     
     static let viewTitle: String = "Inicio"
     
+    @Environment(AuthorsViewModel.self) private var authorsVM
     @Environment(MangasViewModel.self) private var mangasVM
     
     let columns = [
@@ -51,6 +52,20 @@ struct HomeView: View {
                         }
                         .scrollIndicators(.hidden)
                     }
+                    SectionHeader(text: "Autores")
+                        .padding(.horizontal)
+                        .onAppear {
+                            authorsVM.onAppear()
+                        }
+                    if authorsVM.isLoading {
+                        
+                    } else if let error = authorsVM.error {
+                        
+                    } else if authorsVM.selection.isEmpty {
+                        NoResultsView()
+                    } else {
+                        AuthorsCarrousel(authors: authorsVM.selection)
+                    }
                 }
             }
             .navigationTitle(Self.viewTitle)
@@ -66,5 +81,6 @@ struct HomeView: View {
                 Label(HomeView.viewTitle, systemImage: "house")
             }
     }
+    .environment(AuthorsViewModel(repository: .preview))
     .environment(MangasViewModel(repository: .preview))
 }

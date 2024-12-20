@@ -39,7 +39,9 @@
 				Core/Data/Network/URLQueryItem.swift,
 				Core/Data/Network/URLRequest.swift,
 				Core/Data/Network/URLSession.swift,
+				Core/Data/Repositories/AuthorsRepositoryNetwork.swift,
 				Core/Data/Repositories/MangasRepositoryNetwork.swift,
+				Core/Domain/Interfaces/AuthorsRepository.swift,
 				Core/Domain/Interfaces/MangasRepository.swift,
 				Core/Domain/Model/Author.swift,
 				Core/Domain/Model/Category.swift,
@@ -47,6 +49,7 @@
 				Core/Domain/Model/MangasResponse.swift,
 				Core/Domain/Model/MangaStatus.swift,
 				"Preview Content/Data/BestMangasMockData.json",
+				"Preview Content/Data/ListAuthors.json",
 				"Preview Content/Data/ListMangasMockData.json",
 				"Preview Content/Data/MangasByGenre.json",
 			);

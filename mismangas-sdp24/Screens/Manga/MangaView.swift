@@ -22,7 +22,7 @@ struct MangaView: View {
                     
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
-                    MangaAuthorsCarrousel(authors: vm.manga.authors)
+                    AuthorsCarrousel(authors: vm.manga.authors)
 
                     SectionHeader(text: "Categorías", button: "Ver todas") {
                         MangaCategoriesView(manga: vm.manga)

@@ -1,13 +1,13 @@
 //
-//  MangaAuthorsCarrousel.swift
+//  AuthorsCarrousel.swift
 //  mismangas-sdp24
 //
-//  Created by José Mª Pecharromán on 18/12/24.
+//  Created by José Mª Pecharromán on 20/12/24.
 //
 
 import SwiftUI
 
-struct MangaAuthorsCarrousel: View {
+struct AuthorsCarrousel: View {
     
     let authors: [Author]
     
@@ -17,7 +17,7 @@ struct MangaAuthorsCarrousel: View {
                 Text("No hay autores disponibles.")
             }
         } else {
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(authors) { author in
                         VStack {
@@ -50,7 +50,7 @@ struct MangaAuthorsCarrousel: View {
 #Preview {
     ScrollView {
         VStack {
-            MangaAuthorsCarrousel(authors: .preview)
+            AuthorsCarrousel(authors: .preview)
         }
     }
 }
