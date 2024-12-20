@@ -11,7 +11,7 @@ struct HomeView: View {
     
     static let viewTitle: String = "Inicio"
     
-    @State private var mangasVM = MangasViewModel()
+    @Environment(MangasViewModel.self) private var mangasVM
     
     let columns = [
         GridItem(.adaptive(minimum: 150, maximum: 200), spacing: 16)
@@ -66,4 +66,5 @@ struct HomeView: View {
                 Label(HomeView.viewTitle, systemImage: "house")
             }
     }
+    .environment(MangasViewModel(repository: .preview))
 }

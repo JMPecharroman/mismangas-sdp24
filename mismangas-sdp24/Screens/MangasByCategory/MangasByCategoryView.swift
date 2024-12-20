@@ -15,15 +15,7 @@ struct MangasByCategoryView: View {
         List {
             if vm.mangas.isEmpty {
                 if vm.isLoading {
-                    VStack {
-                        ProgressView()
-                            .controlSize(.large)
-                            .padding()
-                        Text("Cargando...")
-                            .font(.title3)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    }
-                    .padding()
+                    LoadingListCell()
                 } else {
                     ContentUnavailableView(
                         "Sin resultados",
@@ -34,11 +26,7 @@ struct MangasByCategoryView: View {
             } else {
                 Section {
                     ForEach(vm.mangas) { manga in
-                        NavigationLink {
-                            MangaView(vm: .init(manga))
-                        } label: {
-                            MangaListCell(manga: manga)
-                        }
+                        MangaListCell(manga: manga)
                     }
                 } footer: {
                     if vm.canLoadMore {
@@ -60,7 +48,7 @@ struct MangasByCategoryView: View {
         .navigationTitle(vm.category.name)
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            vm.viewAppear()
+            vm.onAppear()
         }
     }
 }

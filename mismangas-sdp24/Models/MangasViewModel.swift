@@ -15,6 +15,8 @@ final class MangasViewModel {
     private let repository: MangasRepository
     
     private(set) var bestMangas: [Manga] = []
+    private(set) var canLoadMoreMangas: Bool = true
+    private(set) var isLoadingMangas: Bool = false
     private(set) var mangas: [Manga] = []
     
     private var page: Int = 1
@@ -28,8 +30,28 @@ final class MangasViewModel {
         }
     }
     
+    // MARK: - Interface
+    
+    func loadMoreMangas() {
+        guard !isLoadingMangas else { return }
+        guard canLoadMoreMangas else { return }
+        
+        isLoadingMangas = true
+        
+        Task {
+            await getMangas()
+        }
+    }
+    
+    func onAppear() {
+        guard mangas.isEmpty else { return }
+        
+        loadMoreMangas()
+    }
+    
     // MARK: - Logic
     
+    @MangasActor
     private func getBestMangas() async {
         do {
             let mangas = try await repository.getBestMangas()
@@ -44,17 +66,24 @@ final class MangasViewModel {
         }
     }
     
+    @MangasActor
     private func getMangas() async {
         do {
-            let mangas = try await repository.getList(page: 1, per: 10)
+            let mangas = try await repository.getList(page: self.page, per: 10)
             await MainActor.run {
-                self.mangas = mangas
+                self.mangas.append(contentsOf: mangas)
+                page += 1
+                isLoadingMangas = false
             }
         } catch {
             print("Error: \(error.localizedDescription)")
             await MainActor.run {
-                mangas.removeAll()
+                isLoadingMangas = false
             }
         }
     }
+}
+
+@globalActor actor MangasActor: GlobalActor {
+    static let shared = MangasActor()
 }

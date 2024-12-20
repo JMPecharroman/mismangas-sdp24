@@ -24,43 +24,53 @@ final class CategoryViewModel {
         self.repository = repository
     }
     
-    private func getMangas() {
+    // MARK: - Interface
+    
+    func loadMore() {
         guard !isLoading else { return }
+        guard canLoadMore else { return }
         
         isLoading = true
         
         Task {
-            do {
-                let response = switch category.group {
-                    case .demographic:
-                        try await repository.getMangasByDemographic(category, page: page)
-                    case .genre:
-                        try await repository.getMangasByGenre(category, page: page)
-                    case .theme:
-                        try await repository.getMangasByTheme(category, page: page)
-                }
-                await MainActor.run { [weak self] in
-                    self?.mangas.append(contentsOf: response.mangas)
-                    self?.page += 1
-                    self?.isLoading = false
-                }
-            } catch {
-                print("Error: \(error)")
-                await MainActor.run { [weak self] in
-                    self?.error = error
-                    self?.isLoading = false
-                }
-            }
+            await getMangas()
         }
     }
     
-    func loadMore() {
-        getMangas()
-    }
-    
-    func viewAppear() {
+    func onAppear() {
         guard mangas.isEmpty else { return }
         
-        getMangas()
+        loadMore()
     }
+    
+    // MARK: - Internal
+    
+    @CategoryActor
+    private func getMangas() async {
+        do {
+            let response = switch category.group {
+                case .demographic:
+                    try await repository.getMangasByDemographic(category, page: page)
+                case .genre:
+                    try await repository.getMangasByGenre(category, page: page)
+                case .theme:
+                    try await repository.getMangasByTheme(category, page: page)
+            }
+            await MainActor.run { [weak self] in
+                self?.mangas.append(contentsOf: response.mangas)
+                self?.page += 1
+                self?.isLoading = false
+            }
+        } catch {
+            print("Error: \(error)")
+            await MainActor.run { [weak self] in
+                self?.error = error
+                self?.isLoading = false
+            }
+        }
+    }
+}
+
+@globalActor actor CategoryActor: GlobalActor {
+    static let shared = CategoryActor()
 }

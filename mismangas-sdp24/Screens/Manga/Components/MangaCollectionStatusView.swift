@@ -12,69 +12,71 @@ struct MangaCollectionStatusView: View {
     let manga: Manga
     
     var body: some View {
-        VStack(spacing: 16.0) {
-            HStack {
-                VStack {
-                    Text(manga.volumesLabel)
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .frame(width: 60.0, height: 60.0, alignment: .center)
-                        .background {
-                            Circle()
-                                .strokeBorder(.orange, lineWidth: 6.0)
+        if manga.volumes > 0 {
+            VStack(spacing: 16.0) {
+                HStack {
+                    VStack {
+                        Text(manga.volumesLabel)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .frame(width: 60.0, height: 60.0, alignment: .center)
+                            .background {
+                                Circle()
+                                    .strokeBorder(.orange, lineWidth: 6.0)
+                            }
+                        Text("Volúmenes")
+                            .foregroundStyle(.orange)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    VStack {
+                        Gauge(value: 0.3) {
+                            Text("Value")
+                        } currentValueLabel: {
+                            Text("12")
+                                .font(.title3)
+                                .fontWeight(.semibold)
                         }
-                    Text("Volúmenes")
-                        .foregroundStyle(.orange)
-                        .fontWeight(.semibold)
-                }
-                .frame(minWidth: 0, maxWidth: .infinity)
-                VStack {
-                    Gauge(value: 0.3) {
-                        Text("Value")
-                    } currentValueLabel: {
-                        Text("12")
-                            .font(.title3)
+                        .gaugeStyle(.accessoryCircularCapacity)
+                        .tint(.blue)
+                        Text("Comprados")
+                            .foregroundStyle(.blue)
                             .fontWeight(.semibold)
                     }
-                    .gaugeStyle(.accessoryCircularCapacity)
-                    .tint(.blue)
-                    Text("Comprados")
-                        .foregroundStyle(.blue)
-                        .fontWeight(.semibold)
-                }
-                .frame(minWidth: 0, maxWidth: .infinity)
-                VStack {
-                    Gauge(value: 0.3) {
-                        Text("Value")
-                    } currentValueLabel: {
-                        Text("12")
-                            .font(.title3)
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    VStack {
+                        Gauge(value: 0.3) {
+                            Text("Value")
+                        } currentValueLabel: {
+                            Text("12")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                        }
+                        .gaugeStyle(.accessoryCircularCapacity)
+                        .tint(.green)
+                        Text("Leídos")
+                            .foregroundStyle(.green)
                             .fontWeight(.semibold)
                     }
-                    .gaugeStyle(.accessoryCircularCapacity)
-                    .tint(.green)
-                    Text("Leídos")
-                        .foregroundStyle(.green)
-                        .fontWeight(.semibold)
+                    .frame(minWidth: 0, maxWidth: .infinity)
+//                            Spacer()
                 }
-                .frame(minWidth: 0, maxWidth: .infinity)
-                //                            Spacer()
+                
+//                        Button {
+//
+//                        } label: {
+//                            Text("Marcar volumen 3 como leído")
+//                                .frame(maxWidth: .infinity, alignment: .center)
+//                        }
+//                        .buttonStyle(.borderedProminent)
             }
-            
-            //                        Button {
-            //
-            //                        } label: {
-            //                            Text("Marcar volumen 3 como leído")
-            //                                .frame(maxWidth: .infinity, alignment: .center)
-            //                        }
-            //                        .buttonStyle(.borderedProminent)
+            .padding()
+            .background {
+                RoundedRectangle(cornerRadius: 8.0)
+                    .fill(.regularMaterial)
+            }
+            .padding(.horizontal)
         }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 8.0)
-                .fill(.regularMaterial)
-        }
-        .padding(.horizontal)
         
         Button {
             

@@ -12,26 +12,30 @@ struct MangaListCell: View {
     let manga: Manga
     
     var body: some View {
-        HStack {
-            Poster(manga: manga)
-            VStack(alignment: .leading, spacing: 8.0) {
-                Text(manga.title)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .lineLimit(2)
-                    .padding(.top)
-                MangaBadgesView(manga: manga)
-                    .font(.callout)
-                Text(manga.synopsis)
-                    .font(.caption)
-                    .lineLimit(5)
-                    .layoutPriority(0.5)
-                Spacer()
+        NavigationLink {
+            MangaView(vm: .init(manga))
+        } label: {
+            HStack {
+                Poster(manga: manga)
+                VStack(alignment: .leading, spacing: 8.0) {
+                    Text(manga.title)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .lineLimit(2)
+                        .padding(.top)
+                    MangaBadgesView(manga: manga)
+                        .font(.callout)
+                    Text(manga.synopsis)
+                        .font(.caption)
+                        .lineLimit(5)
+                        .layoutPriority(0.5)
+                    Spacer()
+                }
+                .padding(.leading)
+                .padding(.vertical, -12.0)
             }
-            .padding(.leading)
-            .padding(.vertical, -12.0)
+            .frame(height: 120.0)
         }
-        .frame(height: 120.0)
     }
 }
 
