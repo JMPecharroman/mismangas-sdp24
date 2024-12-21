@@ -58,7 +58,7 @@ struct HomeView: View {
                             authorsVM.onAppear()
                         }
                     if authorsVM.isLoading {
-                        
+                        SectionLoadingView()
                     } else if let error = authorsVM.error {
                         
                     } else if authorsVM.selection.isEmpty {
