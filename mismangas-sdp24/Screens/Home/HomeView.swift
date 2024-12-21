@@ -33,24 +33,7 @@ struct HomeView: View {
                         .frame(height: 225.0)
                         .frame(maxWidth: .infinity)
                     } else {
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 16.0) {
-                                ForEach(mangasVM.bestMangas) { manga in
-                                    NavigationLink(value: manga) {
-                                        ImageCached(url: manga.mainPictute)
-                                            .scaledToFill()
-                                            .frame(width: 150.0, height: 225.0)
-                                            .background(.thinMaterial)
-                                            .clipShape(RoundedRectangle(cornerRadius: 12.0))
-                                            .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
-                            .padding(.top, 4.0)
-                            .padding(.bottom)
-                        }
-                        .scrollIndicators(.hidden)
+                        MangasCarrousel(mangas: mangasVM.bestMangas)
                     }
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
@@ -60,7 +43,9 @@ struct HomeView: View {
                     if authorsVM.isLoading {
                         SectionLoadingView()
                     } else if let error = authorsVM.error {
-                        
+                        SectionErrorView(error: error) {
+                            authorsVM.refresh()
+                        }
                     } else if authorsVM.selection.isEmpty {
                         NoResultsView()
                     } else {
