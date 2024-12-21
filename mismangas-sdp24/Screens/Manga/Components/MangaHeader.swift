@@ -31,7 +31,6 @@ struct MangaHeader: View {
                         .lineLimit(2)
                         .padding(.horizontal, 16.0)
                         .frame(maxWidth: 360.0)
-                    //                            .padding(.bottom)
                 }
             }
             .multilineTextAlignment(.center)
@@ -42,17 +41,50 @@ struct MangaHeader: View {
                     .font(.headline)
                 
                 if let synopsis = manga.synopsis {
-                    Button {
-                        textSheetData = TextSheetData(title: manga.title, text: synopsis)
-                    } label: {
+//                    Button {
+//                        textSheetData = TextSheetData(title: manga.title, text: synopsis)
+//                    } label: {
                         Text(synopsis)
                             .font(.callout)
                             .multilineTextAlignment(.center)
                             .lineLimit(3)
+                            .overlay {
+                                VStack {
+                                    Spacer()
+                                    HStack(spacing: 0.0) {
+                                        Spacer()
+                                        VStack {
+                                            Text("")
+                                                .font(.callout)
+                                                .frame(width: 28.0)
+                                        }
+                                        .background {
+                                            LinearGradient(
+                                                colors: [
+                                                    .clear,
+                                                    Color(.systemBackground)
+                                                ],
+                                                startPoint: .leading,
+                                                endPoint: .trailing
+                                            )
+                                        }
+                                        Button {
+                                            textSheetData = TextSheetData(title: manga.title, text: synopsis)
+                                        } label: {
+                                            Text("Ver más")
+                                                .font(.callout)
+                                        }
+                                        .padding(.leading, 4.0)
+                                        .background {
+                                            Color(.systemBackground)
+                                        }
+                                    }
+                                }
+                            }
                             .padding(.horizontal)
                             .frame(maxWidth: 360.0, alignment: .center)
-                    }
-                    .buttonStyle(.plain)
+//                    }
+//                    .buttonStyle(.plain)
                 }
             }
             .frame(minHeight: 50.0)

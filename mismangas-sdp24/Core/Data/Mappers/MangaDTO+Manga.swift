@@ -14,7 +14,11 @@ extension MangaDTO {
         
         let status = MangaStatus(rawValue: self.status)
         
-        let startDate: Date? = DateFormatter.apiDate.date(from: self.startDate)
+        let startDate: Date? = if let date = startDate {
+            DateFormatter.apiDate.date(from: date)
+        } else {
+            nil
+        }
         let endDate: Date? = if let date = endDate { DateFormatter.apiDate.date(from: date)
         } else {
             nil
