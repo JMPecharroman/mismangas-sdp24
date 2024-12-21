@@ -18,16 +18,21 @@ struct MangaCategoriesGrid: View {
     var body: some View {
         LazyVGrid(columns: columns, spacing: 4.0) {
             ForEach(manga.categories, id: \.self) { category in
-                Text(category.name)
-                    .font(.caption)
-                    .foregroundStyle(.primary)
-                    .lineLimit(1)
-                    .frame(height: 32.0)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background {
-                        Capsule(style: .continuous)
-                            .fill(Color(.systemGray5))
-                    }
+                NavigationLink {
+                    MangasByCategoryView(vm: .init(category))
+                } label: {
+                    Text(category.name)
+                        .font(.caption)
+                        .foregroundStyle(.primary)
+                        .lineLimit(1)
+                        .frame(height: 32.0)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .background {
+                            Capsule(style: .continuous)
+                                .fill(Color(.systemGray5))
+                        }
+                }
+                .buttonStyle(.plain)
             }
         }
         .padding(.horizontal)

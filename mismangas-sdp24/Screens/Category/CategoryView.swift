@@ -28,6 +28,7 @@ struct CategoryView: View {
             }
         }
         .navigationTitle(group.label)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

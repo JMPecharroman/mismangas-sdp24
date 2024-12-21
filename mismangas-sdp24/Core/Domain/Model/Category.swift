@@ -12,17 +12,3 @@ struct Category: Identifiable, Hashable {
     let name: String
     let group: CategoryGroup
 }
-
-enum CategoryGroup: String, CustomStringConvertible, CaseIterable {
-    case theme
-    case genre
-    case demographic
-    
-    var description: String {
-        switch self {
-            case .theme: "Theme"
-            case .genre: "Genre"
-            case .demographic: "Demographic"
-        }
-    }
-}

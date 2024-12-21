@@ -22,7 +22,7 @@ struct MangaCategoriesView: View {
             } else {
                 ForEach(CategoryGroup.allCases, id: \.self) { group in
                     if !manga.categories.filter({ $0.group == group }).isEmpty {
-                        Section("\(group)") {
+                        Section(group.label) {
                             ForEach(manga.categories.filter({ $0.group == group })) { category in
                                 NavigationLink {
                                     MangasByCategoryView(vm: .init(category))

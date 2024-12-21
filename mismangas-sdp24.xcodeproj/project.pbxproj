@@ -47,6 +47,7 @@
 				Core/Domain/Interfaces/MangasRepository.swift,
 				Core/Domain/Model/Author.swift,
 				Core/Domain/Model/Category.swift,
+				Core/Domain/Model/CategoryGroup.swift,
 				Core/Domain/Model/Manga.swift,
 				Core/Domain/Model/MangasResponse.swift,
 				Core/Domain/Model/MangaStatus.swift,

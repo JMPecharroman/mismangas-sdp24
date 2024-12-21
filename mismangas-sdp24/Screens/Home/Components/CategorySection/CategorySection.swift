@@ -48,6 +48,7 @@ struct CategorySection: View {
                                     .fill(Color(.systemGray5))
                             }
                     }
+                    .buttonStyle(.plain)
                 }
                 if vm.splitItems(for: group) {
                     NavigationLink {
