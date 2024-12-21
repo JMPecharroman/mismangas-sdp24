@@ -19,7 +19,7 @@ struct MangaDTO: Codable {
     let status: String
     let score: Double
     let url: String
-    let sypnosis: String
+    let sypnosis: String?
     let startDate: String
     let endDate: String?
     let authors: [AuthorDTO]

@@ -20,7 +20,7 @@ struct Manga: Identifiable, Hashable {
     let startDate: Date?
     let endDate: Date?
     let score: Double
-    let synopsis: String
+    let synopsis: String?
     let url: URL?
     let authors: [Author]
     let categories: [Category]

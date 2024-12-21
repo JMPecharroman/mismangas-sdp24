@@ -41,17 +41,19 @@ struct MangaHeader: View {
                 MangaBadgesView(manga: manga)
                     .font(.headline)
                 
-                Button {
-                    textSheetData = TextSheetData(title: manga.title, text: manga.synopsis)
-                } label: {
-                    Text(manga.synopsis)
-                        .font(.callout)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(3)
-                        .padding(.horizontal)
-                        .frame(maxWidth: 360.0, alignment: .center)
+                if let synopsis = manga.synopsis {
+                    Button {
+                        textSheetData = TextSheetData(title: manga.title, text: synopsis)
+                    } label: {
+                        Text(synopsis)
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(3)
+                            .padding(.horizontal)
+                            .frame(maxWidth: 360.0, alignment: .center)
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
             .frame(minHeight: 50.0)
             .frame(maxWidth: .infinity)

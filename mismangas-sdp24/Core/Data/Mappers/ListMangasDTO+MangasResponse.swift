@@ -9,9 +9,18 @@ import Foundation
 
 extension ListMangasDTO {
     var toMangasResponse: MangasResponse {
-        MangasResponse(
+        
+        let numberOfPages: Int = if self.metadata.per > 0 {
+            self.metadata.total / self.metadata.per
+        } else {
+            0
+        }
+        
+        return MangasResponse(
             total: self.metadata.total,
+            numberOfPages: numberOfPages,
             mangas: self.items.compactMap(\.toManga)
         )
     }
 }
+ 

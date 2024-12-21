@@ -40,9 +40,9 @@ struct MangaInfoSection: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal)
         .padding(.bottom)
-        .frame(maxWidth: .infinity)
         .background(Color(.secondarySystemBackground))
         .textSheet(data: $textSheetData)
     }

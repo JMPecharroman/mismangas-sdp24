@@ -25,10 +25,12 @@ struct MangaListCell: View {
                         .padding(.top)
                     MangaBadgesView(manga: manga)
                         .font(.callout)
-                    Text(manga.synopsis)
-                        .font(.caption)
-                        .lineLimit(5)
-                        .layoutPriority(0.5)
+                    if let synopsis = manga.synopsis {
+                        Text(synopsis)
+                            .font(.caption)
+                            .lineLimit(5)
+                            .layoutPriority(0.5)
+                    }
                     Spacer()
                 }
                 .padding(.leading)

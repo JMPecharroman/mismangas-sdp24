@@ -39,8 +39,8 @@ struct SectionHeader<Destination: View>: View {
             Text(text)
                 .font(.title)
                 .fontWeight(.bold)
+            Spacer()
             if let button {
-                Spacer()
                 if let destination {
                     NavigationLink(destination: destination()) {
                         Text(button)
