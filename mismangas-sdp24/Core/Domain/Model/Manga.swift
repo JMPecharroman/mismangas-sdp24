@@ -11,7 +11,7 @@ struct Manga: Identifiable, Hashable {
     let id: Int
     let title: String
     let titleEnglish: String?
-    let titleJapanese: String
+    let titleJapanese: String?
     let background: String?
     let mainPictute: URL?
     let volumes: Int

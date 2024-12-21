@@ -25,8 +25,8 @@ struct MangaHeader: View {
                     .bold()
                     .padding(.horizontal, 16.0)
                 
-                if !manga.titleJapanese.isEmpty {
-                    Text(manga.titleJapanese)
+                if let titleJapanese = manga.titleJapanese, !titleJapanese.isEmpty {
+                    Text(titleJapanese)
                         .font(.subheadline)
                         .lineLimit(2)
                         .padding(.horizontal, 16.0)

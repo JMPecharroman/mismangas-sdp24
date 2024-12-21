@@ -25,7 +25,9 @@ struct MangaInfoSection: View {
             }
             SectionHeader(text: "Ficha técnica")
             VStack(alignment: .leading, spacing: 12.0) {
-                MangaData(data: "Título japonés", value: manga.titleJapanese)
+                if let titleJapanese = manga.titleJapanese {
+                    MangaData(data: "Título japonés", value: titleJapanese)
+                }
                 if let titleEnglish = manga.titleEnglish {
                     MangaData(data: "Título inglés", value: titleEnglish)
                 }

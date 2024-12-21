@@ -11,7 +11,7 @@ struct MangaDTO: Codable {
     let id: Int
     let title: String
     let titleEnglish: String?
-    let titleJapanese: String
+    let titleJapanese: String?
     let background: String?
     let mainPicture: String
     let volumes: Int?

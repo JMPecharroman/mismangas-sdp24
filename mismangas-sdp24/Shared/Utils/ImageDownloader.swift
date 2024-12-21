@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+@globalActor
 actor ImageDownloader {
     static let shared = ImageDownloader()
     
