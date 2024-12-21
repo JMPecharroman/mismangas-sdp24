@@ -12,6 +12,7 @@ struct HomeView: View {
     static let viewTitle: String = "Inicio"
     
     @Environment(AuthorsViewModel.self) private var authorsVM
+    @Environment(CategoriesViewModel.self) private var categoriesVM
     @Environment(MangasViewModel.self) private var mangasVM
     
     let columns = [
@@ -35,6 +36,7 @@ struct HomeView: View {
                     } else {
                         MangasCarrousel(mangas: mangasVM.bestMangas)
                     }
+                    
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
                         .onAppear {
@@ -50,6 +52,10 @@ struct HomeView: View {
                         NoResultsView()
                     } else {
                         AuthorsCarrousel(authors: authorsVM.selection)
+                    }
+                    
+                    ForEach(CategoryGroup.allCases, id: \.self) {
+                        CategorySection(group: $0)
                     }
                 }
             }
@@ -67,5 +73,6 @@ struct HomeView: View {
             }
     }
     .environment(AuthorsViewModel(repository: .preview))
+    .environment(CategoriesViewModel(repository: .preview))
     .environment(MangasViewModel(repository: .preview))
 }

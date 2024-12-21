@@ -23,15 +23,15 @@ struct MangasRepositoryNetwork: MangasRepository, NetworkInteractor, Sendable {
         try await getJSON(request: .get(.mangasByAuthor(author: author, page: page)), type: ListMangasDTO.self).toMangasResponse
     }
     
-    func getMangasByDemographic(_ demographic: Category, page: Int) async throws -> MangasResponse {
+    func getMangasByDemographic(_ demographic: String, page: Int) async throws -> MangasResponse {
         try await getJSON(request: .get(.mangasByDemographic(demographic: demographic, page: page)), type: ListMangasDTO.self).toMangasResponse
     }
     
-    func getMangasByGenre(_ genre: Category, page: Int) async throws -> MangasResponse {
+    func getMangasByGenre(_ genre: String, page: Int) async throws -> MangasResponse {
         try await getJSON(request: .get(.mangasByGenre(genre: genre, page: page)), type: ListMangasDTO.self).toMangasResponse
     }
     
-    func getMangasByTheme(_ theme: Category, page: Int) async throws -> MangasResponse {
+    func getMangasByTheme(_ theme: String, page: Int) async throws -> MangasResponse {
         try await getJSON(request: .get(.mangasByTheme(theme: theme, page: page)), type: ListMangasDTO.self).toMangasResponse
     }
 }

@@ -11,12 +11,14 @@ import SwiftUI
 struct MisMangasApp: App {
     
     @State var authorsViewModel = AuthorsViewModel()
+    @State var categoriesViewModel = CategoriesViewModel()
     @State var mangasViewModel = MangasViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(authorsViewModel)
+                .environment(categoriesViewModel)
                 .environment(mangasViewModel)
         }
     }

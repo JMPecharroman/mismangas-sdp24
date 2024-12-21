@@ -10,7 +10,8 @@ import SwiftUI
 @Observable @MainActor
 final class CategoryViewModel {
     
-    let category: Category
+    let category: String
+    let group: CategoryGroup
     let repository: MangasRepository
     
     private(set) var canLoadMore: Bool = true
@@ -21,9 +22,14 @@ final class CategoryViewModel {
     
     // MARK: - Initialization
     
-    init (_ category: Category, repository: MangasRepository = .api) {
+    init (_ category: String, group: CategoryGroup, repository: MangasRepository = .api) {
         self.category = category
+        self.group = group
         self.repository = repository
+    }
+    
+    convenience init (_ category: Category, repository: MangasRepository = .api) {
+        self.init(category.name, group: category.group, repository: repository)
     }
     
     // MARK: - Interface
@@ -58,7 +64,7 @@ final class CategoryViewModel {
     @RepositoryActor
     private func getMangas() async {
         do {
-            let response = switch category.group {
+            let response = switch group {
                 case .demographic:
                     try await repository.getMangasByDemographic(category, page: page)
                 case .genre:

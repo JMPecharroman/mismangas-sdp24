@@ -20,7 +20,7 @@ struct MangasByCategoryView: View {
                     ContentUnavailableView(
                         "Sin resultados",
                         systemImage: "xmark.circle",
-                        description: Text("No se han encontrado mangas en la categoría \(vm.category.name)")
+                        description: Text("No se han encontrado mangas en la categoría \(vm.category)")
                     )
                 }
             } else {
@@ -45,7 +45,7 @@ struct MangasByCategoryView: View {
                 }
             }
         }
-        .navigationTitle(vm.category.name)
+        .navigationTitle(vm.category)
         .navigationBarTitleDisplayMode(.inline)
         .task {
             vm.onAppear()
