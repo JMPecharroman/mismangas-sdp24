@@ -18,6 +18,11 @@ struct MangasRepositoryPreview: MangasRepository {
         return [.preview]
     }
     
+    func getMangasByAuhtor(_ author: Author, page: Int) async throws -> MangasResponse {
+        let response: ListMangasDTO = try Bundle.main.getJSON("MangasByAuthor")
+        return response.toMangasResponse
+    }
+    
     func getMangasByDemographic(_ demographic: Category, page: Int) async throws -> MangasResponse {
         let response: ListMangasDTO = try Bundle.main.getJSON("MangasByDemographic")
         return response.toMangasResponse

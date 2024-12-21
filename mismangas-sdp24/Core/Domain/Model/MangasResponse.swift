@@ -9,5 +9,6 @@ import Foundation
 
 struct MangasResponse {
     let total: Int
+    let numberOfPages: Int
     let mangas: [Manga]
 }

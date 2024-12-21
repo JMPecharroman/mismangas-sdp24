@@ -43,7 +43,7 @@ final class AuthorsViewModel {
     
     // MARK: - Internal
     
-    @ModelsActor
+    @RepositoryActor
     private func getAuthors() async {
         do {
             let authors = try await repository.getList()

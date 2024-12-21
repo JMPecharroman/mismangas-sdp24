@@ -59,7 +59,7 @@ final class MangasViewModel {
     
     // MARK: - Internal
     
-    @ModelsActor
+    @RepositoryActor
     private func getBestMangas() async {
         do {
             let mangas = try await repository.getBestMangas()
@@ -74,7 +74,7 @@ final class MangasViewModel {
         }
     }
     
-    @ModelsActor
+    @RepositoryActor
     private func getMangas() async {
         do {
             let mangas = try await repository.getList(page: self.page, per: 10)

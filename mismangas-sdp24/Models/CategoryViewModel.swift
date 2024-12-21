@@ -55,7 +55,7 @@ final class CategoryViewModel {
     
     // MARK: - Internal
     
-    @ModelsActor
+    @RepositoryActor
     private func getMangas() async {
         do {
             let response = switch category.group {

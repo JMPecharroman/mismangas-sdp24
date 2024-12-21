@@ -12,6 +12,7 @@ enum EndPoint {
     case bestMangas
     case listAuthors
     case listMangas(page: Int)
+    case mangasByAuthor(author: Author, page: Int)
     case mangasByDemographic(demographic: Category, page: Int)
     case mangasByGenre(genre: Category, page: Int)
     case mangasByTheme(theme: Category, page: Int)
@@ -24,6 +25,8 @@ enum EndPoint {
                 .apiBaseURL.appendingPathComponent("list/authors")
             case .listMangas(let page):
                 .apiBaseURL.appendingPathComponent("list/mangas").appending(queryItems: [.page(page)])
+            case .mangasByAuthor(let author, let page):
+                .apiBaseURL.appendingPathComponent("list/mangaByAuthor").appendingPathComponent(author.id.uuidString).appending(queryItems: [.page(page)])
             case .mangasByDemographic(let demographic, let page):
                 .apiBaseURL.appendingPathComponent("list/mangaByDemographic").appendingPathComponent(demographic.name).appending(queryItems: [.page(page)])
             case .mangasByGenre(let genre, let page):

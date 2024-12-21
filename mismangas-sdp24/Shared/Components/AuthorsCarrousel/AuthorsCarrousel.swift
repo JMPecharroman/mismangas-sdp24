@@ -20,25 +20,30 @@ struct AuthorsCarrousel: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(authors) { author in
-                        VStack {
-                            Image(systemName: "person")
-                                .resizable()
-                                .aspectRatio(1.0, contentMode: .fill)
-                                .padding(24.0)
-                                .frame(width: 90.0)
-                                .background(.regularMaterial)
-                                .clipShape(Circle())
-                                .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-                                .padding(8.0)
-                            Text(author.nameLabel)
-                                .font(.subheadline)
-                                .lineLimit(1)
-                            Text(author.role)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
+                        NavigationLink {
+                            AuthorView(vm: AuthorViewModel(author: author))
+                        } label: {
+                            VStack {
+                                Image(systemName: "person")
+                                    .resizable()
+                                    .aspectRatio(1.0, contentMode: .fill)
+                                    .padding(24.0)
+                                    .frame(width: 90.0)
+                                    .background(.regularMaterial)
+                                    .clipShape(Circle())
+                                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+                                    .padding(8.0)
+                                Text(author.nameLabel)
+                                    .font(.subheadline)
+                                    .lineLimit(1)
+                                Text(author.role)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                            }
+                            .frame(width: 120.0)
                         }
-                        .frame(width: 120.0)
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.horizontal)

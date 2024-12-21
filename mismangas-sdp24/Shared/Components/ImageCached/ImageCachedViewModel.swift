@@ -24,6 +24,7 @@ final class ImageCachedViewModel: Sendable {
         }
     }
     
+    @ImageDownloader
     func getImageAsync(url: URL?) async {
         guard let url else { return }
         
