@@ -12,44 +12,9 @@ struct MangasByCategoryView: View {
     @State var vm: CategoryViewModel
     
     var body: some View {
-        List {
-            if vm.mangas.isEmpty {
-                if vm.isLoading {
-                    LoadingListCell()
-                } else {
-                    ContentUnavailableView(
-                        "Sin resultados",
-                        systemImage: "xmark.circle",
-                        description: Text("No se han encontrado mangas en la categoría \(vm.category)")
-                    )
-                }
-            } else {
-                Section {
-                    ForEach(vm.mangas) { manga in
-                        MangaListCell(manga: manga)
-                    }
-                } footer: {
-                    if vm.canLoadMore {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                                .controlSize(.regular)
-                            Text("Cargando más resultados...")
-                            Spacer()
-                        }
-                        .padding()
-                        .onAppear {
-                            vm.loadMore()
-                        }
-                    }
-                }
-            }
-        }
-        .navigationTitle(vm.category)
-        .navigationBarTitleDisplayMode(.inline)
-        .task {
-            vm.onAppear()
-        }
+        MangasList(vm: vm)
+            .navigationTitle(vm.category)
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

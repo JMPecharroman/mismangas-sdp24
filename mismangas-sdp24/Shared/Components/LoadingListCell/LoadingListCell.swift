@@ -15,6 +15,7 @@ struct LoadingListCell: View {
                 .padding()
             Text("Cargando...")
                 .font(.title3)
+                .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .center)
         }
         .padding()

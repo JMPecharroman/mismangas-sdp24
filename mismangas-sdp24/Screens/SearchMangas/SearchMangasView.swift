@@ -15,42 +15,8 @@ struct SearchMangasView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                if vm.mangas.isEmpty {
-                    if vm.isLoadingMangas {
-                        LoadingListCell()
-                    } else {
-                        NoResultsView()
-                    }
-                } else {
-                    Section {
-                        ForEach(vm.mangas) { manga in
-                            MangaListCell(manga: manga)
-                                .onAppear {
-                                    vm.mangaAppear(manga)
-                                }
-                        }
-                    } footer: {
-                        if vm.canLoadMoreMangas {
-                            HStack {
-                                Spacer()
-                                ProgressView()
-                                    .controlSize(.regular)
-                                Text("Cargando más resultados...")
-                                Spacer()
-                            }
-                            .padding()
-                            .onAppear {
-                                vm.loadMoreMangas()
-                            }
-                        }
-                    }
-                }
-            }
-            .navigationTitle(Self.viewTitle)
-            .onAppear {
-                vm.onAppear()
-            }
+            MangasList(vm: vm)
+                .navigationTitle(Self.viewTitle)
         }
     }
 }

@@ -8,17 +8,11 @@
 import SwiftUI
 
 @Observable @MainActor
-final class CategoryViewModel {
+final class CategoryViewModel: MangasListViewModel {
     
     let category: String
     let group: CategoryGroup
     let repository: MangasRepository
-    
-    private(set) var canLoadMore: Bool = true
-    private(set) var error: Error?
-    private(set) var isLoading: Bool = false
-    private(set) var mangas: [Manga] = []
-    private var page: Int = 1
     
     // MARK: - Initialization
     
@@ -26,43 +20,17 @@ final class CategoryViewModel {
         self.category = category
         self.group = group
         self.repository = repository
+        super.init()
     }
     
     convenience init (_ category: Category, repository: MangasRepository = .api) {
         self.init(category.name, group: category.group, repository: repository)
     }
     
-    // MARK: - Interface
-    
-    func loadMore() {
-        guard !isLoading else { return }
-        guard canLoadMore else { return }
-        
-        isLoading = true
-        
-        Task {
-            await getMangas()
-        }
-    }
-    
-    func onAppear() {
-        guard mangas.isEmpty else { return }
-        
-        refresh()
-    }
-    
-    func refresh() {
-        guard !isLoading else { return }
-        
-        mangas.removeAll()
-        page = 1
-        loadMore()
-    }
-    
     // MARK: - Internal
     
     @RepositoryActor
-    private func getMangas() async {
+    override func getMangas() async {
         do {
             let response = switch group {
                 case .demographic:
@@ -72,16 +40,13 @@ final class CategoryViewModel {
                 case .theme:
                     try await repository.getMangasByTheme(category, page: page)
             }
-            await MainActor.run { [weak self] in
-                self?.mangas.append(contentsOf: response.mangas)
-                self?.page += 1
-                self?.isLoading = false
+            await MainActor.run {
+                processResponse(response)
             }
         } catch {
             print("Error: \(error)")
-            await MainActor.run { [weak self] in
-                self?.error = error
-                self?.isLoading = false
+            await MainActor.run {
+                processError(error)
             }
         }
     }

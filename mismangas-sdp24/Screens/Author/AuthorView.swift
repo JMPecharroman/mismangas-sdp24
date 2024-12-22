@@ -35,33 +35,7 @@ struct AuthorView: View {
             .padding()
             
             Section {
-                if vm.mangas.isEmpty {
-                    if vm.isLoadingMangas {
-                        SectionLoadingView(message: "Cargando mangas...")
-                    } else if let error = vm.errorMangas {
-                        SectionErrorView(error: error) {
-                            vm.loadMoreMangas()
-                        }
-                    } else {
-                        NoResultsView()
-                    }
-                } else {
-                    ForEach(vm.mangas) { manga in
-                        MangaListCell(manga: manga)
-                            .onAppear {
-                                vm.mangaAppear(manga)
-                            }
-                    }
-                    if let error = vm.error {
-                        SectionErrorView(error: error) {
-                            vm.loadMoreMangas()
-                        }
-                    }
-                }
-            } footer: {
-                if vm.canLoadMoreMangas {
-                    
-                }
+                MangasListContent(vm: vm)
             }
         }
         .navigationTitle(vm.author.nameLabel)
