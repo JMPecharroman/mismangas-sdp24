@@ -36,9 +36,9 @@ struct AuthorView: View {
             
             Section {
                 if vm.mangas.isEmpty {
-                    if vm.isLoading {
+                    if vm.isLoadingMangas {
                         SectionLoadingView(message: "Cargando mangas...")
-                    } else if let error = vm.error {
+                    } else if let error = vm.errorMangas {
                         SectionErrorView(error: error) {
                             vm.loadMoreMangas()
                         }

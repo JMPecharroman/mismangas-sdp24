@@ -15,8 +15,8 @@ struct MangasRepositoryNetwork: MangasRepository, NetworkInteractor, Sendable {
         try await getJSON(request: .get(.bestMangas), type: ListMangasDTO.self).items.compactMap(\.toManga)
     }
     
-    func getList(page: Int, per: Int) async throws -> [Manga] {
-        try await getJSON(request: .get(.listMangas(page: page)), type: ListMangasDTO.self).items.compactMap(\.toManga)
+    func getList(page: Int, per: Int) async throws -> MangasResponse {
+        try await getJSON(request: .get(.listMangas(page: page)), type: ListMangasDTO.self).toMangasResponse
     }
     
     func getMangasByAuhtor(_ author: Author, page: Int) async throws -> MangasResponse {

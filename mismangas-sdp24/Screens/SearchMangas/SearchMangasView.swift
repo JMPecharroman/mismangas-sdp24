@@ -1,15 +1,15 @@
 //
-//  MangasListView.swift
+//  SearchMangasView.swift
 //  mismangas-sdp24
 //
-//  Created by José Mª Pecharromán on 20/12/24.
+//  Created by José Mª Pecharromán on 22/12/24.
 //
 
 import SwiftUI
 
-struct MangasListView: View {
+struct SearchMangasView: View {
     
-    static let viewTitle: String = "Mangas"
+    static let viewTitle: String = "Buscar"
     
     @Environment(MangasViewModel.self) private var vm
     
@@ -53,6 +53,6 @@ struct MangasListView: View {
 }
 
 #Preview {
-    MangasListView()
+    SearchMangasView()
         .environment(MangasViewModel(repository: .preview))
 }

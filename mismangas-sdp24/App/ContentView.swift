@@ -14,9 +14,9 @@ struct ContentView: View {
                 .tabItem {
                     Label(HomeView.viewTitle, systemImage: "house")
                 }
-            MangasListView()
+            SearchMangasView()
                 .tabItem {
-                    Label(MangasListView.viewTitle, systemImage: "books.vertical")
+                    Label(SearchMangasView.viewTitle, systemImage: "magnifyingglass")
                 }
         }
     }
@@ -25,4 +25,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(AuthorsViewModel(repository: .preview))
+        .environment(CategoriesViewModel(repository: .preview))
+        .environment(MangasViewModel(repository: .preview))
 }

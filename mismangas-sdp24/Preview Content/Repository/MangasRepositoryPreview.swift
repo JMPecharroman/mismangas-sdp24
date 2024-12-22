@@ -14,8 +14,9 @@ struct MangasRepositoryPreview: MangasRepository {
         return mangas.items.compactMap(\.toManga)
     }
     
-    func getList(page: Int, per: Int) async throws -> [Manga] {
-        return [.preview]
+    func getList(page: Int, per: Int) async throws -> MangasResponse {
+        let mangas: ListMangasDTO = try Bundle.main.getJSON("ListMangasMockData")
+        return mangas.toMangasResponse
     }
     
     func getMangasByAuhtor(_ author: Author, page: Int) async throws -> MangasResponse {

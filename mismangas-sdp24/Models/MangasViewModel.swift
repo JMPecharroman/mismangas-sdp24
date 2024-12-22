@@ -8,53 +8,21 @@
 import SwiftUI
 
 @Observable @MainActor
-final class MangasViewModel {
-    
-    // MARK: - Data
+final class MangasViewModel: MangasListViewModel {
     
     private let repository: MangasRepository
     
     private(set) var bestMangas: [Manga] = []
-    private(set) var canLoadMoreMangas: Bool = true
-    private(set) var isLoadingMangas: Bool = false
-    private(set) var mangas: [Manga] = []
-    
-    private var page: Int = 1
     
     // MARK: - Initialization
     
     init(repository: MangasRepository = .api) {
         self.repository = repository
+        super.init()
+        
         Task {
             await getBestMangas()
         }
-    }
-    
-    // MARK: - Interface
-    
-    func loadMoreMangas() {
-        guard !isLoadingMangas else { return }
-        guard canLoadMoreMangas else { return }
-        
-        isLoadingMangas = true
-        
-        Task {
-            await getMangas()
-        }
-    }
-    
-    func onAppear() {
-        guard mangas.isEmpty else { return }
-        
-        refreshMangas()
-    }
-    
-    func refreshMangas() {
-        guard !isLoadingMangas else { return }
-        
-        mangas.removeAll()
-        page = 1
-        loadMoreMangas()
     }
     
     // MARK: - Internal
@@ -75,18 +43,16 @@ final class MangasViewModel {
     }
     
     @RepositoryActor
-    private func getMangas() async {
+    override func getMangas() async {
         do {
-            let mangas = try await repository.getList(page: self.page, per: 10)
+            let response = try await repository.getList(page: self.page, per: 10)
             await MainActor.run {
-                self.mangas.append(contentsOf: mangas)
-                page += 1
-                isLoadingMangas = false
+                processResponse(response)
             }
         } catch {
             print("Error: \(error.localizedDescription)")
             await MainActor.run {
-                isLoadingMangas = false
+                processError(error)
             }
         }
     }
