@@ -46,8 +46,11 @@ struct AuthorView: View {
                         NoResultsView()
                     }
                 } else {
-                    ForEach(vm.mangas) {
-                        MangaListCell(manga: $0)
+                    ForEach(vm.mangas) { manga in
+                        MangaListCell(manga: manga)
+                            .onAppear {
+                                vm.mangaAppear(manga)
+                            }
                     }
                     if let error = vm.error {
                         SectionErrorView(error: error) {

@@ -11,6 +11,7 @@ import SwiftUI
 extension MangaStatus {
     var label: String {
         switch self {
+            case .discontinued: "Discontinued"
             case .finished: "Finished"
             case .onHiatus: "On hiatus"
             case .publishing: "Publishing"
@@ -24,10 +25,11 @@ extension MangaStatus {
     
     var tintColor: Color {
         switch self {
-            case .finished: .red
-            case .onHiatus: .yellow
-            case .publishing: .green
-            case .unknown: .blue
+            case .discontinued: .red
+            case .finished: .green
+            case .onHiatus: .orange
+            case .publishing: .blue
+            case .unknown: .gray
         }
     }
 }

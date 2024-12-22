@@ -19,6 +19,7 @@ struct MangaBadgesView: View {
             + Text(" \(manga.scoreLabel)")
             Text(manga.status.label)
                 .font(.subheadline)
+                .foregroundStyle(.white)
                 .padding(.horizontal, 6.0)
                 .padding(.vertical, 2.0)
                 .background {

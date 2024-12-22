@@ -12,6 +12,7 @@ class MangasListViewModel {
     
     private(set) var errorMangas: Error?
     private(set) var isLoadingMangas: Bool = false
+    private var lastFirstManga: Manga?
     private(set) var mangas: [Manga] = []
     private(set) var maxPage: Int = 1
     private(set) var page: Int = 1
@@ -37,6 +38,12 @@ class MangasListViewModel {
         }
     }
     
+    func mangaAppear(_ manga: Manga) {
+        if manga.id == lastFirstManga?.id {
+            loadMoreMangas()
+        }
+    }
+    
     func onAppear() {
         guard mangas.isEmpty else { return }
         
@@ -58,9 +65,10 @@ class MangasListViewModel {
     }
     
     func processResponse(_ response: MangasResponse) {
-        self.mangas.append(contentsOf: response.mangas)
         self.maxPage = response.numberOfPages
         page += 1
+        self.mangas.append(contentsOf: response.mangas)
+        self.lastFirstManga = response.mangas.first
         isLoadingMangas = false
     }
 }

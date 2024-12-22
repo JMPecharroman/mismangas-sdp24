@@ -26,6 +26,9 @@ struct SearchMangasView: View {
                     Section {
                         ForEach(vm.mangas) { manga in
                             MangaListCell(manga: manga)
+                                .onAppear {
+                                    vm.mangaAppear(manga)
+                                }
                         }
                     } footer: {
                         if vm.canLoadMoreMangas {
