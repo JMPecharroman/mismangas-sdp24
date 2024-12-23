@@ -33,14 +33,14 @@ extension Manga {
 
 extension Array where Element == Manga {
     static var preview: [Manga] {
-        let listMangas: ListMangasDTO = try! Bundle.main.getJSON("ListMangasMockData")
+        let listMangas: ListMangasResponse = try! Bundle.main.getJSON("ListMangasMockData")
         return listMangas.items.compactMap(\.toManga)
     }
 }
 
 extension MangaDTO {
     static var preview: MangaDTO {
-        let listMangas: ListMangasDTO = try! Bundle.main.getJSON("ListMangasMockData")
+        let listMangas: ListMangasResponse = try! Bundle.main.getJSON("ListMangasMockData")
         return listMangas.items.first!
     }
 }

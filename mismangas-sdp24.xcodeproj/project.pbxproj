@@ -28,7 +28,6 @@
 				Core/Data/DTO/AuthorDTO.swift,
 				Core/Data/DTO/DemographicDTO.swift,
 				Core/Data/DTO/GenreDTO.swift,
-				Core/Data/DTO/ListMangasDTO.swift,
 				Core/Data/DTO/MangaDTO.swift,
 				Core/Data/DTO/ThemeDTO.swift,
 				Core/Data/Network/EndPoint.swift,
@@ -42,6 +41,7 @@
 				Core/Data/Repositories/AuthorsRepositoryNetwork.swift,
 				Core/Data/Repositories/CategoriesRepositoryNetwork.swift,
 				Core/Data/Repositories/MangasRepositoryNetwork.swift,
+				Core/Data/Responses/ListMangasResponse.swift,
 				Core/Domain/Interfaces/AuthorsRepository.swift,
 				Core/Domain/Interfaces/CategoriesRepository.swift,
 				Core/Domain/Interfaces/MangasRepository.swift,
@@ -57,6 +57,7 @@
 				"Preview Content/Data/ListGenres.json",
 				"Preview Content/Data/ListMangasMockData.json",
 				"Preview Content/Data/ListThemes.json",
+				"Preview Content/Data/MangasBeginsWith.json",
 				"Preview Content/Data/MangasByAuthor.json",
 				"Preview Content/Data/MangasByGenre.json",
 			);

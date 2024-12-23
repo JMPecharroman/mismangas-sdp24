@@ -12,7 +12,11 @@ struct MangasListContent: View {
     let vm: MangasListViewModel
     
     var body: some View {
-        if vm.mangas.isEmpty {
+        if let error = vm.errorMangas, vm.mangas.isEmpty {
+            SectionErrorView(error: error) {
+                vm.refreshMangas()
+            }
+        } else if vm.mangas.isEmpty {
             if vm.isLoadingMangas {
                 LoadingListCell()
             } else {

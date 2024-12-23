@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension ListMangasDTO {
+extension ListMangasResponse {
     var toMangasResponse: MangasResponse {
         
         let numberOfPages: Int = if self.metadata.per > 0 {

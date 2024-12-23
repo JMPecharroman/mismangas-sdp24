@@ -16,6 +16,7 @@ class MangasListViewModel {
     private(set) var mangas: [Manga] = []
     private(set) var maxPage: Int = 1
     private(set) var page: Int = 1
+    private var task: Task<Void, Never>?
     
     var canLoadMoreMangas: Bool {
         page <= maxPage
@@ -33,7 +34,8 @@ class MangasListViewModel {
         isLoadingMangas = true
         errorMangas = nil
         
-        Task {
+        task?.cancel()
+        task = Task {
             await getMangas()
         }
     }
@@ -50,8 +52,13 @@ class MangasListViewModel {
         refreshMangas()
     }
     
-    func refreshMangas() {
-        guard !isLoadingMangas else { return }
+    func refreshMangas(forceReload: Bool = false) {
+        if forceReload {
+            isLoadingMangas = false
+            task?.cancel()
+        } else {
+            guard !isLoadingMangas else { return }
+        }
         
         page = 1
         maxPage = 1
@@ -65,10 +72,18 @@ class MangasListViewModel {
     }
     
     func processResponse(_ response: MangasResponse) {
-        self.maxPage = response.numberOfPages
+        maxPage = response.numberOfPages
         page += 1
-        self.mangas.append(contentsOf: response.mangas)
-        self.lastFirstManga = response.mangas.first
+        mangas.append(contentsOf: response.mangas)
+        lastFirstManga = response.mangas.first
+        isLoadingMangas = false
+    }
+    
+    func processResponse(_ response: [Manga]) {
+        maxPage = 1
+        page = 1
+        mangas = response
+        lastFirstManga = nil
         isLoadingMangas = false
     }
 }

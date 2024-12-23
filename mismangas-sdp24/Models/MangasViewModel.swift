@@ -13,6 +13,10 @@ final class MangasViewModel: MangasListViewModel {
     private let repository: MangasRepository
     
     private(set) var bestMangas: [Manga] = []
+    private(set) var isSearching: Bool = false
+    private(set) var searchResults: [Manga] = []
+    private var searchText: String?
+    private var searchTask: Task<Void, Never>?
     
     // MARK: - Initialization
     
@@ -23,6 +27,20 @@ final class MangasViewModel: MangasListViewModel {
         Task {
             await getBestMangas()
         }
+    }
+    
+    // MARK: - Interface
+    
+    func search(_ text: String) {
+//        searchText = text
+//        
+//        searchTask?.cancel()
+//        searchTask = Task {
+//            try? await Task.sleep(for: .seconds(1.0))
+//            await MainActor.run {
+//                isSearching = true
+//            }
+//        }
     }
     
     // MARK: - Internal
@@ -54,6 +72,15 @@ final class MangasViewModel: MangasListViewModel {
             await MainActor.run {
                 processError(error)
             }
+        }
+    }
+    
+    @RepositoryActor
+    private func getMangasBeginsWith(_ text: String) async {
+        do {
+            
+        } catch {
+            
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ListMangasDTO.swift
+//  ListMangasResponse.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 9/12/24.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct ListMangasDTO: Codable {
+struct ListMangasResponse: Codable {
     let metadata: Metadata
     let items: [MangaDTO]
 }
 
-extension ListMangasDTO {
+extension ListMangasResponse {
     struct Metadata: Codable {
         let page: Int
         let per: Int
