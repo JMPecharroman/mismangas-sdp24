@@ -33,7 +33,7 @@ struct SearchMangasView: View {
                             searchableIsPresented = false
                             searchVM.search(searchText)
                         } label: {
-                            Text("Buscar \(searchText)")
+                            Label("Buscar \(searchText)", systemImage: "magnifyingglass")
                         }
                     } else {
                         MangasListContent(vm: searchVM)
