@@ -22,5 +22,7 @@ protocol MangasRepository: Sendable {
     
     // Search
     
+    func getAuthorsContains(_ text: String) async throws -> [Author]
     func getMangasBeginsWith(_ text: String) async throws -> [Manga]
+    func getMangasContains(_ text: String) async throws -> [Manga]
 }

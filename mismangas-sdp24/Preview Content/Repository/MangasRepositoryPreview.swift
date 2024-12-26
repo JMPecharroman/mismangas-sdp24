@@ -45,8 +45,18 @@ struct MangasRepositoryPreview: MangasRepository {
     
     // Search
     
+    func getAuthorsContains(_ text: String) async throws -> [Author] {
+        let response: [AuthorDTO] = try Bundle.main.getJSON("AuthorsContains")
+        return response.compactMap(\.toAuthor)
+    }
+    
     func getMangasBeginsWith(_ text: String) async throws -> [Manga] {
         let response: [MangaDTO] = try Bundle.main.getJSON("MangasBeginsWith")
+        return response.compactMap(\.toManga)
+    }
+    
+    func getMangasContains(_ text: String) async throws -> [Manga] {
+        let response: [MangaDTO] = try Bundle.main.getJSON("MangasContains")
         return response.compactMap(\.toManga)
     }
 }

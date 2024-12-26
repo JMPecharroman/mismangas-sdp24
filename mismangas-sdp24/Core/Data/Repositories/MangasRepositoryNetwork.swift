@@ -41,8 +41,16 @@ struct MangasRepositoryNetwork: MangasRepository, NetworkInteractor, Sendable {
     
     // Search
     
+    func getAuthorsContains(_ text: String) async throws -> [Author] {
+        try await getJSON(request: .get(.searchAuthor(text: text)), type: [AuthorDTO].self).compactMap(\.toAuthor)
+    }
+    
     func getMangasBeginsWith(_ text: String) async throws -> [Manga] {
-        try await getJSON(request: .get(.mangasBeginsWith(text: text)), type: [MangaDTO].self).compactMap(\.toManga)
+        try await getJSON(request: .get(.searchMangasBeginsWith(text: text)), type: [MangaDTO].self).compactMap(\.toManga)
+    }
+    
+    func getMangasContains(_ text: String) async throws -> [Manga] {
+        try await getJSON(request: .get(.searchMangasContains(text: text)), type: [MangaDTO].self).compactMap(\.toManga)
     }
 }
 
