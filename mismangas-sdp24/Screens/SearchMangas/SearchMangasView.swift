@@ -43,7 +43,7 @@ struct SearchMangasView: View {
                             Button {
                                 performSearch(searchCase: .mangaBegins)
                             } label: {
-                                Label("Mangas que empiezan con \"\(searchText)\"", systemImage: "magnifyingglass")
+                                Label("Mangas que comienzan con \"\(searchText)\"", systemImage: "magnifyingglass")
                             }
                         } header: {
                             Text("Buscar")
@@ -63,20 +63,17 @@ struct SearchMangasView: View {
                 }
             }
         }
-//        .searchable(text: $searchText, isPresented: $searchableIsPresented)
         .debouncedSearchable(text: $searchText, isPresented: $searchableIsPresented, delay: .seconds(2.0)) { _ in
             guard !showSearchResults else { return }
-            performSearch(searchCase: nil)
+            performSearch(showSearchOptions: true, searchCase: nil)
         }
         .onChange(of: searchText) {
             showSearchOptions = true
             showSearchResults = false
         }
         .onChange(of: searchableIsPresented) {
-            if searchableIsPresented {
-                showSearchOptions = true
-            }
-            print("searchableIsPresented: \(searchableIsPresented)")
+            guard searchableIsPresented else { return }
+            showSearchOptions = true
         }
         .sheet(isPresented: $showFilterSheet) {
             SearchFiltersView()
@@ -86,8 +83,8 @@ struct SearchMangasView: View {
         }
     }
     
-    private func performSearch(searchCase: SearchCase?) {
-        showSearchOptions = false
+    private func performSearch(showSearchOptions: Bool = false, searchCase: SearchCase?) {
+        self.showSearchOptions = showSearchOptions
         showSearchResults = true
         searchableIsPresented = false
         searchVM.search(searchText, searchCase: searchCase)
