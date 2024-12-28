@@ -81,7 +81,7 @@ class MangasListViewModel {
     
     func processResponse(_ response: [Manga]) {
         maxPage = 1
-        page = 1
+        page += 1
         mangas = response
         lastFirstManga = nil
         isLoadingMangas = false

@@ -17,7 +17,7 @@ struct ImageCached: View {
         if let image = viewModel.image {
             Image(uiImage: image)
                 .resizable()
-                .scaledToFill()
+//                .scaledToFill()
         } else {
             VStack {
                 ProgressView()

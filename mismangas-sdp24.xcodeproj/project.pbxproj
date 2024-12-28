@@ -51,6 +51,7 @@
 				Core/Domain/Model/Manga.swift,
 				Core/Domain/Model/MangasResponse.swift,
 				Core/Domain/Model/MangaStatus.swift,
+				"Preview Content/Data/AuthorsContains.json",
 				"Preview Content/Data/BestMangasMockData.json",
 				"Preview Content/Data/ListAuthors.json",
 				"Preview Content/Data/ListDemographics.json",
@@ -60,6 +61,7 @@
 				"Preview Content/Data/MangasBeginsWith.json",
 				"Preview Content/Data/MangasByAuthor.json",
 				"Preview Content/Data/MangasByGenre.json",
+				"Preview Content/Data/MangasContains.json",
 			);
 			target = 205285912D0709A8005247E8 /* mismangas-sdp24Tests */;
 		};

@@ -16,3 +16,9 @@ extension CategoryViewModel {
         CategoryViewModel(.preview)
     }
 }
+
+extension SearchViewModel {
+    static var preview: SearchViewModel {
+        SearchViewModel(repository: .preview)
+    }
+}

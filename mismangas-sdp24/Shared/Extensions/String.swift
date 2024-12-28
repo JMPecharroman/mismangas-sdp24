@@ -9,4 +9,8 @@ extension String {
     var toPathComponent: String {
         self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    
+    var trimmed: String {
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }

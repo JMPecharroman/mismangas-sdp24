@@ -18,6 +18,7 @@ extension URLRequest {
     }
     
     static func get(_ endPoint: EndPoint) -> URLRequest {
+        print("URL: \(endPoint.url)")
         var request = URLRequest(url: endPoint.url)
         request.timeoutInterval = 60
         request.httpMethod = HTTPMethod.get.rawValue

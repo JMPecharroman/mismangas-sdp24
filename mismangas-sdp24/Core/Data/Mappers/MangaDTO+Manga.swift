@@ -10,7 +10,11 @@ import Foundation
 extension MangaDTO {
     var toManga: Manga? {
         
-        let mainPicture: URL? = URL(string: self.mainPicture.replacingOccurrences(of: "\"", with: ""))
+        let mainPicture: URL? = if let mainPicture = self.mainPicture {
+            URL(string: mainPicture.replacingOccurrences(of: "\"", with: ""))
+        } else {
+            nil
+        }
         
         let status = MangaStatus(rawValue: self.status)
         
