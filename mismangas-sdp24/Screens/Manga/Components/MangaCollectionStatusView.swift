@@ -11,6 +11,8 @@ struct MangaCollectionStatusView: View {
     
     let manga: Manga
     
+    @Environment(CollectionViewModel.self) private var collectionVM
+    
     var body: some View {
         if manga.volumes > 0 {
             VStack(spacing: 16.0) {
@@ -92,4 +94,5 @@ struct MangaCollectionStatusView: View {
 
 #Preview {
     MangaCollectionStatusView(manga: .preview)
+        .environment(CollectionViewModel(repository: .preview))
 }

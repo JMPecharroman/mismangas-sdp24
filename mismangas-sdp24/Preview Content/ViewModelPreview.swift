@@ -17,6 +17,12 @@ extension CategoryViewModel {
     }
 }
 
+extension CollectionViewModel {
+    static var preview: CollectionViewModel {
+        CollectionViewModel(repository: .preview)
+    }
+}
+
 extension SearchViewModel {
     static var preview: SearchViewModel {
         SearchViewModel(repository: .preview)
