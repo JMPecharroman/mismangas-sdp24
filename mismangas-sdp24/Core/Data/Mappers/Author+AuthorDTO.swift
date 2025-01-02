@@ -1,5 +1,5 @@
 //
-//  AuthorDTO+Author.swift
+//  Author+AuthorDTO.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 18/12/24.

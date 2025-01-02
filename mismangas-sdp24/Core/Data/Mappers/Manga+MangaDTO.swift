@@ -1,5 +1,5 @@
 //
-//  MangaDTO+Manga.swift
+//  Manga+MangaDTO.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 14/12/24.

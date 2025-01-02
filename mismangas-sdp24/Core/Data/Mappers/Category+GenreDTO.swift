@@ -1,5 +1,5 @@
 //
-//  GenreDTO+Category.swift
+//  Category+GenreDTO.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 15/12/24.

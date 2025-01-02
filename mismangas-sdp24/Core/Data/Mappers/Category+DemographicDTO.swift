@@ -1,20 +1,20 @@
 //
-//  ThemeDTO+Category.swift
+//  Category+DemographicDTO.swift
 //  mismangas-sdp24
 //
-//  Created by José Mª Pecharromán on 14/12/24.
+//  Created by José Mª Pecharromán on 15/12/24.
 //
 
 import Foundation
 
-extension ThemeDTO {
+extension DemographicDTO {
     var toCategory: Category? {
         guard let id = UUID(uuidString: self.id) else { return nil }
         
         return Category(
             id: id,
-            name: self.theme,
-            group: .theme
+            name: self.demographic,
+            group: .demographic
         )
     }
 }
