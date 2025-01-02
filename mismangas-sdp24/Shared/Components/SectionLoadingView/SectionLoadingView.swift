@@ -15,13 +15,14 @@ struct SectionLoadingView: View {
         VStack {
             ProgressView()
                 .controlSize(.extraLarge)
-                .padding()
             
             if let message {
                 Text(message)
                     .foregroundStyle(.secondary)
+                    .padding(.top)
             }
         }
+        .padding()
         .frame(height: height)
         .frame(maxWidth: .infinity)
     }

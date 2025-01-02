@@ -13,7 +13,7 @@ struct MangaListCell: View {
     
     var body: some View {
         NavigationLink {
-            MangaView(vm: .init(manga))
+            MangaView(vm: .init(manga, collectionRepository: nil))
         } label: {
             HStack {
                 Poster(manga: manga)
