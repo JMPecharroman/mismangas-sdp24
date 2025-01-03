@@ -9,12 +9,12 @@ import Foundation
 import SwiftData
 
 @Model
-final class CollectionMangaSD {
+final class CollectionMangaSD: Identifiable, Hashable {
     
     // Datos del manga
-    var mangaID: Int
-    var mangaTitle: String
-    var mangaCover: URL?
+    @Attribute(.unique) var id: Int
+    var title: String
+    var cover: URL?
     var totalVolumes: Int
     
     // Datos del usuario
@@ -26,15 +26,24 @@ final class CollectionMangaSD {
     var lastSyncDate: Date
     var pendingUpload: Bool
     
-    init(mangaID: Int, mangaTitle: String, mangaCover: URL?, totalVolumes: Int, completeCollection: Bool, volumesOwned: [Int], readingVolume: Int?, lastSyncDate: Date = .now, pendingUpload: Bool = true) {
-        self.mangaID = mangaID
-        self.mangaTitle = mangaTitle
-        self.mangaCover = mangaCover
+    init(id: Int, title: String, cover: URL?, totalVolumes: Int, completeCollection: Bool = false, volumesOwned: [Int] = [] , readingVolume: Int? = nil, lastSyncDate: Date = .now, pendingUpload: Bool = true) {
+        self.id = id
+        self.title = title
+        self.cover = cover
         self.totalVolumes = totalVolumes
         self.completeCollection = completeCollection
         self.volumesOwned = volumesOwned
         self.readingVolume = readingVolume
         self.lastSyncDate = lastSyncDate
         self.pendingUpload = pendingUpload
+    }
+    
+    convenience init(manga: Manga) {
+        self.init(
+            id: manga.id,
+            title: manga.title,
+            cover: manga.mainPictute,
+            totalVolumes: manga.volumes
+        )
     }
 }

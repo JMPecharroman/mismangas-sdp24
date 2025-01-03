@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MangaView: View {
+    @Environment(\.modelContext) var modelContext
     
     @State var vm: MangaViewModel
     
@@ -18,7 +19,7 @@ struct MangaView: View {
                 LazyVStack(alignment: .leading) {
 //                    SectionHeader(text: "Mi colección")
 //                        .padding(.horizontal)
-                    MangaCollectionStatusView(manga: vm.manga)
+                    MangaCollectionStatusView(mangaViewModel: vm)
                     
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
@@ -36,6 +37,9 @@ struct MangaView: View {
                 .background(Color(.systemBackground))
             }
         }
+        .onAppear {
+            vm.onAppear(modelContext: modelContext)
+        }
         .background {
             MangaBackground(manga: vm.manga)
         }
@@ -46,6 +50,6 @@ struct MangaView: View {
 
 #Preview {
     NavigationStack {
-        MangaView(vm: MangaViewModel(.preview))
+        MangaView(vm: MangaViewModel(.preview, collectionRepository: .preview))
     }
 }

@@ -17,9 +17,21 @@ extension CategoryViewModel {
     }
 }
 
+extension CollectionMangaViewModel {
+    static var preview: CollectionMangaViewModel {
+        CollectionMangaViewModel(data: .preview, repository: .preview)
+    }
+}
+
 extension CollectionViewModel {
     static var preview: CollectionViewModel {
         CollectionViewModel(repository: .preview)
+    }
+}
+
+extension MangaViewModel {
+    static var preview: MangaViewModel {
+        MangaViewModel(.preview, collectionRepository: .preview)
     }
 }
 

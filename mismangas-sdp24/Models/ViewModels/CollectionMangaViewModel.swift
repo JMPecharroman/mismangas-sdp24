@@ -1,38 +1,40 @@
 //
-//  CollectionViewModel.swift
+//  CollectionMangaViewModel.swift
 //  mismangas-sdp24
 //
-//  Created by José Mª Pecharromán on 28/12/24.
+//  Created by José Mª Pecharromán on 3/1/25.
 //
 
 import SwiftData
 import SwiftUI
 
 @Observable @MainActor
-final class CollectionViewModel {
-
-    var repository: CollectionRepository?
+final class CollectionMangaViewModel {
     
-    private(set) var mangas: [CollectionManga] = []
+    private var repository: CollectionRepository?
+    
+    private(set) var data: CollectionManga
+    private(set) var entityIsDeleted: Bool = false
     private(set) var error: Error?
     private(set) var isLoading: Bool = false
     
     // MARK: Initialization
     
-    init(repository: CollectionRepository?) {
+    init(data: CollectionManga, repository: CollectionRepository? = nil) {
+        self.data = data
         self.repository = repository
     }
     
     // MARK: Interface
     
-    func deleteManga(withId mangaId: Int) {
+    func deleteFromCollection() {
         guard !isLoading else { return }
         
         isLoading = true
         error = nil
         
         Task {
-            await deleteMangaFromDB(id: mangaId)
+            await deleteFromDB()
         }
     }
     
@@ -46,28 +48,27 @@ final class CollectionViewModel {
     }
     
     func refresh() {
-        return; // Está metido el Query en la vista
         guard !isLoading else { return }
         
         isLoading = true
         error = nil
         
         Task {
-            await getAllEntries()
+            await getData(id: data.id)
         }
     }
     
     // MARK: Internal
     
     @RepositoryActor
-    private func deleteMangaFromDB(id: Int) async {
+    private func deleteFromDB() async {
         guard await repositoryIsInitialized() else { return }
         
         do {
-            try await repository?.deleteManga(withId: id)
+            try await repository?.deleteManga(withId: data.id)
             await MainActor.run {
+                self.entityIsDeleted = true
                 isLoading = false
-                refresh()
             }
         } catch {
             print("Error: \(error)")
@@ -79,13 +80,15 @@ final class CollectionViewModel {
     }
     
     @RepositoryActor
-    private func getAllEntries() async {
+    private func getData(id: Int) async {
         guard await repositoryIsInitialized() else { return }
         
         do {
-            let mangas = try await repository?.getAllMangas()
+            let data = try await repository?.getManga(withId: id)
+            guard let data else { throw RepositoryError.entityNotFound }
             await MainActor.run {
-                self.mangas = mangas ?? []
+                self.data = data
+                self.entityIsDeleted = false
                 isLoading = false
             }
         } catch {

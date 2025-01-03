@@ -25,6 +25,12 @@ extension Category {
     }
 }
 
+extension CollectionManga {
+    static var preview: CollectionManga {
+        CollectionMangaSD(manga: .preview).toCollectionManga
+    }
+}
+
 extension Manga {
     static var preview: Manga {
         MangaDTO.preview.toManga!

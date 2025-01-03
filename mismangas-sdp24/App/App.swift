@@ -12,7 +12,7 @@ struct MisMangasApp: App {
     
     @State var authorsViewModel = AuthorsViewModel()
     @State var categoriesViewModel = CategoriesViewModel()
-    @State var collectionViewModel = CollectionViewModel()
+    @State var collectionViewModel = CollectionViewModel(repository: nil)
     @State var mangasViewModel = MangasViewModel()
     
     var body: some Scene {
@@ -23,5 +23,6 @@ struct MisMangasApp: App {
                 .environment(collectionViewModel)
                 .environment(mangasViewModel)
         }
+        .modelContainer(for: CollectionMangaSD.self)
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 enum RepositoryError: Error, LocalizedError {
+    case entityNotFound
     case modelContainerNotSet
     case notInitialized
 }

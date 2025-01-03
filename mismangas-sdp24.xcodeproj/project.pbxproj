@@ -25,6 +25,7 @@
 		204A2A792D0767CF00B886A0 /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24Tests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Core/Data/ApiResponses/ListMangasResponse.swift,
 				Core/Data/DTO/AuthorDTO.swift,
 				Core/Data/DTO/DemographicDTO.swift,
 				Core/Data/DTO/GenreDTO.swift,
@@ -40,9 +41,9 @@
 				Core/Data/Network/URLSession.swift,
 				Core/Data/Repositories/AuthorsRepositoryNetwork.swift,
 				Core/Data/Repositories/CategoriesRepositoryNetwork.swift,
-				Core/Data/Repositories/CollectionRepositoryNetwork.swift,
+				Core/Data/Repositories/CollectionRepositoryDB.swift,
 				Core/Data/Repositories/MangasRepositoryNetwork.swift,
-				Core/Data/Responses/ListMangasResponse.swift,
+				Core/Data/Repositories/RepositoryError.swift,
 				Core/Domain/Interfaces/AuthorsRepository.swift,
 				Core/Domain/Interfaces/CategoriesRepository.swift,
 				Core/Domain/Interfaces/CollectionRepository.swift,
@@ -50,6 +51,7 @@
 				Core/Domain/Model/Author.swift,
 				Core/Domain/Model/Category.swift,
 				Core/Domain/Model/CategoryGroup.swift,
+				Core/Domain/Model/CollectionManga.swift,
 				Core/Domain/Model/CustomSearch.swift,
 				Core/Domain/Model/Manga.swift,
 				Core/Domain/Model/MangasResponse.swift,

@@ -9,17 +9,23 @@ import SwiftUI
 
 struct Poster: View {
     
-    let manga: Manga
+    let url: URL?
     
     var body: some View {
         VStack {
-            ImageCached(url: manga.mainPictute)
+            ImageCached(url: url)
                 .aspectRatio(150.0 / 225.0, contentMode: .fit)
                 .background(.thinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10.0))
                 .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                 .padding(.vertical, 4.0)
         }
+    }
+}
+
+extension Poster {
+    init(manga: Manga) {
+        self = Poster(url: manga.mainPictute)
     }
 }
 

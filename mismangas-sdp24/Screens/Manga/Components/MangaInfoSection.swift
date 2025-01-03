@@ -40,6 +40,7 @@ struct MangaInfoSection: View {
                 if manga.chapters > 0 {
                     MangaData(data: "Número de personajes", value: manga.chaptersLabel)
                 }
+                MangaData(data: "Número de volúmenes", value: manga.volumesLabel)
             }
         }
         .frame(maxWidth: .infinity)

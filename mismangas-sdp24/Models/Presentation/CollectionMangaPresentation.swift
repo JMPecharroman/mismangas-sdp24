@@ -18,6 +18,22 @@ extension CollectionManga {
     }
     
     var volumesOwnedLabel: String {
+        if volumesOwned.isEmpty {
+            return "Sin volúmenes comprados"
+        }
+        
+        return "\(volumesOwned.count) volúmenes comprados"
+    }
+    
+    var volumesOwnedCountLabel: String {
         "\(volumesOwned.count)"
+    }
+    
+    var volumesReadLabel: String {
+        guard let readingVolume else {
+            return "Sin empezar a leer"
+        }
+        
+        return "\(readingVolume) volúmenes leídos"
     }
 }
