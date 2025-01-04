@@ -10,8 +10,11 @@ import SwiftUI
 struct NavigationDestinationsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .navigationDestination(for: CollectionManga.self) {
+                CollectionMangaView(collectionManga: $0)
+            }
             .navigationDestination(for: Manga.self) {
-                MangaView(vm: MangaViewModel($0))
+                MangaView(manga: $0)
             }
     }
 }

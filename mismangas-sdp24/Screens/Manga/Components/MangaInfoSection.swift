@@ -37,10 +37,10 @@ struct MangaInfoSection: View {
                 if let endDateLabel = manga.endDateLabel {
                     MangaData(data: "Fecha de finalización", value: endDateLabel)
                 }
+                MangaData(data: "Número de volúmenes", value: manga.volumesLabel)
                 if manga.chapters > 0 {
                     MangaData(data: "Número de personajes", value: manga.chaptersLabel)
                 }
-                MangaData(data: "Número de volúmenes", value: manga.volumesLabel)
             }
         }
         .frame(maxWidth: .infinity)

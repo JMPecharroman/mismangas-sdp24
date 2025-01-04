@@ -19,7 +19,7 @@ struct MangaView: View {
                 LazyVStack(alignment: .leading) {
 //                    SectionHeader(text: "Mi colección")
 //                        .padding(.horizontal)
-                    MangaCollectionStatusView(mangaViewModel: vm)
+                    MangaCollectionStatusView(manga: vm.manga)
                     
                     SectionHeader(text: "Autores")
                         .padding(.horizontal)
@@ -40,16 +40,20 @@ struct MangaView: View {
         .onAppear {
             vm.onAppear(modelContext: modelContext)
         }
-        .background {
-            MangaBackground(manga: vm.manga)
-        }
+        .blurImageBackground(url: vm.manga.mainPictute)
         .navigationTitle(vm.manga.title)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
+extension MangaView {
+    init(manga: Manga) {
+        self = MangaView(vm: .init(manga))
+    }
+}
+
 #Preview {
     NavigationStack {
-        MangaView(vm: MangaViewModel(.preview, collectionRepository: .preview))
+        MangaView(vm: MangaViewModel(.preview))
     }
 }

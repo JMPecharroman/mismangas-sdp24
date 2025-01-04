@@ -106,6 +106,6 @@ struct MangaHeader: View {
 
 #Preview {
     NavigationStack {
-        MangaView(vm: MangaViewModel(.preview, collectionRepository: .preview)) 
+        MangaView(vm: .preview)
     }
 }
