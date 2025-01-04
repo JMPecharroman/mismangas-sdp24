@@ -11,6 +11,7 @@ struct CollectionManga: Identifiable {
     let id: Int
     let title: String
     let cover: URL?
+    let totalVolumes: Int
     let completeCollection: Bool
     let volumesOwned: [Int]
     let readingVolume: Int?

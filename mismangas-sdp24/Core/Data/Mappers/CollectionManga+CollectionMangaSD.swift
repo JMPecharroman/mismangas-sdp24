@@ -13,6 +13,7 @@ extension CollectionMangaSD {
             id: id,
             title: title,
             cover: cover,
+            totalVolumes: totalVolumes,
             completeCollection: completeCollection,
             volumesOwned: volumesOwned,
             readingVolume: readingVolume
