@@ -16,29 +16,36 @@ struct CollectionMangaView: View {
     @State private var showDeleteConfirmation: Bool = false
     
     var body: some View {
-        List {
-            if let error = vm.error {
-                Section {
-                    ErrorListCell(error: error)
+        ScrollView(.vertical) {
+            VStack(spacing: 16.0) {
+                if let error = vm.error {
+                    ErrorView(error: error)
                 }
+                if let collectionManga = vm.data {
+                    CollectionMangaHeaderView(collectionManga: collectionManga)
+                }
+                CollectionMangaVolumesGrid(vm: vm)
             }
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            if vm.entityIsDeleted {
-                Text("El manga se ha borrado de tu colección")
-            }
-            Section {
+            .padding()
+        }
+        .navigationTitle(vm.data?.title ?? "")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button(role: .destructive) {
                     showDeleteConfirmation = true
                 } label: {
-                    Text("Eliminar de mi colección")
+                    Label("Eliminar", systemImage: "trash")
+                        .foregroundStyle(.red)
                 }
+                .tint(.red)
             }
         }
-        .navigationTitle(vm.data.title)
-        .navigationBarTitleDisplayMode(.inline)
         .refreshable {
             vm.refresh()
         }
+        .loading(vm.isLoading)
+        .blurImageBackground(url: vm.data?.cover)
         .alert("Eliminar manga", isPresented: $showDeleteConfirmation) {
             Button(role: .destructive) {
                 vm.deleteFromCollection()
@@ -46,7 +53,7 @@ struct CollectionMangaView: View {
                 Text("Eliminar")
             }
         } message: {
-            Text("¿Estás seguro de eliminar \(vm.data.title) de tu colección? Los datos no se podrán recuperar")
+            Text("¿Estás seguro de eliminar \(vm.data?.title ?? "") de tu colección? Los datos no se podrán recuperar")
         }
         .onAppear {
             vm.onAppear(modelContext: modelContext)
@@ -55,6 +62,12 @@ struct CollectionMangaView: View {
             guard vm.entityIsDeleted else { return }
             dismiss()
         }
+    }
+}
+
+extension CollectionMangaView {
+    init(collectionManga: CollectionManga) {
+        self = CollectionMangaView(vm: .init(data: collectionManga))
     }
 }
 

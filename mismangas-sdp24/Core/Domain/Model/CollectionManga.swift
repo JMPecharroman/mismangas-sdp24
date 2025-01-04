@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollectionManga: Identifiable {
+struct CollectionManga: Identifiable, Hashable {
     let id: Int
     let title: String
     let cover: URL?

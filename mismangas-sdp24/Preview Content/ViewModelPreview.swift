@@ -31,7 +31,7 @@ extension CollectionViewModel {
 
 extension MangaViewModel {
     static var preview: MangaViewModel {
-        MangaViewModel(.preview, collectionRepository: .preview)
+        MangaViewModel(.preview)
     }
 }
 

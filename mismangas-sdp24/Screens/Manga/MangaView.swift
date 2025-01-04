@@ -17,8 +17,6 @@ struct MangaView: View {
             LazyVStack(alignment: .leading, spacing: 0.0) {
                 MangaHeader(manga: vm.manga)
                 LazyVStack(alignment: .leading) {
-//                    SectionHeader(text: "Mi colección")
-//                        .padding(.horizontal)
                     MangaCollectionStatusView(manga: vm.manga)
                     
                     SectionHeader(text: "Autores")

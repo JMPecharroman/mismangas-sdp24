@@ -17,6 +17,10 @@ extension CollectionManga {
         return "Marcar volumen \(readingVolume + 1) como leído"
     }
     
+    var totalVolumesLabel: String {
+        "\(totalVolumes) volúmenes"
+    }
+    
     var volumesOwnedLabel: String {
         if volumesOwned.isEmpty {
             return "Sin volúmenes comprados"
