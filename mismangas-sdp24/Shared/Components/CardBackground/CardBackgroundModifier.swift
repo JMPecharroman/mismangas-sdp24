@@ -10,10 +10,9 @@ import SwiftUI
 struct CardBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding()
             .background {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.systemGroupedBackground))
+                    .fill(Color(.secondarySystemBackground))
             }
     }
 }
@@ -26,5 +25,6 @@ extension View {
 
 #Preview {
     Text("Preview")
+        .padding()
         .cardBackground()
 }
