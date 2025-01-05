@@ -31,82 +31,31 @@ struct MangaCollectionStatusView: View {
                     if let collectionData = vm.data {
                         if collectionData.totalVolumes > 0 {
                             NavigationLink(value: collectionData) {
-                                VStack(spacing: 16.0) {
-                                    HStack {
-                                        VStack {
-                                            Text(manga.volumesLabel)
-                                                .font(.title3)
-                                                .fontWeight(.semibold)
-                                                .frame(width: 60.0, height: 60.0, alignment: .center)
-                                                .background {
-                                                    Circle()
-                                                        .strokeBorder(.orange, lineWidth: 6.0)
-                                                }
-                                            Text("Volúmenes")
-                                                .foregroundStyle(.orange)
-                                                .fontWeight(.semibold)
-                                        }
-                                        .frame(minWidth: 0, maxWidth: .infinity)
-                                        VStack {
-                                            Gauge(value: ownedGaugeValue) {
-                                                Text("Value")
-                                            } currentValueLabel: {
-                                                Text("\(collectionData.volumesOwnedCountLabel)")
-                                                    .font(.title3)
-                                                    .fontWeight(.semibold)
-                                            }
-                                            .gaugeStyle(.accessoryCircularCapacity)
-                                            .tint(.blue)
-                                            Text("Comprados")
-                                                .foregroundStyle(.blue)
-                                                .fontWeight(.semibold)
-                                        }
-                                        .frame(minWidth: 0, maxWidth: .infinity)
-                                        VStack {
-                                            Gauge(value: 0.3) {
-                                                Text("Value")
-                                            } currentValueLabel: {
-                                                Text("12")
-                                                    .font(.title3)
-                                                    .fontWeight(.semibold)
-                                            }
-                                            .gaugeStyle(.accessoryCircularCapacity)
-                                            .tint(.green)
-                                            Text("Leídos")
-                                                .foregroundStyle(.green)
-                                                .fontWeight(.semibold)
-                                        }
-                                        .frame(minWidth: 0, maxWidth: .infinity)
-                                        //                            Spacer()
-                                    }
-                                    
-                                    //                        Button {
-                                    //
-                                    //                        } label: {
-                                    //                            Text("Marcar volumen 3 como leído")
-                                    //                                .frame(maxWidth: .infinity, alignment: .center)
-                                    //                        }
-                                    //                        .buttonStyle(.borderedProminent)
-                                }
-                                .padding()
-                                .background {
-                                    RoundedRectangle(cornerRadius: 8.0)
-                                        .fill(.regularMaterial)
-                                }
-                                .padding(.horizontal)
+                                CollectionMangaGaugesView(collectionManga: collectionData)
+                                    .padding(.horizontal)
                             }
                             .buttonStyle(.plain)
+                        } else {
+                            NavigationLink(value: collectionData) {
+                                Text("Ver en mi colección")
+                                    .padding()
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .cardBackground()
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.horizontal)
                         }
-                        
-                        Button {
-                            
-                        } label: {
-                            Text(collectionData.setNextVolumeAsReadingLabel)
-                                .frame(maxWidth: .infinity, alignment: .center)
+                        if !collectionData.completeCollection {
+                            Button {
+                                vm.markAsRead(volume: collectionData.nextVolumeToRead)
+                            } label: {
+                                Text(collectionData.setNextVolumeAsReadingLabel)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .padding(.horizontal)
+                            .padding(.top, 8.0)
                         }
-                        .buttonStyle(.borderedProminent)
-                        .padding(.horizontal)
-                        .padding(.top, 8.0)
                     } else {
                         Button {
                             vm.addToCollection(manga)
@@ -128,10 +77,6 @@ struct MangaCollectionStatusView: View {
         .onAppear {
             vm.onAppear(modelContext: modelContext)
         }
-    }
-    
-    private var ownedGaugeValue: Double {
-        Double(vm.data?.volumesOwned.count ?? 0) / Double(manga.volumes)
     }
 }
 

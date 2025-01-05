@@ -23,6 +23,18 @@ struct CollectionMangaView: View {
                 }
                 if let collectionManga = vm.data {
                     CollectionMangaHeaderView(collectionManga: collectionManga)
+                    if collectionManga.totalVolumes > 0 {
+                        CollectionMangaGaugesView(collectionManga: collectionManga)
+                    } else {
+                        HStack {
+                            Image(systemName: "xmark.circle")
+                                .foregroundStyle(.red)
+                            Text("No hay volúmenes disponibles")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                        .cardBackground()
+                    }
                 }
                 CollectionMangaVolumesGrid(vm: vm)
             }

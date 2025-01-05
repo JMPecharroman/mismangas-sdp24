@@ -9,12 +9,19 @@ import Foundation
 
 extension CollectionManga {
     
+    var nextVolumeToRead: Int {
+        (readingVolume ?? 0) + 1
+    }
+    
     var setNextVolumeAsReadingLabel: String {
-        guard let readingVolume else {
-             return "Marcar volumen 1 como leído"
+        if nextVolumeToRead >= totalVolumes {
+            return "Todos los volúmenes leídos"
         }
-        
-        return "Marcar volumen \(readingVolume + 1) como leído"
+        if totalVolumes > 1 {
+            return "Marcar volumen \(nextVolumeToRead) como leído"
+        } else {
+            return "Marcar como leído"
+        }
     }
     
     var totalVolumesLabel: String {
@@ -33,11 +40,24 @@ extension CollectionManga {
         "\(volumesOwned.count)"
     }
     
+    var volumesOwnedPercentage: Double {
+        guard totalVolumes > 0 else { return 0.0 }
+        
+        return Double(volumesOwned.count) / Double(totalVolumes)
+    }
+    
     var volumesReadLabel: String {
         guard let readingVolume else {
             return "Sin empezar a leer"
         }
         
         return "\(readingVolume) volúmenes leídos"
+    }
+    
+    var volumesReadPercentage: Double {
+        guard totalVolumes > 0 else { return 0.0 }
+        guard let readingVolume else { return 0.0 }
+        
+        return Double(readingVolume) / Double(totalVolumes)
     }
 }

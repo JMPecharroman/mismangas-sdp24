@@ -8,7 +8,7 @@
 import Foundation
 
 struct CollectionRepositoryPreview: CollectionRepository {
-
+    
     func addManga(_ manga: Manga) async throws -> CollectionManga {
         .preview
     }
@@ -22,6 +22,12 @@ struct CollectionRepositoryPreview: CollectionRepository {
     
     func getManga(withId id: Int) async throws -> CollectionManga? {
         try await getAllMangas().first { $0.id == id }
+    }
+    
+    func setReadingVolume(_ volume: Int, forMangaWithId id: Int) async throws {
+    }
+    
+    func setVolumeAsOwned(_ volume: Int, owned: Bool, forMangaWith id: Int) async throws {
     }
 }
 

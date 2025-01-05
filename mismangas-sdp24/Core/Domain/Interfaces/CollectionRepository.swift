@@ -12,4 +12,6 @@ protocol CollectionRepository: Sendable {
     func deleteManga(withId id: Int) async throws
     func getAllMangas() async throws -> [CollectionManga]
     func getManga(withId id: Int) async throws -> CollectionManga?
+    func setReadingVolume(_ volume: Int, forMangaWithId id: Int) async throws
+    func setVolumeAsOwned(_ volume: Int, owned: Bool, forMangaWith id: Int) async throws
 }

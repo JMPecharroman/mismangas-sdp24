@@ -20,9 +20,6 @@ struct CollectionMangaHeaderView: View {
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .center)
-            Text(collectionManga.totalVolumesLabel)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
         }
         .padding()
     }

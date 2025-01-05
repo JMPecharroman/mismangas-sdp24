@@ -8,23 +8,35 @@
 import Foundation
 import SwiftData
 
+/// Elementos en la colección del usuario.
+///
+/// Hay mangas sin volúmenes.
+/// En algunos casos se puede ver que se pone uno porque se considera que en esos casos sólo tiene un volumen.
+/// Con esto ya se puede hacer cosas como marcar como leído.
 @Model
 final class CollectionMangaSD: Identifiable, Hashable {
     
-    // Datos del manga
+    // MARK: - Data
+    
+    // MARK: Datos del manga
+    
     @Attribute(.unique) var id: Int
     var title: String
     var cover: URL?
     var totalVolumes: Int
     
-    // Datos del usuario
+    // MARK: Datos del usuario
+    
     var completeCollection: Bool
     var volumesOwned: [Int]
     var readingVolume: Int?
     
-    // Sincronizar con el server
+    // MARK: Sincronizar con el server
+    
     var lastSyncDate: Date
     var pendingUpload: Bool
+    
+    // MARK: Initialization
     
     init(id: Int, title: String, cover: URL?, totalVolumes: Int, completeCollection: Bool = false, volumesOwned: [Int] = [] , readingVolume: Int? = nil, lastSyncDate: Date = .now, pendingUpload: Bool = true) {
         self.id = id

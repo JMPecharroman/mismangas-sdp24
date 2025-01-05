@@ -59,6 +59,41 @@ final class CollectionMangaViewModel {
         }
     }
     
+    func markAsOwned(_ owned: Bool, volume: Int) {
+        guard !isLoading else { return }
+        
+        isLoading = true
+        error = nil
+        
+        Task {
+            await setOwnedVolume(volume, owned: owned)
+        }
+    }
+    
+    func markAsRead(volume: Int) {
+        guard !isLoading else { return }
+        guard !volumeIsRead(volume) else { return }
+        
+        isLoading = true
+        error = nil
+        
+        Task {
+            await setReadingVolume(volume)
+        }
+    }
+    
+    func markAsUnread(volume: Int) {
+        guard !isLoading else { return }
+        guard volumeIsRead(volume) else { return }
+        
+        isLoading = true
+        error = nil
+        
+        Task {
+            await setReadingVolume(volume - 1)
+        }
+    }
+    
     func onAppear(modelContext: ModelContext) {
         Task {
             if repository == nil {
@@ -77,6 +112,28 @@ final class CollectionMangaViewModel {
         Task {
             await getData()
         }
+    }
+    
+    func volumeIsRead(_ volume: Int) -> Bool {
+        guard let readingVolume = data?.readingVolume else { return false }
+        return volume <= readingVolume
+    }
+    
+    var volumesData: [VolumeData] {
+        var volumes: [VolumeData] = []
+        
+        guard let data else { return volumes }
+        
+        (1...data.totalVolumes).forEach {
+            let volume = VolumeData(
+                id: $0,
+                isOwned: data.volumesOwned.contains($0),
+                isRead: volumeIsRead($0)
+            )
+            volumes.append(volume)
+        }
+        
+        return volumes.sorted { $0.id < $1.id }
     }
     
     // MARK: Internal
@@ -140,6 +197,48 @@ final class CollectionMangaViewModel {
         }
     }
     
+    @RepositoryActor
+    private func setOwnedVolume(_ volume: Int, owned: Bool) async {
+        guard await repositoryIsInitialized() else { return }
+        
+        do {
+            try await repository?.setVolumeAsOwned(volume, owned: owned, forMangaWith: mangaId)
+            let data = try await repository?.getManga(withId: mangaId)
+            await MainActor.run {
+                self.data = data
+                self.entityIsDeleted = data == nil
+                isLoading = false
+            }
+        } catch {
+            print("Error: \(error)")
+            await MainActor.run {
+                self.error = error
+                isLoading = false
+            }
+        }
+    }
+    
+    @RepositoryActor
+    private func setReadingVolume(_ volume: Int) async {
+        guard await repositoryIsInitialized() else { return }
+        
+        do {
+            try await repository?.setReadingVolume(volume, forMangaWithId: mangaId)
+            let data = try await repository?.getManga(withId: mangaId)
+            await MainActor.run {
+                self.data = data
+                self.entityIsDeleted = data == nil
+                isLoading = false
+            }
+        } catch {
+            print("Error: \(error)")
+            await MainActor.run {
+                self.error = error
+                isLoading = false
+            }
+        }
+    }
+    
     private func repositoryIsInitialized() -> Bool {
         if repository == nil {
             error = RepositoryError.notInitialized
@@ -148,4 +247,10 @@ final class CollectionMangaViewModel {
         }
         return true
     }
+}
+
+struct VolumeData: Identifiable {
+    let id: Int
+    let isOwned: Bool
+    let isRead: Bool
 }
