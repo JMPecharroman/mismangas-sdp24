@@ -18,19 +18,22 @@ struct CollectionMangaListCell: View {
             HStack {
                 Poster(url: manga.cover)
                     .frame(height: 80.0)
+                    .padding(.vertical, -6.0)
                     .padding(.trailing, 8.0)
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 6.0) {
                     Text(manga.title)
                         .font(.headline)
                         .lineLimit(2)
-                    Text(manga.volumesOwnedLabel)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                    Text(manga.volumesReadLabel)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
+                    HStack {
+                        if manga.completeCollection {
+                            Image(systemName: "checkmark.seal.fill")
+                                .foregroundStyle(.green)
+                        }
+                        Text(manga.volumesToReadLabel)
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
                 }
             }
         }

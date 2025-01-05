@@ -45,7 +45,7 @@ struct CollectionMangaVolumesGrid: View {
                                     vm.markAsRead(volume: volume.id)
                                 }
                             } label: {
-                                Image(systemName: volume.isRead ? "checkmark" : "eye" )
+                                Image(systemName: volume.isRead ? "checkmark" : "eye")
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundStyle(volume.isRead ? .white : .green)

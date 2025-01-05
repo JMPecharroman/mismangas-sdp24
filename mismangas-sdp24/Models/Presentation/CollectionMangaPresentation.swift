@@ -60,4 +60,16 @@ extension CollectionManga {
         
         return Double(readingVolume) / Double(totalVolumes)
     }
+    
+    var volumesToReadLabel: String {
+        guard let readingVolume else {
+            return "Sin empezar a leer"
+        }
+        
+        if totalVolumes - readingVolume <= 0 {
+            return "Todos los volúmenes leídos"
+        }
+        
+        return "\(totalVolumes - readingVolume) volúmenes pendientes de leer"
+    }
 }
