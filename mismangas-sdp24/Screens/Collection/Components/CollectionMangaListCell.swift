@@ -25,11 +25,17 @@ struct CollectionMangaListCell: View {
                         .font(.headline)
                         .lineLimit(2)
                     HStack {
-                        if manga.completeCollection {
-                            Image(systemName: "checkmark.seal.fill")
-                                .foregroundStyle(.green)
+                        if manga.totalVolumes > 0 {
+                            if manga.completeCollection {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .foregroundStyle(.green)
+                            }
+                            Text(manga.volumesToReadLabel)
+                        } else {
+                            Image(systemName: "xmark.circle")
+                                .foregroundStyle(.red)
+                            Text("No hay volúmenes disponibles")
                         }
-                        Text(manga.volumesToReadLabel)
                     }
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
