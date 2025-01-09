@@ -9,14 +9,14 @@ import SwiftUI
 
 struct CollectionMangaVolumesGrid: View {
     
-    @State var vm: CollectionMangaViewModel
+    @Binding var vm: CollectionMangaViewModel
     @State private var showMarkAsUnreadAlert: Bool = false
     @State private var selectedVolume: VolumeData?
     
     var body: some View {
         if let collectionManga = vm.data {
             if collectionManga.totalVolumes > 0 {
-                LazyVGrid(columns: .adaptative(minimum: 210.0), spacing: 8.0) {
+                LazyVGrid(columns: .adaptive(minimum: 210.0), spacing: 8.0) {
                     ForEach(vm.volumesData) { volume in
                         HStack {
                             Text("Volumen \(volume.id)")
@@ -76,5 +76,5 @@ struct CollectionMangaVolumesGrid: View {
 }
 
 #Preview {
-    CollectionMangaVolumesGrid(vm: .preview)
+    CollectionMangaVolumesGrid(vm: .constant(CollectionMangaViewModel.preview))
 }

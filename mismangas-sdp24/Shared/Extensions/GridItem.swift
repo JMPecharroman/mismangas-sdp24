@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Array where Element == GridItem {
-    static func adaptative(minimum: Double, maximum: Double? = nil, spacing: Double = 8.0) -> [GridItem] {
+    static func adaptive(minimum: Double, maximum: Double? = nil, spacing: Double = 8.0) -> [GridItem] {
         return [GridItem(.adaptive(minimum: minimum, maximum: maximum ?? minimum * 2), spacing: spacing)]
     }
 }

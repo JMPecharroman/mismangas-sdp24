@@ -36,7 +36,7 @@ struct CollectionMangaView: View {
                         .cardBackground()
                     }
                 }
-                CollectionMangaVolumesGrid(vm: vm)
+                CollectionMangaVolumesGrid(vm: $vm)
             }
             .padding()
         }
@@ -78,7 +78,7 @@ struct CollectionMangaView: View {
 }
 
 extension CollectionMangaView {
-    init(collectionManga: CollectionManga) {
+    init(_ collectionManga: CollectionManga) {
         self = CollectionMangaView(vm: .init(data: collectionManga))
     }
 }

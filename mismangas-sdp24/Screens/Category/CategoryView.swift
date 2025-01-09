@@ -20,7 +20,7 @@ struct CategoryView: View {
             } else {
                 ForEach(vm.items(for: group), id: \.self) { item in
                     NavigationLink {
-                        MangasByCategoryView(vm: .init(item, group: group))
+                        MangasByCategoryView(item, group: group)
                     } label: {
                         Text(item)
                     }

@@ -12,9 +12,7 @@ struct MangaListCell: View {
     let manga: Manga
     
     var body: some View {
-        NavigationLink {
-            MangaView(manga: manga)
-        } label: {
+        NavigationLink(value: manga) {
             HStack {
                 Poster(manga: manga)
                 VStack(alignment: .leading, spacing: 8.0) {

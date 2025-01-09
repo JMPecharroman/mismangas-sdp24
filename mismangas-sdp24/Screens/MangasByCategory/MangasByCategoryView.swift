@@ -18,6 +18,16 @@ struct MangasByCategoryView: View {
     }
 }
 
+extension MangasByCategoryView {
+    init(_ category: String, group: CategoryGroup) {
+        self.init(vm: .init(category, group: group))
+    }
+    
+    init(_ category: Category) {
+        self.init(vm: .init(category))
+    }
+}
+
 #Preview {
     NavigationStack {
         MangasByCategoryView(vm: .preview)

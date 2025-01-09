@@ -35,7 +35,7 @@ struct CategorySection: View {
             LazyVGrid(columns: columns, spacing: 4.0) {
                 ForEach(vm.itemsSelection(for: group), id: \.self) { item in
                     NavigationLink {
-                        MangasByCategoryView(vm: .init(item, group: group))
+                        MangasByCategoryView(item, group: group)
                     } label: {
                         Text(item)
                             .font(.caption)

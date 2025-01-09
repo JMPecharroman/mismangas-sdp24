@@ -11,15 +11,11 @@ struct MangaCategoriesGrid: View {
     
     let manga: Manga
     
-    private let columns = [
-        GridItem(.adaptive(minimum: 90.0, maximum: 120.0), spacing: 4.0)
-    ]
-    
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 4.0) {
+        LazyVGrid(columns: .adaptive(minimum: 90.0, maximum: 120.0, spacing: 4.0), spacing: 4.0) {
             ForEach(manga.categories, id: \.self) { category in
                 NavigationLink {
-                    MangasByCategoryView(vm: .init(category))
+                    MangasByCategoryView(category)
                 } label: {
                     Text(category.name)
                         .font(.caption)

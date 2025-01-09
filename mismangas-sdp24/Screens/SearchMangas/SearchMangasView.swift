@@ -23,45 +23,48 @@ struct SearchMangasView: View {
     
     var body: some View {
         NavigationStack {
-            if searchText.isEmpty {
-                MangasList(vm: mangasVM)
-                    .navigationTitle(Self.viewTitle)
-            } else {
-                List {
-                    if showSearchOptions {
-                        Section {
-                            Button {
-                                performSearch(searchCase: .author)
-                            } label: {
-                                Label("Autores con \"\(searchText)\"", systemImage: "magnifyingglass")
+            VStack {
+                if searchText.isEmpty {
+                    MangasList(vm: mangasVM)
+                        .navigationTitle(Self.viewTitle)
+                } else {
+                    List {
+                        if showSearchOptions {
+                            Section {
+                                Button {
+                                    performSearch(searchCase: .author)
+                                } label: {
+                                    Label("Autores con \"\(searchText)\"", systemImage: "magnifyingglass")
+                                }
+                                Button {
+                                    performSearch(searchCase: .mangaContains)
+                                } label: {
+                                    Label("Mangas con \"\(searchText)\"", systemImage: "magnifyingglass")
+                                }
+                                Button {
+                                    performSearch(searchCase: .mangaBegins)
+                                } label: {
+                                    Label("Mangas que comienzan con \"\(searchText)\"", systemImage: "magnifyingglass")
+                                }
+                            } header: {
+                                Text("Buscar")
                             }
-                            Button {
-                                performSearch(searchCase: .mangaContains)
-                            } label: {
-                                Label("Mangas con \"\(searchText)\"", systemImage: "magnifyingglass")
-                            }
-                            Button {
-                                performSearch(searchCase: .mangaBegins)
-                            } label: {
-                                Label("Mangas que comienzan con \"\(searchText)\"", systemImage: "magnifyingglass")
-                            }
-                        } header: {
-                            Text("Buscar")
                         }
-                    }
-                    if showSearchResults {
-                        Section {
-                            if searchVM.useMangasList {
-                                MangasListContent(vm: searchVM)
-                            } else {
-                                AuthorsListContent(vm: searchVM)
+                        if showSearchResults {
+                            Section {
+                                if searchVM.useMangasList {
+                                    MangasListContent(vm: searchVM)
+                                } else {
+                                    AuthorsListContent(vm: $searchVM)
+                                }
+                            } header: {
+                                Text(searchVM.sectionLabel)
                             }
-                        } header: {
-                            Text(searchVM.sectionLabel)
                         }
                     }
                 }
             }
+            .navigationDestinations()
         }
         .debouncedSearchable(text: $searchText, isPresented: $searchableIsPresented, delay: .seconds(2.0)) { _ in
             guard !showSearchResults else { return }

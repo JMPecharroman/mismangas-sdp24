@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AuthorsListContent: View {
     
-    let vm: SearchViewModel
+    @Binding var vm: SearchViewModel
     
     var body: some View {
         if let error = vm.authorsError, vm.authors.isEmpty {
@@ -31,5 +31,5 @@ struct AuthorsListContent: View {
 }
 
 #Preview {
-    AuthorsListContent(vm : .preview)
+    AuthorsListContent(vm : .constant(SearchViewModel.preview))
 }

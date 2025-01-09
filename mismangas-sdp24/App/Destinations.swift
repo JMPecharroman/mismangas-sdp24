@@ -11,10 +11,10 @@ struct NavigationDestinationsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationDestination(for: CollectionManga.self) {
-                CollectionMangaView(collectionManga: $0)
+                CollectionMangaView($0)
             }
             .navigationDestination(for: Manga.self) {
-                MangaView(manga: $0)
+                MangaView($0)
             }
     }
 }
