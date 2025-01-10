@@ -1,5 +1,5 @@
 //
-//  NavigationDestinations.swift
+//  Navigation.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 10/12/24.
