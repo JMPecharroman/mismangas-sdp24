@@ -36,6 +36,7 @@ struct MangaListCell: View {
             }
             .frame(height: 120.0)
         }
+        .buttonStyle(.plain)
     }
 }
 

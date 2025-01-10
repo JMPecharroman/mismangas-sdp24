@@ -12,9 +12,7 @@ struct AuthorCell: View {
     let author: Author
     
     var body: some View {
-        NavigationLink {
-            AuthorView(vm: AuthorViewModel(author: author))
-        } label: {
+        NavigationLink(value: author) {
             HStack {
                 AuthorImage(author: author)
                     .frame(width: 58.0, height: 58.0)

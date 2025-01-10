@@ -82,7 +82,7 @@ struct MangaCollectionStatusView: View {
 
 extension MangaCollectionStatusView {
     init(manga: Manga) {
-        self = MangaCollectionStatusView(manga: manga, vm: .init(manga: manga))
+        self.init(manga: manga, vm: .init(manga: manga))
     }
 }
 

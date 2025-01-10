@@ -9,7 +9,7 @@ import Foundation
 
 extension CollectionManga {
     init(with manga: Manga) {
-        self = CollectionManga(
+        self.init(
             id: manga.id,
             title: manga.title,
             cover: manga.mainPictute,

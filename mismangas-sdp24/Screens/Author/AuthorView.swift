@@ -51,3 +51,9 @@ struct AuthorView: View {
         AuthorView(vm: .preview)
     }
 }
+
+extension AuthorView {
+    init(_ author: Author) {
+        self.init(vm: AuthorViewModel(author: author))
+    }
+}

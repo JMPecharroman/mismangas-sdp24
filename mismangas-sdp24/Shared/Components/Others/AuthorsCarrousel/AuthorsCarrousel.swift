@@ -20,9 +20,7 @@ struct AuthorsCarrousel: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(authors) { author in
-                        NavigationLink {
-                            AuthorView(vm: AuthorViewModel(author: author))
-                        } label: {
+                        NavigationLink(value: author) {
                             VStack {
                                 Image(systemName: "person")
                                     .resizable()

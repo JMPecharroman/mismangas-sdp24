@@ -8,6 +8,7 @@
 import Foundation
 
 struct Category: Identifiable, Hashable {
+    let entityId = UUID()
     let id: UUID
     let name: String
     let group: CategoryGroup

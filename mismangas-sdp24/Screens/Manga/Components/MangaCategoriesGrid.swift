@@ -14,9 +14,7 @@ struct MangaCategoriesGrid: View {
     var body: some View {
         LazyVGrid(columns: .adaptive(minimum: 90.0, maximum: 120.0, spacing: 4.0), spacing: 4.0) {
             ForEach(manga.categories, id: \.self) { category in
-                NavigationLink {
-                    MangasByCategoryView(category)
-                } label: {
+                NavigationLink(value: category) {
                     Text(category.name)
                         .font(.caption)
                         .foregroundStyle(.primary)

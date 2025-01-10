@@ -48,7 +48,7 @@ struct MangaView: View {
 
 extension MangaView {
     init(_ manga: Manga) {
-        self = MangaView(vm: .init(manga))
+        self.init(vm: .init(manga))
     }
 }
 

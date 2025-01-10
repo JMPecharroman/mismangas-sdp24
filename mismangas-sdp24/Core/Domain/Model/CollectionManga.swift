@@ -8,6 +8,7 @@
 import Foundation
 
 struct CollectionManga: Identifiable, Hashable {
+    let entityId = UUID()
     let id: Int
     let title: String
     let cover: URL?

@@ -25,7 +25,7 @@ struct Poster: View {
 
 extension Poster {
     init(manga: Manga) {
-        self = Poster(url: manga.mainPictute)
+        self.init(url: manga.mainPictute)
     }
 }
 

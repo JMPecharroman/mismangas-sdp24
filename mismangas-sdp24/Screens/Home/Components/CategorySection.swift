@@ -34,9 +34,7 @@ struct CategorySection: View {
         } else {
             LazyVGrid(columns: columns, spacing: 4.0) {
                 ForEach(vm.itemsSelection(for: group), id: \.self) { item in
-                    NavigationLink {
-                        MangasByCategoryView(item, group: group)
-                    } label: {
+                    NavigationLink(value: Destination.mangasByCategory(category: item, group: group)) {
                         Text(item)
                             .font(.caption)
                             .foregroundStyle(.primary)
@@ -51,9 +49,7 @@ struct CategorySection: View {
                     .buttonStyle(.plain)
                 }
                 if vm.splitItems(for: group) {
-                    NavigationLink {
-                        CategoryView(group: group)
-                    } label: {
+                    NavigationLink(value: group) {
                         Text("Ver más")
                             .font(.caption)
                             .foregroundStyle(.labelOnTint)

@@ -19,9 +19,7 @@ struct CategoryView: View {
                 NoResultsView()
             } else {
                 ForEach(vm.items(for: group), id: \.self) { item in
-                    NavigationLink {
-                        MangasByCategoryView(item, group: group)
-                    } label: {
+                    NavigationLink(value: Destination.mangasByCategory(category: item, group: group)) {
                         Text(item)
                     }
                 }

@@ -79,7 +79,7 @@ struct CollectionMangaView: View {
 
 extension CollectionMangaView {
     init(_ collectionManga: CollectionManga) {
-        self = CollectionMangaView(vm: .init(data: collectionManga))
+        self.init(vm: .init(data: collectionManga))
     }
 }
 

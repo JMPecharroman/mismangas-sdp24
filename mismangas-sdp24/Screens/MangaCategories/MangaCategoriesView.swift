@@ -24,9 +24,7 @@ struct MangaCategoriesView: View {
                     if !manga.categories.filter({ $0.group == group }).isEmpty {
                         Section(group.label) {
                             ForEach(manga.categories.filter({ $0.group == group })) { category in
-                                NavigationLink {
-                                    MangasByCategoryView(vm: .init(category))
-                                } label: {
+                                NavigationLink(value: category) {
                                     Text(category.name)
                                 }
                             }

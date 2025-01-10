@@ -8,6 +8,7 @@
 import Foundation
 
 struct Author: Identifiable, Hashable {
+    let entityId = UUID()
     let id: UUID
     let firstName: String
     let lastName: String
