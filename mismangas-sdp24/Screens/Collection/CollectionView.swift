@@ -18,6 +18,7 @@ struct CollectionView: View {
     @Query var mangas: [CollectionMangaSD]
     
     @State private var showDeleteConfirmation: Bool = false
+    @State private var showLoginSheet: Bool = false
     @State private var selectedManga: CollectionMangaSD?
     
     var body: some View {
@@ -43,10 +44,22 @@ struct CollectionView: View {
             }
             .navigationTitle(Self.viewTitle)
             .navigationDestinations()
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showLoginSheet.toggle()
+                    } label: {
+                        Label("Cuenta", systemImage: "person.crop.circle")
+                    }
+                }
+            }
 //            .refreshable {
             // Está el query
 //                collectionVM.refresh()
 //            }
+            .sheet(isPresented: $showLoginSheet) {
+                LoginView()
+            }
             .alert("Eliminar manga", isPresented: $showDeleteConfirmation) {
                 Button(role: .destructive) {
                     guard let id = selectedManga?.id else { return }
