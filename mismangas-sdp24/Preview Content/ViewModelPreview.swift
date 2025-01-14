@@ -29,6 +29,12 @@ extension CollectionViewModel {
     }
 }
 
+extension LoginViewModel {
+    static var preview: LoginViewModel {
+        LoginViewModel(repository: .preview)
+    }
+}
+
 extension MangaViewModel {
     static var preview: MangaViewModel {
         MangaViewModel(.preview)
