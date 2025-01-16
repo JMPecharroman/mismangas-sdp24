@@ -16,7 +16,7 @@ struct SessionRepositoryNetwork: SessionRepository, SessionManager, NetworkInter
     }
     
     func register(email: String, password: String) async throws {
-        
+        try await getStatusCode(request: .from(.register(email: email, password: password)), status: 201)
     }
     
     func renewToken(currentToken: String) async throws -> String {

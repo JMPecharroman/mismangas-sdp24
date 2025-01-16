@@ -19,6 +19,7 @@ enum EndPoint {
     case mangasByDemographic(demographic: String, page: Int)
     case mangasByGenre(genre: String, page: Int)
     case mangasByTheme(theme: String, page: Int)
+    case register(email: String, password: String)
     case searchAuthor(text: String)
     case searchMangasBeginsWith(text: String)
     case searchMangasContains(text: String)
@@ -45,12 +46,30 @@ enum EndPoint {
                 .apiBaseURL.appendingPathComponent("list/mangaByGenre").appendingPathComponent(genre).appending(queryItems: [.page(page)])
             case .mangasByTheme(let theme, let page):
                 .apiBaseURL.appendingPathComponent("list/mangaByTheme").appendingPathComponent(theme).appending(queryItems: [.page(page)])
+            case .register(let email, let password):
+                .apiBaseURL.appendingPathComponent("users")
             case .searchAuthor(let text):
                 .apiBaseURL.appendingPathComponent("search/author").appendingPathComponent(text.toPathComponent)
             case .searchMangasBeginsWith(let text):
                 .apiBaseURL.appendingPathComponent("search/mangasBeginsWith").appendingPathComponent(text.toPathComponent)
             case .searchMangasContains(let text):
                 .apiBaseURL.appendingPathComponent("search/mangasContains").appendingPathComponent(text.toPathComponent)
+        }
+    }
+    
+    var body: Encodable? {
+        switch self {
+            case .register(let email, let password):
+                RegisterRequestData(email: email, password: password)
+            default:
+                nil
+        }
+    }
+    
+    var method: HTTPMethod {
+        switch self {
+            case .register: .post
+            default: .get
         }
     }
 }

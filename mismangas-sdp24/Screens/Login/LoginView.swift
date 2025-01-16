@@ -9,7 +9,11 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
     @State var vm: LoginViewModel
+    
+    @State private var isLogin = true
     
     var body: some View {
         NavigationStack {
@@ -24,40 +28,47 @@ struct LoginView: View {
                 } header: {
                     Text("Contraseña")
                 }
-                Section {
-                    VStack {
-                        Button {
-                            
-                        } label: {
-                            Text("Iniciar sesión")
-                        }
-                        ViewThatFits {
-                            HStack {
-                                Text("Ya tengo cuenta,")
-                                Button {
-                                    
-                                } label: {
-                                    Text("quiero iniciar sesión")
-                                }
-                            }
-                            VStack {
-                                Text("Ya tengo cuenta,")
-                                Button {
-                                    
-                                } label: {
-                                    Text("quiero iniciar sesión")
-                                }
-                            }
-                        }
-                        .padding(.top, 24.0)
+                if !isLogin {
+                    Section {
+                        TextField("Introduce tu contraseña", text: $vm.password)
+                    } header: {
+                        Text("Confirma tu contraseña")
                     }
-                    .frame(maxWidth: .infinity)
-                } header: {
-                    Text("")
+                }
+                Section {
+                    Button {
+                        if isLogin {
+                            vm.login()
+                        } else {
+                            vm.register()
+                        }
+                    } label: {
+                        Text(isLogin ? "Iniciar sesión" : "Registarme")
+                    }
+                }
+                Section {
+                    Button {
+                        isLogin.toggle()
+                    } label: {
+                        Text(isLogin ? "Registrarme" : "Iniciar sesión")
+                            .font(.callout)
+                    }
+                }
+                header: {
+                    Text(isLogin ? "No tengo cuenta" : "Ya tengo cuenta")
                 }
             }
             .navigationTitle("Iniciar sesión")
             .navigationBarTitleDisplayMode(.inline)
+            .animation(.default, value: isLogin)
+            .loading(vm.isLoading)
+            .alert(isLogin ? "Sesión iniciada correctamente" : "Registro completado correctamente", isPresented: $vm.requestSuccessful) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Aceptar")
+                }
+            }
         }
     }
 }
