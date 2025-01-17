@@ -24,10 +24,14 @@ enum HeaderField {
     
     var value: String {
         switch self {
-            case .accept(let value): value
-            case .appToken: ApiConfig.appToken
-            case .authorizationBasic(let email, let password): "Basic \("\(email):\(password)".data(using: .utf8)?.base64EncodedString() ?? "")"
-            case .contentType(let value): value
+            case .accept(let value):
+                value
+            case .appToken:
+                ApiConfig.appToken
+            case .authorizationBasic(let email, let password):
+                "Basic \("\(email):\(password)".data(using: .utf8)?.base64EncodedString() ?? "")"
+            case .contentType(let value):
+                value
         }
     }
 }

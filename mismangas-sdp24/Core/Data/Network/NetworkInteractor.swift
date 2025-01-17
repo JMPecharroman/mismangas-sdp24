@@ -31,4 +31,18 @@ extension NetworkInteractor {
             throw NetworkError.status(response.statusCode)
         }
     }
+    
+    func getString(request: URLRequest) async throws(NetworkError) -> String {
+        let (data, response) = try await urlSession.getData(for: request)
+        if response.statusCode == 200 {
+            if let string = String(data: data, encoding: .utf8) {
+                return string
+            } else {
+                throw NetworkError.dataNotValid
+            }
+        } else {
+            throw NetworkError.status(response.statusCode)
+        }
+    }
+
 }

@@ -55,11 +55,15 @@ extension URLRequest {
         var request = URLRequest(url: endPoint.url)
         request.timeoutInterval = 60
         request.httpMethod = endPoint.method.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        endPoint.headers.forEach { header in
+            request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
         if let body = endPoint.body {
             request.httpBody = try? JSONEncoder().encode(body)
         }
+        
         return request
     }
 }

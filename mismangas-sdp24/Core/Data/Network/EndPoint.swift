@@ -15,6 +15,7 @@ enum EndPoint {
     case listGenres
     case listMangas(page: Int)
     case listThemes
+    case login(email: String, password: String)
     case mangasByAuthor(author: Author, page: Int)
     case mangasByDemographic(demographic: String, page: Int)
     case mangasByGenre(genre: String, page: Int)
@@ -38,6 +39,8 @@ enum EndPoint {
                 .apiBaseURL.appendingPathComponent("list/mangas").appending(queryItems: [.page(page)])
             case .listThemes:
                 .apiBaseURL.appendingPathComponent("list/themes")
+            case .login:
+                .apiBaseURL.appendingPathComponent("users/login")
             case .mangasByAuthor(let author, let page):
                 .apiBaseURL.appendingPathComponent("list/mangaByAuthor").appendingPathComponent(author.id.uuidString).appending(queryItems: [.page(page)])
             case .mangasByDemographic(let demographic, let page):
@@ -66,8 +69,20 @@ enum EndPoint {
         }
     }
     
+    var headers: [HeaderField] {
+        switch self {
+            case .login(let email, let password):
+                [.accept(.textPlain), .appToken, .authorizationBasic(email: email, password: password)]
+            case .register:
+                [.contentType(.applicationJsonCharsetUtf8)]
+            default:
+                [.accept(.applicationJson)]
+        }
+    }
+    
     var method: HTTPMethod {
         switch self {
+            case .login: .post
             case .register: .post
             default: .get
         }

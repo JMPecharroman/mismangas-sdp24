@@ -30,11 +30,21 @@ struct LoginView: View {
                 }
                 if !isLogin {
                     Section {
-                        TextField("Introduce tu contraseña", text: $vm.password)
+                        TextField("Introduce tu contraseña", text: $vm.passwordConfirmation)
                     } header: {
                         Text("Confirma tu contraseña")
                     }
                 }
+                
+                if let error = vm.error {
+                    Section {
+                        Text(error.localizedDescription)
+                            .foregroundStyle(.red)
+                    } header: {
+                        Text("Error")
+                    }
+                }
+                
                 Section {
                     Button {
                         if isLogin {
@@ -60,6 +70,15 @@ struct LoginView: View {
             }
             .navigationTitle("Iniciar sesión")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancelar")
+                    }
+                }
+            }
             .animation(.default, value: isLogin)
             .loading(vm.isLoading)
             .alert(isLogin ? "Sesión iniciada correctamente" : "Registro completado correctamente", isPresented: $vm.requestSuccessful) {

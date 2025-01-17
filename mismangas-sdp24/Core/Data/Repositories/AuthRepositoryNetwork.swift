@@ -1,5 +1,5 @@
 //
-//  SessionRepositoryNetwork.swift
+//  AuthRepositoryNetwork.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 13/1/25.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct SessionRepositoryNetwork: SessionRepository, SessionManager, NetworkInteractor, Sendable {
+struct AuthRepositoryNetwork: AuthRepository, AuthManager, NetworkInteractor, Sendable {
     
     let urlSession: URLSession
     
     func login(email: String, password: String) async throws -> String {
-        ""
+        try await getString(request: .from(.login(email: email, password: password)))
     }
     
     func register(email: String, password: String) async throws {
@@ -24,8 +24,8 @@ struct SessionRepositoryNetwork: SessionRepository, SessionManager, NetworkInter
     }
 }
 
-extension SessionRepository where Self == SessionRepositoryNetwork {
-    static var api: SessionRepository {
-        SessionRepositoryNetwork(urlSession: .shared)
+extension AuthRepository where Self == AuthRepositoryNetwork {
+    static var api: AuthRepository {
+        AuthRepositoryNetwork(urlSession: .shared)
     }
 }

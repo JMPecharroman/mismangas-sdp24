@@ -11,7 +11,7 @@ import SwiftUI
 @Observable @MainActor
 final class LoginViewModel {
     
-    private var repository: SessionRepository
+    private var repository: AuthRepository
     
     var email: String = ""
     var password: String = ""
@@ -22,7 +22,7 @@ final class LoginViewModel {
     
     // MARK: Initialization
     
-    init(repository: SessionRepository = .api) {
+    init(repository: AuthRepository = .api) {
         self.repository = repository
         
 #if DEBUG
@@ -111,12 +111,12 @@ final class LoginViewModel {
     }
     
     private func validateForm(isRegister: Bool = false) throws {
-        if email.isEmpty { throw SessionError.emailIsEmpty }
-        if password.isEmpty { throw SessionError.passwordIsEmpty }
+        if email.isEmpty { throw AuthError.emailIsEmpty }
+        if password.isEmpty { throw AuthError.passwordIsEmpty }
         
         guard isRegister else { return }
         
-        if passwordConfirmation.isEmpty { throw SessionError.passwordConfirmationIsEmpty }
-        if password != passwordConfirmation { throw SessionError.passwordsDoNotMatch }
+        if passwordConfirmation.isEmpty { throw AuthError.passwordConfirmationIsEmpty }
+        if password != passwordConfirmation { throw AuthError.passwordsDoNotMatch }
     }
 }

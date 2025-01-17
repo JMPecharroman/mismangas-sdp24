@@ -1,5 +1,5 @@
 //
-//  SessionRepositoryPreview.swift
+//  AuthRepositoryPreview.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 14/1/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SessionRepositoryPreview: SessionRepository {
+struct AuthRepositoryPreview: AuthRepository {
     func login(email: String, password: String) async throws -> String {
         "" // TODO: Implementar esto
     }
@@ -21,8 +21,8 @@ struct SessionRepositoryPreview: SessionRepository {
     }
 }
 
-extension SessionRepository where Self == SessionRepositoryPreview {
-    static var preview: SessionRepository {
-        SessionRepositoryPreview()
+extension AuthRepository where Self == AuthRepositoryPreview {
+    static var preview: AuthRepository {
+        AuthRepositoryPreview()
     }
 }
