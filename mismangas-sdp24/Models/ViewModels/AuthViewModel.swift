@@ -1,5 +1,5 @@
 //
-//  LoginViewModel.swift
+//  AuthViewModel.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 14/1/25.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @Observable @MainActor
-final class LoginViewModel {
+final class AuthViewModel {
     
     private var repository: AuthRepository
     
@@ -76,9 +76,8 @@ final class LoginViewModel {
     private func loginAPI(email: String, password: String) async {
         do {
             let token = try await repository.login(email: email, password: password)
-            
             print("Token: \(token)")
-            
+            await repository.logged(withToken: token)
             await MainActor.run {
                 requestSuccessful = true
                 isLoading = false
