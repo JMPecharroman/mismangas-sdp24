@@ -49,7 +49,7 @@ enum EndPoint {
                 .apiBaseURL.appendingPathComponent("list/mangaByGenre").appendingPathComponent(genre).appending(queryItems: [.page(page)])
             case .mangasByTheme(let theme, let page):
                 .apiBaseURL.appendingPathComponent("list/mangaByTheme").appendingPathComponent(theme).appending(queryItems: [.page(page)])
-            case .register(let email, let password):
+            case .register:
                 .apiBaseURL.appendingPathComponent("users")
             case .searchAuthor(let text):
                 .apiBaseURL.appendingPathComponent("search/author").appendingPathComponent(text.toPathComponent)
@@ -74,7 +74,7 @@ enum EndPoint {
             case .login(let email, let password):
                 [.accept(.textPlain), .appToken, .authorizationBasic(email: email, password: password)]
             case .register:
-                [.contentType(.applicationJsonCharsetUtf8)]
+                [.accept(.applicationJson), .appToken, .contentType(.applicationJsonCharsetUtf8)]
             default:
                 [.accept(.applicationJson)]
         }

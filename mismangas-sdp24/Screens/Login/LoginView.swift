@@ -11,64 +11,73 @@ struct LoginView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State var vm: LoginViewModel
+    @AppStorage("UserIsLogged") private var userIsLogged: Bool = false
+    
+    @State var vm: AuthViewModel
     
     @State private var isLogin = true
     
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    TextField("Introduce tu email", text: $vm.email)
-                } header: {
-                    Text("Email")
-                }
-                Section {
-                    TextField("Introduce tu contraseña", text: $vm.password)
-                } header: {
-                    Text("Contraseña")
-                }
-                if !isLogin {
-                    Section {
-                        TextField("Introduce tu contraseña", text: $vm.passwordConfirmation)
-                    } header: {
-                        Text("Confirma tu contraseña")
+                if userIsLogged {
+                    Button(role: .destructive) {
+                        
+                    } label: {
+                        Text("Cerrar sesión")
                     }
-                }
-                
-                if let error = vm.error {
+                } else {
                     Section {
-                        Text(error.localizedDescription)
-                            .foregroundStyle(.red)
+                        TextField("Introduce tu email", text: $vm.email)
                     } header: {
-                        Text("Error")
+                        Text("Email")
                     }
-                }
-                
-                Section {
-                    Button {
-                        if isLogin {
-                            vm.login()
-                        } else {
-                            vm.register()
+                    Section {
+                        TextField("Introduce tu contraseña", text: $vm.password)
+                    } header: {
+                        Text("Contraseña")
+                    }
+                    if !isLogin {
+                        Section {
+                            TextField("Introduce tu contraseña", text: $vm.passwordConfirmation)
+                        } header: {
+                            Text("Confirma tu contraseña")
                         }
-                    } label: {
-                        Text(isLogin ? "Iniciar sesión" : "Registarme")
                     }
-                }
-                Section {
-                    Button {
-                        isLogin.toggle()
-                    } label: {
-                        Text(isLogin ? "Registrarme" : "Iniciar sesión")
-                            .font(.callout)
+                    
+                    if let error = vm.error {
+                        Section {
+                            Text(error.localizedDescription)
+                                .foregroundStyle(.red)
+                        } header: {
+                            Text("Error")
+                        }
                     }
-                }
-                header: {
-                    Text(isLogin ? "No tengo cuenta" : "Ya tengo cuenta")
+                    
+                    Section {
+                        Button {
+                            if isLogin {
+                                vm.login()
+                            } else {
+                                vm.register()
+                            }
+                        } label: {
+                            Text(isLogin ? "Iniciar sesión" : "Registarme")
+                        }
+                    }
+                    Section {
+                        Button {
+                            isLogin.toggle()
+                        } label: {
+                            Text(isLogin ? "Quiero registrarme" : "Quiero iniciar sesión")
+                                .font(.callout)
+                        }
+                    } header: {
+                        Text(isLogin ? "No tengo cuenta" : "Ya tengo cuenta")
+                    }
                 }
             }
-            .navigationTitle("Iniciar sesión")
+            .navigationTitle(isLogin ? "Iniciar sesión" : "Registro")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -81,12 +90,19 @@ struct LoginView: View {
             }
             .animation(.default, value: isLogin)
             .loading(vm.isLoading)
-            .alert(isLogin ? "Sesión iniciada correctamente" : "Registro completado correctamente", isPresented: $vm.requestSuccessful) {
+            .alert(isLogin ? "Inicio de sesión" : "Registro", isPresented: $vm.requestSuccessful) {
                 Button {
-                    dismiss()
+                    if isLogin {
+                        dismiss()
+                    } else {
+                        isLogin.toggle()
+                        vm.passwordConfirmation = ""
+                    }
                 } label: {
                     Text("Aceptar")
                 }
+            } message: {
+                Text(isLogin ? "Has iniciado sesión correctamente" : "Te has registrado correctamente. Ya puedes inicar sesiñón con tu cuenta.")
             }
         }
     }
@@ -94,7 +110,7 @@ struct LoginView: View {
 
 extension LoginView {
     init() {
-        self.init(vm: LoginViewModel())
+        self.init(vm: AuthViewModel())
     }
 }
 

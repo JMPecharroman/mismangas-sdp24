@@ -5,6 +5,12 @@
 //  Created by José Mª Pecharromán on 15/12/24.
 //
 
+extension AuthViewModel {
+    static var preview: AuthViewModel {
+        AuthViewModel(repository: .preview)
+    }
+}
+
 extension AuthorViewModel {
     static var preview: AuthorViewModel {
         AuthorViewModel(author: .preview, repository: .preview)
@@ -26,12 +32,6 @@ extension CollectionMangaViewModel {
 extension CollectionViewModel {
     static var preview: CollectionViewModel {
         CollectionViewModel(repository: .preview)
-    }
-}
-
-extension LoginViewModel {
-    static var preview: LoginViewModel {
-        LoginViewModel(repository: .preview)
     }
 }
 

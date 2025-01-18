@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct AuthRepositoryNetwork: AuthRepository, AuthManager, NetworkInteractor, Sendable {
+struct AuthRepositoryNetwork: AuthRepository, NetworkInteractor, Sendable {
     
     let urlSession: URLSession
     
     func login(email: String, password: String) async throws -> String {
-        try await getString(request: .from(.login(email: email, password: password)))
+        try await getString(request: .createRequest(from: .login(email: email, password: password)))
     }
     
     func register(email: String, password: String) async throws {
-        try await getStatusCode(request: .from(.register(email: email, password: password)), status: 201)
+        try await getStatusCode(request: .createRequest(from: .register(email: email, password: password)), status: 201)
     }
     
     func renewToken(currentToken: String) async throws -> String {
