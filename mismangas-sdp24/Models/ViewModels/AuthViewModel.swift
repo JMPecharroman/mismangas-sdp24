@@ -52,6 +52,17 @@ final class AuthViewModel {
         }
     }
     
+    func logout() {
+        guard !isLoading else { return }
+        
+        isLoading = true
+        error = nil
+        
+        Task {
+            await logoutAPI()
+        }
+    }
+    
     func register() {
         guard !isLoading else { return }
         
@@ -92,6 +103,15 @@ final class AuthViewModel {
     }
     
     @RepositoryActor
+    private func logoutAPI() async {
+        await repository.logout()
+        
+        await MainActor.run {
+            isLoading = false
+        }
+    }
+    
+    @RepositoryActor
     private func registerAPI(email: String, password: String) async {
         do {
             try await repository.register(email: email, password: password)
@@ -111,7 +131,10 @@ final class AuthViewModel {
     
     private func validateForm(isRegister: Bool = false) throws {
         if email.isEmpty { throw AuthError.emailIsEmpty }
+        // TODO: Validar que es un email
         if password.isEmpty { throw AuthError.passwordIsEmpty }
+        if password.count < 8 { throw AuthError.passwordIsTooShort(8) }
+        if password.count > 16 { throw AuthError.passwordIsTooLong(16) }
         
         guard isRegister else { return }
         

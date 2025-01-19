@@ -11,6 +11,7 @@ enum HeaderField {
     case accept(String)
     case appToken
     case authorizationBasic(email: String, password: String)
+    case authorizationBearer(token: String)
     case contentType(String)
     
     var key: String {
@@ -18,6 +19,7 @@ enum HeaderField {
             case .accept: "Accept"
             case .appToken: "App-Token"
             case .authorizationBasic: "Authorization"
+            case .authorizationBearer: "Authorization"
             case .contentType: "Content-Type"
         }
     }
@@ -30,6 +32,8 @@ enum HeaderField {
                 ApiConfig.appToken
             case .authorizationBasic(let email, let password):
                 "Basic \("\(email):\(password)".data(using: .utf8)?.base64EncodedString() ?? "")"
+            case .authorizationBearer(let token):
+                "Bearer \(token)"
             case .contentType(let value):
                 value
         }

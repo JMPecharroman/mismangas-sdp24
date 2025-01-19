@@ -58,4 +58,18 @@ final class CollectionMangaSD: Identifiable, Hashable {
             totalVolumes: manga.volumes
         )
     }
+    
+    convenience init(collectionManga: CollectionManga) {
+        self.init(
+            id: collectionManga.id,
+            title: collectionManga.title,
+            cover: collectionManga.cover,
+            totalVolumes: collectionManga.totalVolumes,
+            completeCollection: collectionManga.completeCollection,
+            volumesOwned: collectionManga.volumesOwned,
+            readingVolume: collectionManga.readingVolume,
+            lastSyncDate: Date(),
+            pendingUpload: false
+        )
+    }
 }

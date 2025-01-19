@@ -13,6 +13,13 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
     
     let context: ModelContext
     
+    func add(_ manga: CollectionManga) async throws {
+        print("volumes: \(manga.volumesOwned)")
+        let mangaSD = CollectionMangaSD(collectionManga: manga)
+        context.insert(mangaSD)
+        try context.save()
+    }
+    
     func addManga(_ manga: Manga) async throws -> CollectionManga {
         let mangaSD = CollectionMangaSD(manga: manga)
         context.insert(mangaSD)

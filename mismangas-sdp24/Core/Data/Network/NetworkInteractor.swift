@@ -12,6 +12,7 @@ protocol NetworkInteractor {
 }
 
 extension NetworkInteractor {
+    @RepositoryActor
     func getJSON<JSON>(request: URLRequest, type: JSON.Type) async throws(NetworkError) -> JSON where JSON: Codable {
         let (data, response) = try await urlSession.getData(for: request)
         if response.statusCode == 200 {
@@ -25,6 +26,7 @@ extension NetworkInteractor {
         }
     }
     
+    @RepositoryActor
     func getStatusCode(request: URLRequest, status: Int = 200) async throws(NetworkError) {
         let (_, response) = try await urlSession.getData(for: request)
         if response.statusCode != status {
@@ -32,6 +34,7 @@ extension NetworkInteractor {
         }
     }
     
+    @RepositoryActor
     func getString(request: URLRequest) async throws(NetworkError) -> String {
         let (data, response) = try await urlSession.getData(for: request)
         if response.statusCode == 200 {

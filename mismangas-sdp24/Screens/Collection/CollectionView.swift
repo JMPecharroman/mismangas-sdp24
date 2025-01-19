@@ -12,6 +12,8 @@ struct CollectionView: View {
     
     static let viewTitle: String = "Colección"
     
+    @AppStorage("UserIsLogged") private var userIsLogged: Bool = false
+    
     @Environment(\.modelContext) var modelContext
     @Environment(CollectionViewModel.self) private var collectionVM
     
@@ -27,6 +29,17 @@ struct CollectionView: View {
                 if let error = collectionVM.error {
                     Section {
                         ErrorListCell(error: error)
+                    }
+                }
+                if !userIsLogged {
+                    Section {
+                        Button {
+                            showLoginSheet.toggle()
+                        } label: {
+                            Text("Inicia sesión para mantener tu colección sincronizada")
+                        }
+                    } header: {
+                        Text("Sugerencia")
                     }
                 }
                 if mangas.isEmpty {

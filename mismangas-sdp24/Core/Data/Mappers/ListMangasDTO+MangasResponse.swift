@@ -9,7 +9,6 @@ import Foundation
 
 extension ListMangasResponse {
     var toMangasResponse: MangasResponse {
-        
         let numberOfPages: Int = if self.metadata.per > 0 {
             self.metadata.total / self.metadata.per
         } else {

@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct CollectionRepositoryPreview: CollectionRepository {
+struct CollectionRepositoryPreview: CollectionAuthRepository {
+    func add(_ manga: CollectionManga) async throws {
+    }
     
     func addManga(_ manga: Manga) async throws -> CollectionManga {
         .preview
@@ -33,6 +35,12 @@ struct CollectionRepositoryPreview: CollectionRepository {
 
 extension CollectionRepository where Self == CollectionRepositoryPreview {
     static var preview: CollectionRepository {
+        CollectionRepositoryPreview()
+    }
+}
+
+extension CollectionAuthRepository where Self == CollectionRepositoryNetwork {
+    static var preview: CollectionAuthRepository {
         CollectionRepositoryPreview()
     }
 }
