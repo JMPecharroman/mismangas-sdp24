@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoadingViewModifier: ViewModifier {
     let isLoading: Bool
-    let opacity: Double = 0.7
+    let opacity: Double
     
     func body(content: Content) -> some View {
         content
@@ -29,7 +29,7 @@ struct LoadingViewModifier: ViewModifier {
 }
 
 extension View {
-    func loading(_ isLoading: Bool) -> some View {
-        modifier(LoadingViewModifier(isLoading: isLoading))
+    func loading(_ isLoading: Bool, opacity: Double = 0.7) -> some View {
+        modifier(LoadingViewModifier(isLoading: isLoading, opacity: opacity))
     }
 }
