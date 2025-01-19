@@ -10,8 +10,9 @@ import SwiftUI
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
+    @Environment(SyncViewModel.self) private var vm
     
-    @State var vm: SyncViewModel
+    @State private var showLoginView: Bool = false
     
     var body: some View {
         TabView {
@@ -28,27 +29,25 @@ struct ContentView: View {
                     Label(SearchMangasView.viewTitle, systemImage: "magnifyingglass")
                 }
         }
-        .sheet(isPresented: $vm.needRelogin) {
+        .sheet(isPresented: $showLoginView) {
             LoginView()
         }
         .loading(vm.isSynchronizing, opacity: 1.0)
         .onAppear {
             vm.onAppear(modelContext: modelContext)
         }
-    }
-}
-
-extension ContentView {
-    init() {
-        self.init(vm: SyncViewModel(repository: nil, repositoryNetwork: .api))
+        .onChange(of: vm.needRelogin) {
+            if vm.needRelogin {
+                showLoginView = true
+            }
+        }
     }
 }
 
 #Preview {
-    // TODO: Completar esto
-//    ContentView(vm: .init(repository: nil, repositoryNetwork: .preview))
     ContentView()
         .environment(AuthorsViewModel(repository: .preview))
         .environment(CategoriesViewModel(repository: .preview))
         .environment(MangasViewModel(repository: .preview))
+        .environment(SyncViewModel(repository: .preview, repositoryNetwork: .preview))
 }

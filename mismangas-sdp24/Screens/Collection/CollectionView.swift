@@ -16,6 +16,7 @@ struct CollectionView: View {
     
     @Environment(\.modelContext) var modelContext
     @Environment(CollectionViewModel.self) private var collectionVM
+    @Environment(SyncViewModel.self) private var syncVM
     
     @Query var mangas: [CollectionMangaSD]
     
@@ -66,10 +67,11 @@ struct CollectionView: View {
                     }
                 }
             }
-//            .refreshable {
-            // Está el query
+            .refreshable {
+                // Está el query
 //                collectionVM.refresh()
-//            }
+                syncVM.refresh()
+            }
             .sheet(isPresented: $showLoginSheet) {
                 LoginView()
             }
@@ -83,9 +85,10 @@ struct CollectionView: View {
             } message: {
                 Text("¿Estás seguro de eliminar \(selectedManga?.title ?? "-") de tu colección? Los datos no se podrán recuperar")
             }
-            .loading(collectionVM.isLoading)
+            .loading(collectionVM.isLoading || syncVM.isLoading)
             .onAppear {
                 collectionVM.onAppear(modelContext: modelContext)
+                syncVM.onAppear(modelContext: modelContext)
             }
         }
     }

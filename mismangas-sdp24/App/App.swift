@@ -14,6 +14,7 @@ struct MisMangasApp: App {
     @State var categoriesViewModel = CategoriesViewModel()
     @State var collectionViewModel = CollectionViewModel(repository: nil)
     @State var mangasViewModel = MangasViewModel()
+    @State var syncViewModel = SyncViewModel(repository: nil, repositoryNetwork: .api)
     
     var body: some Scene {
         WindowGroup {
@@ -22,6 +23,7 @@ struct MisMangasApp: App {
                 .environment(categoriesViewModel)
                 .environment(collectionViewModel)
                 .environment(mangasViewModel)
+                .environment(syncViewModel)
         }
         .modelContainer(for: CollectionMangaSD.self)
     }

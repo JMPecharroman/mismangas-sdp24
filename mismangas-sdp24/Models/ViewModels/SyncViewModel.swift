@@ -16,8 +16,9 @@ final class SyncViewModel {
     
     private(set) var error: Error?
     private var firstSyncCompleted: Bool = false
-    var needRelogin: Bool = false
+    private(set) var isLoading: Bool = false
     private(set) var isSynchronizing: Bool = false
+    var needRelogin: Bool = false
     
     // MARK: - Initialization
     
@@ -47,15 +48,20 @@ final class SyncViewModel {
         }
     }
     
+    func refresh() {
+        sync(isInitialSync: false)
+    }
+    
     // MARK: - Internal
     
     private func sync(isInitialSync: Bool) {
+        guard !isLoading else { return }
         guard !isSynchronizing else { return }
-//        guard !firstSyncCompleted else { return }
         guard repository != nil else { return }
         guard repositoryNetwork.userIsLogged else { return }
         
-        isSynchronizing = true
+        isLoading = false
+        isSynchronizing = isInitialSync
         error = nil
         
         Task {
@@ -99,6 +105,7 @@ final class SyncViewModel {
             
             await MainActor.run {
                 self.firstSyncCompleted = true
+                self.isLoading = false
                 self.isSynchronizing = false
             }
         } catch {
@@ -120,6 +127,7 @@ final class SyncViewModel {
                 } else {
                     self.error = error
                 }
+                self.isLoading = false
                 self.isSynchronizing = false
             }
         }
