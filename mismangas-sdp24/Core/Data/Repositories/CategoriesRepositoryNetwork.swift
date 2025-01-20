@@ -12,15 +12,15 @@ struct CategoriesRepositoryNetwork: CategoriesRepository, NetworkInteractor, Sen
     let urlSession: URLSession
     
     func getDemographics() async throws -> [String] {
-        try await getJSON(request: .get(.listDemographics), type: [String].self)
+        try await getJSON(request: .get(ApiEndPoint.listDemographics), type: [String].self)
     }
     
     func getGenres() async throws -> [String] {
-        try await getJSON(request: .get(.listGenres), type: [String].self)
+        try await getJSON(request: .get(ApiEndPoint.listGenres), type: [String].self)
     }
     
     func getThemes() async throws -> [String] {
-        try await getJSON(request: .get(.listThemes), type: [String].self)
+        try await getJSON(request: .get(ApiEndPoint.listThemes), type: [String].self)
     }
 }
 

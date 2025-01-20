@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("UserIsLogged") private var userIsLogged: Bool = false
     
     @Environment(\.modelContext) private var modelContext
     @Environment(SyncViewModel.self) private var vm
     
+    @State private var showLoggedAlert: Bool = false
     @State private var showLoginView: Bool = false
     
     var body: some View {
@@ -39,6 +41,20 @@ struct ContentView: View {
         .onChange(of: vm.needRelogin) {
             if vm.needRelogin {
                 showLoginView = true
+            }
+        }
+        .alert("Inicio de sesión", isPresented: $showLoggedAlert) {
+            Button {
+                showLoggedAlert = false
+            } label: {
+                Text("Aceptar")
+            }
+        } message: {
+            Text("Has iniciado sesión correctamente")
+        }
+        .onChange(of: userIsLogged) {
+            if userIsLogged {
+                showLoggedAlert = true
             }
         }
     }

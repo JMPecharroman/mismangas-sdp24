@@ -8,8 +8,8 @@
 import Foundation
 
 protocol CollectionRepository: Sendable {
-    func add(_ manga: CollectionManga) async throws
-    func addManga(_ manga: Manga) async throws -> CollectionManga
+    func addManga(_ collectionManga: CollectionManga) async throws
+    func addManga(_ collectionManga: Manga) async throws -> CollectionManga
     func deleteManga(withId id: Int) async throws
     func getAllMangas() async throws -> [CollectionManga]
     func getManga(withId id: Int) async throws -> CollectionManga?

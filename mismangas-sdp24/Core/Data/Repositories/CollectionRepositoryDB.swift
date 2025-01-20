@@ -13,11 +13,14 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
     
     let context: ModelContext
     
-    func add(_ manga: CollectionManga) async throws {
-        print("volumes: \(manga.volumesOwned)")
-        let mangaSD = CollectionMangaSD(collectionManga: manga)
-        context.insert(mangaSD)
-        try context.save()
+    func addManga(_ collectionManga: CollectionManga) async throws {
+        if (try await getManga(withId: collectionManga.id)) == nil {
+            let collectionMangaSD = CollectionMangaSD(collectionManga: collectionManga)
+            context.insert(collectionMangaSD)
+            try context.save()
+        } else {
+            try await update(collectionManga)
+        }
     }
     
     func addManga(_ manga: Manga) async throws -> CollectionManga {
@@ -29,15 +32,7 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
     }
     
     func deleteManga(withId id: Int) async throws {
-        let descriptor = FetchDescriptor<CollectionMangaSD>(
-            predicate: #Predicate<CollectionMangaSD> { manga in
-                manga.id == id
-            }
-        )
-        
-        guard let manga = try context.fetch(descriptor).first else {
-            throw DataBaseError.entityNotFound
-        }
+        guard let manga = try getCollectionMangaSD(withId: id) else { throw RepositoryError.entityNotFound }
         
         context.delete(manga)
         try context.save()
@@ -48,23 +43,21 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
         return try context.fetch(descriptor).compactMap(\.toCollectionManga)
     }
     
-    func getManga(withId id: Int) async throws -> CollectionManga? {
+    private func getCollectionMangaSD(withId id: Int) throws -> CollectionMangaSD? {
         let descriptor = FetchDescriptor<CollectionMangaSD>(
             predicate: #Predicate<CollectionMangaSD> { manga in
                 manga.id == id
             }
         )
-        return try context.fetch(descriptor).first?.toCollectionManga
+        return try context.fetch(descriptor).first
+    }
+    
+    func getManga(withId id: Int) async throws -> CollectionManga? {
+        try getCollectionMangaSD(withId: id)?.toCollectionManga
     }
     
     func setReadingVolume(_ volume: Int, forMangaWithId id: Int) async throws {
-        let descriptor = FetchDescriptor<CollectionMangaSD>(
-            predicate: #Predicate<CollectionMangaSD> { manga in
-                manga.id == id
-            }
-        )
-        
-        guard let manga = try context.fetch(descriptor).first else { throw RepositoryError.entityNotFound }
+        guard let manga = try getCollectionMangaSD(withId: id) else { throw RepositoryError.entityNotFound }
         guard volume >= 0 else { throw RepositoryError.dataValueNotValid }
         
         // Hay mangas sin volúmenes.
@@ -80,13 +73,7 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
     }
     
     func setVolumeAsOwned(_ volume: Int, owned: Bool, forMangaWith id: Int) async throws {
-        let descriptor = FetchDescriptor<CollectionMangaSD>(
-            predicate: #Predicate<CollectionMangaSD> { manga in
-                manga.id == id
-            }
-        )
-        
-        guard let manga = try context.fetch(descriptor).first else { throw RepositoryError.entityNotFound }
+        guard let manga = try getCollectionMangaSD(withId: id) else { throw RepositoryError.entityNotFound }
         guard volume >= 0 else { throw RepositoryError.dataValueNotValid }
         guard volume <= manga.totalVolumes else { throw RepositoryError.dataValueNotValid }
         
@@ -97,6 +84,19 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
         } else {
             manga.volumesOwned.removeAll(where: { $0 == volume })
         }
+        
+        try context.save()
+    }
+    
+    private func update(_ collectionManga: CollectionManga) async throws {
+        guard let manga = try getCollectionMangaSD(withId: collectionManga.id) else { throw RepositoryError.entityNotFound }
+        
+        manga.title = collectionManga.title
+        manga.cover = collectionManga.cover
+        manga.totalVolumes = collectionManga.totalVolumes
+        manga.completeCollection = collectionManga.completeCollection
+        manga.volumesOwned = collectionManga.volumesOwned
+        manga.readingVolume = collectionManga.readingVolume
         
         try context.save()
     }

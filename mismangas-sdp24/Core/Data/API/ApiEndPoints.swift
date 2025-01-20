@@ -7,11 +7,10 @@
 
 import Foundation
 
-enum EndPoint {
+enum ApiEndPoint: EndPoint {
     
-    case addUserManga(collectionManga: CollectionManga, token: String)
     case bestMangas
-    case deleteUserManga(mangaId: Int)
+    case deleteCollectionManga(mangaId: Int)
     case listAuthors
     case listDemographics
     case listGenres
@@ -26,15 +25,14 @@ enum EndPoint {
     case searchAuthor(text: String)
     case searchMangasBeginsWith(text: String)
     case searchMangasContains(text: String)
+    case updateCollectionManga(collectionManga: CollectionManga, token: String)
     case userMangas(token: String)
     
     var url: URL {
         switch self {
-            case .addUserManga:
-                .apiBaseURL.appendingPathComponent("/collection/manga")
             case .bestMangas:
                 .apiBaseURL.appendingPathComponent("list/bestMangas")
-            case .deleteUserManga(let mangaId):
+            case .deleteCollectionManga(let mangaId):
                 .apiBaseURL.appendingPathComponent("/collection/manga/\(mangaId)")
             case .listAuthors:
                 .apiBaseURL.appendingPathComponent("list/authors")
@@ -64,6 +62,8 @@ enum EndPoint {
                 .apiBaseURL.appendingPathComponent("search/mangasBeginsWith").appendingPathComponent(text.toPathComponent)
             case .searchMangasContains(let text):
                 .apiBaseURL.appendingPathComponent("search/mangasContains").appendingPathComponent(text.toPathComponent)
+            case .updateCollectionManga:
+                .apiBaseURL.appendingPathComponent("/collection/manga")
             case .userMangas:
                 .apiBaseURL.appendingPathComponent("/collection/manga")
         }
@@ -71,10 +71,10 @@ enum EndPoint {
     
     var body: Encodable? {
         switch self {
-            case .addUserManga(let collectionManga, _):
-                AddMangaRequestData(with: collectionManga)
             case .register(let email, let password):
                 RegisterRequestData(email: email, password: password)
+            case .updateCollectionManga(let collectionManga, _):
+                UpdateCollectionMangaRequestData(with: collectionManga)
             default:
                 nil
         }
@@ -82,12 +82,12 @@ enum EndPoint {
     
     var headers: [HeaderField] {
         switch self {
-            case .addUserManga(_, let token):
-                [.accept(.applicationJson), .appToken, .authorizationBearer(token: token), .contentType(.applicationJsonCharsetUtf8)]
             case .login(let email, let password):
                 [.accept(.textPlain), .appToken, .authorizationBasic(email: email, password: password)]
             case .register:
                 [.accept(.applicationJson), .appToken, .contentType(.applicationJsonCharsetUtf8)]
+            case .updateCollectionManga(_, let token):
+                [.accept(.applicationJson), .appToken, .authorizationBearer(token: token), .contentType(.applicationJsonCharsetUtf8)]
             case .userMangas(let token):
                 [.accept(.applicationJson), .appToken, .authorizationBearer(token: token)]
             default:
@@ -97,13 +97,13 @@ enum EndPoint {
     
     var method: HTTPMethod {
         switch self {
-            case .addUserManga:
-                .post
-            case .deleteUserManga:
+            case .deleteCollectionManga:
                 .delete
             case .login:
                 .post
             case .register:
+                .post
+            case .updateCollectionManga:
                 .post
             default:
                 .get

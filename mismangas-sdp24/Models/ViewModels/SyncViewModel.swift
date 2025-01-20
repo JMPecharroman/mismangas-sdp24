@@ -12,7 +12,7 @@ import SwiftUI
 final class SyncViewModel {
     
     var repository: CollectionRepository?
-    var repositoryNetwork: CollectionAuthRepository
+    var repositoryNetwork: CollectionApiRepository
     
     private(set) var error: Error?
     private var firstSyncCompleted: Bool = false
@@ -22,7 +22,7 @@ final class SyncViewModel {
     
     // MARK: - Initialization
     
-    init(repository: CollectionRepository?, repositoryNetwork: CollectionAuthRepository = .api) {
+    init(repository: CollectionRepository?, repositoryNetwork: CollectionApiRepository = .api) {
         self.repository = repository
         self.repositoryNetwork = repositoryNetwork
         
@@ -74,31 +74,26 @@ final class SyncViewModel {
         do {
             guard let repository = await repository else { throw RepositoryError.notInitialized }
             
-            let apiCollection = try await repositoryNetwork.getAllMangas()
+            let apiCollection = try await repositoryNetwork.getAll()
             let apiCollectionSet = Set(apiCollection.compactMap{ $0.id })
-            print("apiCollection: \(apiCollectionSet)")
             
-            let dbCollection = try await repository.getAllMangas()
-            let dbCollectionSet = Set(dbCollection.compactMap{ $0.id })
-            print("dbCollection: \(dbCollectionSet)")
+            let databaseCollection = try await repository.getAllMangas()
+            let databaseCollectionSet = Set(databaseCollection.compactMap{ $0.id })
             
-            let apiToDb = apiCollectionSet.subtracting(dbCollectionSet)
+            let apiToDatabase = apiCollectionSet.subtracting(databaseCollectionSet)
             
-            for apiId in apiToDb {
-                print("Add manga \(apiId) from API to DB")
+            for apiId in apiToDatabase {
                 guard let apiItem = apiCollection.first(where: { $0.id == apiId }) else { continue }
-                try await repository.add(apiItem)
+                try await repository.addManga(apiItem)
             }
             
-            let dbToApi = dbCollectionSet.subtracting(apiCollectionSet)
+            let databaseToApi = databaseCollectionSet.subtracting(apiCollectionSet)
             
-            for dbId in dbToApi {
-                guard let collectionManga = dbCollection.first(where: { $0.id == dbId }) else { continue }
+            for databaseId in databaseToApi {
+                guard let collectionManga = databaseCollection.first(where: { $0.id == databaseId }) else { continue }
                 if isInitialSync {
-                    print("Remove manga \(dbId) from DB to API")
                     try await repository.deleteManga(withId: collectionManga.id)
                 } else {
-                    print("Add manga \(dbId) from DB to API")
                     try await repositoryNetwork.add(collectionManga)
                 }
             }
@@ -109,7 +104,6 @@ final class SyncViewModel {
                 self.isSynchronizing = false
             }
         } catch {
-            print("Error: \(error)")
             let isError401: Bool = if case .status(let code) = error as? NetworkError {
                 code == 401
             } else {

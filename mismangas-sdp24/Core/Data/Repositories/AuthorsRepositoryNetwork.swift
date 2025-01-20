@@ -12,7 +12,7 @@ struct AuthorsRepositoryNetwork: AuthorsRepository, NetworkInteractor, Sendable 
     let urlSession: URLSession
     
     func getList() async throws -> [Author] {
-        try await getJSON(request: .get(.listAuthors), type: [AuthorDTO].self).compactMap(\.toAuthor)
+        try await getJSON(request: .get(ApiEndPoint.listAuthors), type: [AuthorDTO].self).compactMap(\.toAuthor)
     }
 }
 

@@ -25,7 +25,7 @@ extension CategoryViewModel {
 
 extension CollectionMangaViewModel {
     static var preview: CollectionMangaViewModel {
-        CollectionMangaViewModel(data: .preview, repository: .preview)
+        CollectionMangaViewModel(data: .preview, repository: .preview, repositoryNetwork: .preview)
     }
 }
 
@@ -44,5 +44,11 @@ extension MangaViewModel {
 extension SearchViewModel {
     static var preview: SearchViewModel {
         SearchViewModel(repository: .preview)
+    }
+}
+
+extension SyncViewModel {
+    static var preview: SyncViewModel {
+        SyncViewModel(repository: .preview, repositoryNetwork: .preview)
     }
 }

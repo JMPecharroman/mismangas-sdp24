@@ -12,7 +12,7 @@ import SwiftUI
 final class CollectionViewModel {
 
     var repository: CollectionRepository?
-    var repositoryNetwork: CollectionAuthRepository
+    var repositoryNetwork: CollectionApiRepository
     
     private(set) var mangas: [CollectionManga] = []
     private(set) var error: Error?
@@ -20,7 +20,7 @@ final class CollectionViewModel {
     
     // MARK: Initialization
     
-    init(repository: CollectionRepository?, repositoryNetwork: CollectionAuthRepository = .api) {
+    init(repository: CollectionRepository?, repositoryNetwork: CollectionApiRepository = .api) {
         self.repository = repository
         self.repositoryNetwork = repositoryNetwork
     }
@@ -67,7 +67,9 @@ final class CollectionViewModel {
         
         do {
             try await repository?.deleteManga(withId: id)
-            try await repositoryNetwork.deleteManga(withId: id)
+            if await repositoryNetwork.userIsLogged {
+                try await repositoryNetwork.delete(withId: id)
+            }
             await MainActor.run {
                 isLoading = false
                 refresh()

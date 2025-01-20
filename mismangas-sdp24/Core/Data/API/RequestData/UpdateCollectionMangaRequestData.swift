@@ -1,5 +1,5 @@
 //
-//  AddMangaRequestData.swift
+//  UpdateCollectionMangaRequestData.swift
 //  mismangas-sdp24
 //
 //  Created by José Mª Pecharromán on 18/1/25.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct AddMangaRequestData: Codable {
+struct UpdateCollectionMangaRequestData: Codable {
     var manga: Int
     var completeCollection: Bool
     var volumesOwned: [Int]
     var readingVolume: Int?
 }
 
-extension AddMangaRequestData {
+extension UpdateCollectionMangaRequestData {
     init(with collectionManga: CollectionManga) {
         self.init(
             manga: collectionManga.id,

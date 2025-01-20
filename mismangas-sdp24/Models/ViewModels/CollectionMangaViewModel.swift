@@ -12,6 +12,7 @@ import SwiftUI
 final class CollectionMangaViewModel {
     
     private var repository: CollectionRepository?
+    private var repositoryNetwork: CollectionApiRepository
     
     private(set) var data: CollectionManga?
     private let mangaId: Int
@@ -21,17 +22,19 @@ final class CollectionMangaViewModel {
     
     // MARK: Initialization
     
-    private init(mangaId: Int, repository: CollectionRepository? = nil) {
+    private init(mangaId: Int, repository: CollectionRepository? = nil, repositoryNetwork: CollectionApiRepository = .api) {
         self.mangaId = mangaId
+        self.repository = repository
+        self.repositoryNetwork = repositoryNetwork
     }
     
-    convenience init(data: CollectionManga, repository: CollectionRepository? = nil) {
-        self.init(mangaId: data.id, repository: repository)
+    convenience init(data: CollectionManga, repository: CollectionRepository? = nil, repositoryNetwork: CollectionApiRepository = .api) {
+        self.init(mangaId: data.id, repository: repository, repositoryNetwork: repositoryNetwork)
         self.data = data
     }
     
-    convenience init(manga: Manga, repository: CollectionRepository? = nil) {
-        self.init(mangaId: manga.id, repository: repository)
+    convenience init(manga: Manga, repository: CollectionRepository? = nil, repositoryNetwork: CollectionApiRepository = .api) {
+        self.init(mangaId: manga.id, repository: repository, repositoryNetwork: repositoryNetwork)
         refresh()
     }
     
@@ -144,6 +147,9 @@ final class CollectionMangaViewModel {
         
         do {
             let data = try await repository?.addManga(manga)
+            if await repositoryNetwork.userIsLogged, let data {
+                try await repositoryNetwork.update(data)
+            }
             await MainActor.run {
                 self.data = data
                 isLoading = false
@@ -163,6 +169,9 @@ final class CollectionMangaViewModel {
         
         do {
             try await repository?.deleteManga(withId: mangaId)
+            if await repositoryNetwork.userIsLogged {
+                try await repositoryNetwork.delete(withId: mangaId)
+            }
             await MainActor.run {
                 self.entityIsDeleted = true
                 isLoading = false
@@ -204,6 +213,9 @@ final class CollectionMangaViewModel {
         do {
             try await repository?.setVolumeAsOwned(volume, owned: owned, forMangaWith: mangaId)
             let data = try await repository?.getManga(withId: mangaId)
+            if await repositoryNetwork.userIsLogged, let data {
+                try await repositoryNetwork.update(data)
+            }
             await MainActor.run {
                 self.data = data
                 self.entityIsDeleted = data == nil
@@ -225,6 +237,9 @@ final class CollectionMangaViewModel {
         do {
             try await repository?.setReadingVolume(volume, forMangaWithId: mangaId)
             let data = try await repository?.getManga(withId: mangaId)
+            if await repositoryNetwork.userIsLogged, let data {
+                try await repositoryNetwork.update(data)
+            }
             await MainActor.run {
                 self.data = data
                 self.entityIsDeleted = data == nil

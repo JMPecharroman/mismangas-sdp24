@@ -19,6 +19,12 @@ struct LoginView: View {
         NavigationStack {
             VStack(spacing: 24.0) {
                 if userIsLogged {
+                    Image(systemName: "checkmark.seal")
+                        .resizable()
+                        .foregroundStyle(.green)
+                        .frame(width: 80.0, height: 80.0)
+                    Text("Tienes una sesión activa")
+                        .font(.title3)
                     Button(role: .destructive) {
                         vm.logout()
                     } label: {
@@ -28,6 +34,7 @@ struct LoginView: View {
                             .padding(.vertical, 8.0)
                     }
                     .buttonStyle(.borderedProminent)
+                    .padding(.top)
                 } else {
                     VStack(spacing: 8.0) {
                         Text("Email")
@@ -94,8 +101,8 @@ struct LoginView: View {
                     Divider()
                         .padding(.vertical)
                     
-                    HStack(spacing: 2.0) {
-                        Text(isLogin ? "No tengo cuenta, " : "Ya tengo cuenta, ")
+                    HStack(spacing: 4.0) {
+                        Text(isLogin ? "No tengo cuenta," : "Ya tengo cuenta,")
                             .foregroundStyle(.secondary)
                         Button {
                             isLogin.toggle()
@@ -108,33 +115,47 @@ struct LoginView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle(isLogin ? "Iniciar sesión" : "Registro")
+            .navigationTitle(userIsLogged ? "Tu cuenta" : (isLogin ? "Iniciar sesión" : "Registro"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancelar")
+                if userIsLogged {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("OK")
+                        }
+                    }
+                } else {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Cancelar")
+                        }
                     }
                 }
             }
             .animation(.default, value: isLogin)
             .loading(vm.isLoading)
-            .alert(isLogin ? "Inicio de sesión" : "Registro", isPresented: $vm.requestSuccessful) {
-                Button {
-                    if isLogin {
-                        dismiss()
-                    } else {
-                        isLogin.toggle()
-                        vm.passwordConfirmation = ""
-                    }
-                } label: {
-                    Text("Aceptar")
-                }
-            } message: {
-                Text(isLogin ? "Has iniciado sesión correctamente" : "Te has registrado correctamente. Ya puedes inicar sesiñón con tu cuenta.")
+            .onChange(of: userIsLogged) {
+                dismiss()
             }
+            // TODO: Eliminar esto
+//            .alert(isLogin ? "Inicio de sesión" : "Registro", isPresented: $vm.requestSuccessful) {
+//                Button {
+//                    if isLogin {
+//                        dismiss()
+//                    } else {
+//                        isLogin.toggle()
+//                        vm.passwordConfirmation = ""
+//                    }
+//                } label: {
+//                    Text("Aceptar")
+//                }
+//            } message: {
+//                Text(isLogin ? "Has iniciado sesión correctamente" : "Te has registrado correctamente. Ya puedes inicar sesiñón con tu cuenta.")
+//            }
         }
     }
 }
