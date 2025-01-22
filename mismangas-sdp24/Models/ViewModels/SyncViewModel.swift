@@ -91,13 +91,13 @@ final class SyncViewModel {
             let databaseButNotApi = databaseCollectionSet.subtracting(apiCollectionSet)
             
             for databaseId in databaseButNotApi {
-                guard let collectionManga = databaseCollection.first(where: { $0.id == databaseId }) else { continue }
                 if fromLogin {
                     // Al sincronizar manda el servidor, excepto que el usuario acabe de iniciar sesión.
                     // En este caso hay que subir lo que haya hecho sin sesión iniciada.
+                    guard let collectionManga = databaseCollection.first(where: { $0.id == databaseId }) else { continue }
                     try await repositoryNetwork.add(collectionManga)
                 } else {
-                    try await repository.deleteManga(withId: collectionManga.id)
+                    try await repository.deleteManga(withId: databaseId)
                 }
             }
             
