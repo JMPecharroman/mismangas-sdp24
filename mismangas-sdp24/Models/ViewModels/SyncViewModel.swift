@@ -42,59 +42,62 @@ final class SyncViewModel {
             }
             await MainActor.run {
                 if !firstSyncCompleted {
-                    sync(isInitialSync: true)
+                    sync()
                 }
             }
         }
     }
     
     func refresh() {
-        sync(isInitialSync: false)
+        sync()
     }
     
     // MARK: - Internal
     
-    private func sync(isInitialSync: Bool) {
+    private func sync(fromLogin: Bool = false) {
         guard !isLoading else { return }
         guard !isSynchronizing else { return }
         guard repository != nil else { return }
         guard repositoryNetwork.userIsLogged else { return }
         
         isLoading = false
-        isSynchronizing = isInitialSync
+        isSynchronizing = !fromLogin
         error = nil
         
         Task {
-            await syncServerAndDatabase(isInitialSync: isInitialSync)
+            await syncServerAndDatabase(fromLogin: fromLogin)
         }
     }
     
     @RepositoryActor
-    private func syncServerAndDatabase(isInitialSync: Bool) async {
+    private func syncServerAndDatabase(fromLogin: Bool) async {
         do {
             guard let repository = await repository else { throw RepositoryError.notInitialized }
+            
+            // Volcar del servidor a base de datos
             
             let apiCollection = try await repositoryNetwork.getAll()
             let apiCollectionSet = Set(apiCollection.compactMap{ $0.id })
             
+            for manga in apiCollection {
+                try await repository.addManga(manga)
+            }
+            
+            // Borrar los items en local que no están en remoto
+            
             let databaseCollection = try await repository.getAllMangas()
             let databaseCollectionSet = Set(databaseCollection.compactMap{ $0.id })
             
-            let apiToDatabase = apiCollectionSet.subtracting(databaseCollectionSet)
+            let databaseButNotApi = databaseCollectionSet.subtracting(apiCollectionSet)
             
-            for apiId in apiToDatabase {
-                guard let apiItem = apiCollection.first(where: { $0.id == apiId }) else { continue }
-                try await repository.addManga(apiItem)
-            }
-            
-            let databaseToApi = databaseCollectionSet.subtracting(apiCollectionSet)
-            
-            for databaseId in databaseToApi {
+            for databaseId in databaseButNotApi {
                 guard let collectionManga = databaseCollection.first(where: { $0.id == databaseId }) else { continue }
-                if isInitialSync {
-                    try await repository.deleteManga(withId: collectionManga.id)
-                } else {
+                if fromLogin {
+                    // Al sincronizar manda el servidor, excepto que el usuario acabe de iniciar sesión.
+                    // En este caso hay que subir lo que haya hecho sin sesión iniciada.
                     try await repositoryNetwork.add(collectionManga)
+                } else {
+                    try await repository.deleteManga(withId: collectionManga.id)
                 }
             }
             
@@ -131,7 +134,7 @@ final class SyncViewModel {
         Task {
             let userIsLogged = repositoryNetwork.userIsLogged
             if userIsLogged {
-                sync(isInitialSync: false)
+                sync(fromLogin: true)
             }
         }
     }

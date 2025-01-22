@@ -10,7 +10,7 @@ import Foundation
 enum ApiEndPoint: EndPoint {
     
     case bestMangas
-    case deleteCollectionManga(mangaId: Int)
+    case deleteCollectionManga(mangaId: Int, token: String)
     case listAuthors
     case listDemographics
     case listGenres
@@ -32,7 +32,7 @@ enum ApiEndPoint: EndPoint {
         switch self {
             case .bestMangas:
                 .apiBaseURL.appendingPathComponent("list/bestMangas")
-            case .deleteCollectionManga(let mangaId):
+            case .deleteCollectionManga(let mangaId, _):
                 .apiBaseURL.appendingPathComponent("/collection/manga/\(mangaId)")
             case .listAuthors:
                 .apiBaseURL.appendingPathComponent("list/authors")
@@ -82,6 +82,8 @@ enum ApiEndPoint: EndPoint {
     
     var headers: [HeaderField] {
         switch self {
+            case .deleteCollectionManga(_ , let token):
+                [.accept(.applicationJson), .appToken, .authorizationBearer(token: token)]
             case .login(let email, let password):
                 [.accept(.textPlain), .appToken, .authorizationBasic(email: email, password: password)]
             case .register:

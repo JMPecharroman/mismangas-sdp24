@@ -168,10 +168,10 @@ final class CollectionMangaViewModel {
         guard await repositoryIsInitialized() else { return }
         
         do {
-            try await repository?.deleteManga(withId: mangaId)
             if await repositoryNetwork.userIsLogged {
                 try await repositoryNetwork.delete(withId: mangaId)
             }
+            try await repository?.deleteManga(withId: mangaId)
             await MainActor.run {
                 self.entityIsDeleted = true
                 isLoading = false

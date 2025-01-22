@@ -9,7 +9,6 @@ import Foundation
 
 extension URLRequest {
     static func createRequest(from endPoint: EndPoint) -> URLRequest {
-        print("URL: \(endPoint.url)")
         var request = URLRequest(url: endPoint.url)
         request.timeoutInterval = 60
         request.httpMethod = endPoint.method.rawValue
@@ -22,7 +21,7 @@ extension URLRequest {
             request.httpBody = try? JSONEncoder().encode(body)
         }
             
-            return request
+        return request
     }
     
     static func get(_ endPoint: EndPoint) -> URLRequest {
