@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AuthRepositoryNetwork: AuthRepository, NetworkInteractor, Sendable {
+struct AuthRepositoryNetwork: AuthRepository, AuthManager, NetworkInteractor, Sendable {
     
     let urlSession: URLSession
     
@@ -20,7 +20,7 @@ struct AuthRepositoryNetwork: AuthRepository, NetworkInteractor, Sendable {
     }
     
     func renewToken(currentToken: String) async throws -> String {
-        ""
+        try await getString(request: .createRequest(from: ApiEndPoint.renewToken(token: currentToken)))
     }
 }
 

@@ -11,6 +11,7 @@ import SwiftUI
 @Observable @MainActor
 final class SyncViewModel {
     
+    var authRepository: AuthRepository
     var repository: CollectionRepository?
     var repositoryNetwork: CollectionApiRepository
     
@@ -22,7 +23,8 @@ final class SyncViewModel {
     
     // MARK: - Initialization
     
-    init(repository: CollectionRepository?, repositoryNetwork: CollectionApiRepository = .api) {
+    init(authRepository: AuthRepository = .api, repository: CollectionRepository?, repositoryNetwork: CollectionApiRepository = .api) {
+        self.authRepository = authRepository
         self.repository = repository
         self.repositoryNetwork = repositoryNetwork
         
@@ -58,74 +60,88 @@ final class SyncViewModel {
         guard !isLoading else { return }
         guard !isSynchronizing else { return }
         guard repository != nil else { return }
-        guard repositoryNetwork.userIsLogged else { return }
+        guard authRepository.userIsLogged else { return }
         
         isLoading = false
         isSynchronizing = !fromLogin
         error = nil
         
         Task {
-            await syncServerAndDatabase(fromLogin: fromLogin)
+            do {
+                try await renewToken()
+                try await syncServerAndDatabase(fromLogin: fromLogin)
+                
+                await MainActor.run {
+                    self.firstSyncCompleted = true
+                    self.isLoading = false
+                    self.isSynchronizing = false
+                }
+            } catch {
+                print("Error: \(error)")
+                let isError401: Bool = if case .status(let code) = error as? NetworkError {
+                    code == 401
+                } else {
+                    false
+                }
+                
+                if isError401 {
+                    await authRepository.logout()
+                }
+                
+                await MainActor.run {
+                    if isError401 {
+                        needRelogin = true
+                        self.error = AuthError.sessionExpired
+                    } else {
+                        self.error = error
+                    }
+                    self.isLoading = false
+                    self.isSynchronizing = false
+                }
+            }
         }
     }
     
     @RepositoryActor
-    private func syncServerAndDatabase(fromLogin: Bool) async {
-        do {
-            guard let repository = await repository else { throw RepositoryError.notInitialized }
-            
-            // Volcar del servidor a base de datos
-            
-            let apiCollection = try await repositoryNetwork.getAll()
-            let apiCollectionSet = Set(apiCollection.compactMap{ $0.id })
-            
-            for manga in apiCollection {
-                try await repository.addManga(manga)
-            }
-            
-            // Borrar los items en local que no están en remoto
-            
-            let databaseCollection = try await repository.getAllMangas()
-            let databaseCollectionSet = Set(databaseCollection.compactMap{ $0.id })
-            
-            let databaseButNotApi = databaseCollectionSet.subtracting(apiCollectionSet)
-            
-            for databaseId in databaseButNotApi {
-                if fromLogin {
-                    // Al sincronizar manda el servidor, excepto que el usuario acabe de iniciar sesión.
-                    // En este caso hay que subir lo que haya hecho sin sesión iniciada.
-                    guard let collectionManga = databaseCollection.first(where: { $0.id == databaseId }) else { continue }
-                    try await repositoryNetwork.add(collectionManga)
-                } else {
-                    try await repository.deleteManga(withId: databaseId)
-                }
-            }
-            
-            await MainActor.run {
-                self.firstSyncCompleted = true
-                self.isLoading = false
-                self.isSynchronizing = false
-            }
-        } catch {
-            let isError401: Bool = if case .status(let code) = error as? NetworkError {
-                code == 401
+    private func renewToken() async throws {
+        guard let lastTokenRenew = await repositoryNetwork.lastTokenRenew else { return }
+        print("Distance in days: \(Date().daysFrom(lastTokenRenew))")
+        guard true || Date().daysFrom(lastTokenRenew) > 0 else { return }
+        guard let userToken = await authRepository.userToken else { return }
+        
+        let newToken = try await authRepository.renewToken(currentToken: userToken)
+        print("newToken: \(newToken)")
+        await authRepository.tokenRenewed(newToken)
+    }
+    
+    @RepositoryActor
+    private func syncServerAndDatabase(fromLogin: Bool) async throws {
+        guard let repository = await repository else { throw RepositoryError.notInitialized }
+        
+        // Volcar del servidor a base de datos
+        
+        let apiCollection = try await repositoryNetwork.getAll()
+        let apiCollectionSet = Set(apiCollection.compactMap{ $0.id })
+        
+        for manga in apiCollection {
+            try await repository.addManga(manga)
+        }
+        
+        // Borrar los items en local que no están en remoto
+        
+        let databaseCollection = try await repository.getAllMangas()
+        let databaseCollectionSet = Set(databaseCollection.compactMap{ $0.id })
+        
+        let databaseButNotApi = databaseCollectionSet.subtracting(apiCollectionSet)
+        
+        for databaseId in databaseButNotApi {
+            if fromLogin {
+                // Al sincronizar manda el servidor, excepto que el usuario acabe de iniciar sesión.
+                // En este caso hay que subir lo que haya hecho sin sesión iniciada.
+                guard let collectionManga = databaseCollection.first(where: { $0.id == databaseId }) else { continue }
+                try await repositoryNetwork.add(collectionManga)
             } else {
-                false
-            }
-            
-            if isError401 {
-                await repositoryNetwork.logout()
-            }
-            
-            await MainActor.run {
-                if isError401 {
-                    needRelogin = true
-                    self.error = AuthError.sessionExpired
-                } else {
-                    self.error = error
-                }
-                self.isLoading = false
-                self.isSynchronizing = false
+                try await repository.deleteManga(withId: databaseId)
             }
         }
     }

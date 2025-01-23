@@ -12,7 +12,7 @@ struct CollectionView: View {
     
     static let viewTitle: String = "Colección"
     
-    @AppStorage("UserIsLogged") private var userIsLogged: Bool = false
+    @AppStorage(UserDefaultsKey.userIsLogged.rawValue) private var userIsLogged: Bool = false
     
     @Environment(\.modelContext) var modelContext
     @Environment(CollectionViewModel.self) private var collectionVM

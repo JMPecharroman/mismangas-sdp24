@@ -90,7 +90,7 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
     
     private func update(_ collectionManga: CollectionManga) async throws {
         guard let manga = try getCollectionMangaSD(withId: collectionManga.id) else { throw RepositoryError.entityNotFound }
-        
+    
         manga.title = collectionManga.title
         manga.cover = collectionManga.cover
         manga.totalVolumes = collectionManga.totalVolumes
@@ -98,7 +98,9 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
         manga.volumesOwned = collectionManga.volumesOwned
         manga.readingVolume = collectionManga.readingVolume
         
+        print("Try to save: \(collectionManga.title)")
         try context.save()
+        print("Save OK")
     }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("UserIsLogged") private var userIsLogged: Bool = false
+    @AppStorage(UserDefaultsKey.userIsLogged.rawValue) private var userIsLogged: Bool = false
     
     @Environment(\.modelContext) private var modelContext
     @Environment(SyncViewModel.self) private var vm

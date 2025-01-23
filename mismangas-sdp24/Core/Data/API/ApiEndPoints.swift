@@ -22,6 +22,7 @@ enum ApiEndPoint: EndPoint {
     case mangasByGenre(genre: String, page: Int)
     case mangasByTheme(theme: String, page: Int)
     case register(email: String, password: String)
+    case renewToken(token: String)
     case searchAuthor(text: String)
     case searchMangasBeginsWith(text: String)
     case searchMangasContains(text: String)
@@ -56,6 +57,8 @@ enum ApiEndPoint: EndPoint {
                 .apiBaseURL.appendingPathComponent("list/mangaByTheme").appendingPathComponent(theme).appending(queryItems: [.page(page)])
             case .register:
                 .apiBaseURL.appendingPathComponent("users")
+            case .renewToken(let token):
+                .apiBaseURL.appendingPathComponent("/users/renew")
             case .searchAuthor(let text):
                 .apiBaseURL.appendingPathComponent("search/author").appendingPathComponent(text.toPathComponent)
             case .searchMangasBeginsWith(let text):
@@ -88,6 +91,8 @@ enum ApiEndPoint: EndPoint {
                 [.accept(.textPlain), .appToken, .authorizationBasic(email: email, password: password)]
             case .register:
                 [.accept(.applicationJson), .appToken, .contentType(.applicationJsonCharsetUtf8)]
+            case .renewToken(let token):
+                [.accept(.textPlain), .appToken, .authorizationBearer(token: token)]
             case .updateCollectionManga(_, let token):
                 [.accept(.applicationJson), .appToken, .authorizationBearer(token: token), .contentType(.applicationJsonCharsetUtf8)]
             case .userMangas(let token):
@@ -104,6 +109,8 @@ enum ApiEndPoint: EndPoint {
             case .login:
                 .post
             case .register:
+                .post
+            case .renewToken:
                 .post
             case .updateCollectionManga:
                 .post

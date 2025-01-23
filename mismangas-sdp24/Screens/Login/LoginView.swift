@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @AppStorage("UserIsLogged") private var userIsLogged: Bool = false
+    @AppStorage(UserDefaultsKey.userIsLogged.rawValue) private var userIsLogged: Bool = false
     @Environment(\.dismiss) private var dismiss
     
     @FocusState private var focusedField: LoginField?
