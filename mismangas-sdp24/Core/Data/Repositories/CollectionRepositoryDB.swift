@@ -8,16 +8,14 @@
 import Foundation
 import SwiftData
 
-@RepositoryActor
-struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendable {
-    
-    let context: ModelContext
+@ModelActor
+actor CollectionRepositoryDB: CollectionRepository, Sendable {
     
     func addManga(_ collectionManga: CollectionManga) async throws {
         if (try await getManga(withId: collectionManga.id)) == nil {
             let collectionMangaSD = CollectionMangaSD(collectionManga: collectionManga)
-            context.insert(collectionMangaSD)
-            try context.save()
+            modelContext.insert(collectionMangaSD)
+            try modelContext.save()
         } else {
             try await update(collectionManga)
         }
@@ -25,8 +23,8 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
     
     func addManga(_ manga: Manga) async throws -> CollectionManga {
         let mangaSD = CollectionMangaSD(manga: manga)
-        context.insert(mangaSD)
-        try context.save()
+        modelContext.insert(mangaSD)
+        try modelContext.save()
         
         return mangaSD.toCollectionManga
     }
@@ -34,13 +32,13 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
     func deleteManga(withId id: Int) async throws {
         guard let manga = try getCollectionMangaSD(withId: id) else { throw RepositoryError.entityNotFound }
         
-        context.delete(manga)
-        try context.save()
+        modelContext.delete(manga)
+        try modelContext.save()
     }
     
     func getAllMangas() async throws -> [CollectionManga] {
         let descriptor = FetchDescriptor<CollectionMangaSD>()
-        return try context.fetch(descriptor).compactMap(\.toCollectionManga)
+        return try modelContext.fetch(descriptor).compactMap(\.toCollectionManga)
     }
     
     private func getCollectionMangaSD(withId id: Int) throws -> CollectionMangaSD? {
@@ -49,7 +47,7 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
                 manga.id == id
             }
         )
-        return try context.fetch(descriptor).first
+        return try modelContext.fetch(descriptor).first
     }
     
     func getManga(withId id: Int) async throws -> CollectionManga? {
@@ -69,7 +67,7 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
         manga.readingVolume = volume
         manga.completeCollection = volume == totalVolumes
         
-        try context.save()
+        try modelContext.save()
     }
     
     func setVolumeAsOwned(_ volume: Int, owned: Bool, forMangaWith id: Int) async throws {
@@ -85,7 +83,7 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
             manga.volumesOwned.removeAll(where: { $0 == volume })
         }
         
-        try context.save()
+        try modelContext.save()
     }
     
     private func update(_ collectionManga: CollectionManga) async throws {
@@ -98,16 +96,12 @@ struct CollectionRepositoryDB: CollectionRepository, DataBaseInteractor, Sendabl
         manga.volumesOwned = collectionManga.volumesOwned
         manga.readingVolume = collectionManga.readingVolume
         
-        print("Try to save: \(collectionManga.title)")
-        try context.save()
-        print("Save OK")
+        try modelContext.save()
     }
 }
 
 extension CollectionRepository where Self == CollectionRepositoryDB {
-    
-    @RepositoryActor
     static func swiftData(context: ModelContext) -> CollectionRepository {
-        CollectionRepositoryDB(context: context)
+        CollectionRepositoryDB(modelContainer: context.container)
     }
 }
