@@ -10,12 +10,12 @@ import SwiftUI
 @Observable @MainActor
 class MangasListViewModel {
     
-    private(set) var errorMangas: Error?
-    private(set) var isLoadingMangas: Bool = false
+    var errorMangas: Error?
+    var isLoadingMangas: Bool = false
     private var lastFirstManga: Manga?
-    private(set) var mangas: [Manga] = []
-    private(set) var maxPage: Int = 1
-    private(set) var page: Int = 1
+    var mangas: [Manga] = []
+    var maxPage: Int = 1
+    var page: Int = 1
     private var task: Task<Void, Never>?
     
     var canLoadMoreMangas: Bool {
@@ -62,6 +62,7 @@ class MangasListViewModel {
         
         page = 1
         maxPage = 1
+        mangas.removeAll()
         
         loadMoreMangas()
     }

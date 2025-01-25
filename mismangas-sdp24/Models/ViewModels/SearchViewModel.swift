@@ -13,11 +13,15 @@ final class SearchViewModel: MangasListViewModel {
     private(set) var authors: [Author] = []
     private(set) var authorsError: Error?
     private var authorsTask: Task<Void, Never>?
+    private(set) var customSearchError: Error?
+    private(set) var isCustomSearch: Bool = false
     private(set) var isLoadingAuthors: Bool = false
+    private(set) var isLoadingCustomSearch: Bool = false
     private let repository: MangasRepository
     private var searchText: String?
     private(set) var searchCase: SearchCase = .mangaContains
     private(set) var useMangasList: Bool = true
+    
     
     // MARK: - Initialization
     
@@ -28,7 +32,16 @@ final class SearchViewModel: MangasListViewModel {
     
     // MARK: - Interface
     
+    func search(_ custom: CustomSearch) {
+        isCustomSearch = true
+        searchText = "custom"
+        searchCase = .custom(custom)
+        useMangasList = true
+        refreshMangas(forceReload: true)
+    }
+    
     func search(_ text: String, searchCase: SearchCase?) {
+        isCustomSearch = false
         searchText = text
         if let searchCase {
             self.searchCase = searchCase
@@ -51,6 +64,7 @@ final class SearchViewModel: MangasListViewModel {
             case .author: "Autores con \"\(searchText)\""
             case .mangaBegins: "Mangas que comienzan con \"\(searchText)\""
             case .mangaContains: "Mangas con \"\(searchText)\""
+            case .custom: "Búsqueda avanzada"
         }
     }
     
@@ -80,24 +94,31 @@ final class SearchViewModel: MangasListViewModel {
     @RepositoryActor
     override func getMangas() async {
         do {
-            let response: [Manga]
-            if let searchText = await self.searchText {
-                response = switch await self.searchCase {
+            var response: [Manga] = []
+            let searchText = await self.searchText ?? ""
+            
+            if await isCustomSearch || !searchText.isEmpty {
+                switch await self.searchCase {
                     case .author:
-                        try await repository.getMangasBeginsWith(searchText)
+                        response = try await repository.getMangasBeginsWith(searchText)
                     case .mangaBegins:
-                        try await repository.getMangasBeginsWith(searchText)
+                        response = try await repository.getMangasBeginsWith(searchText)
                     case .mangaContains:
-                        try await repository.getMangasBeginsWith(searchText)
+                        response = try await repository.getMangasBeginsWith(searchText)
+                    case .custom(let custom):
+                        let customResponse = try await repository.getMangasCustom(custom, page: page)
+                        await MainActor.run {
+                            processResponse(customResponse)
+                        }
+                        return
                 }
-            } else {
-                response = []
             }
+            
             await MainActor.run {
                 processResponse(response)
             }
         } catch {
-            print("Error: \(error.localizedDescription)")
+            print("Error: \(error)")
             await MainActor.run {
                 processError(error)
             }
@@ -119,4 +140,5 @@ enum SearchCase {
     case author
     case mangaBegins
     case mangaContains
+    case custom(CustomSearch)
 }

@@ -59,6 +59,11 @@ struct MangasRepositoryPreview: MangasRepository {
         let response: [MangaDTO] = try Bundle.main.getJSON("MangasContains")
         return response.compactMap(\.toManga)
     }
+    
+    func getMangasCustom(_ custom: CustomSearch, page: Int) async throws -> MangasResponse {
+        let response: ListMangasResponse = try Bundle.main.getJSON("SearchManga")
+        return response.toMangasResponse
+    }
 }
 
 extension MangasRepository where Self == MangasRepositoryPreview {

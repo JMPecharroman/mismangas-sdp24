@@ -12,7 +12,7 @@ struct SearchMangasView: View {
     static let viewTitle: String = "Buscar"
     
     @Environment(MangasViewModel.self) private var mangasVM
-    @State var searchVM: SearchViewModel = .init()
+    @State var searchVM: SearchViewModel
     
     @State private var isLoading: Bool = true
     @State private var showFilterSheet: Bool = false
@@ -25,7 +25,7 @@ struct SearchMangasView: View {
         NavigationStack {
             VStack {
                 if searchText.isEmpty {
-                    MangasList(vm: mangasVM)
+                    MangasList(vm: searchVM.isCustomSearch ? searchVM : mangasVM)
                         .navigationTitle(Self.viewTitle)
                 } else {
                     List {
@@ -65,10 +65,19 @@ struct SearchMangasView: View {
                 }
             }
             .navigationDestinations()
-        }
-        .debouncedSearchable(text: $searchText, isPresented: $searchableIsPresented, delay: .seconds(2.0)) { _ in
-            guard !showSearchResults else { return }
-            performSearch(showSearchOptions: true, searchCase: nil)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showFilterSheet = true
+                    } label: {
+                        Label("Búsqueda avanzada", systemImage: "line.3.horizontal.decrease.circle")
+                    }
+                }
+            }
+            .debouncedSearchable(text: $searchText, isPresented: $searchableIsPresented, delay: .seconds(2.0)) { _ in
+                guard !showSearchResults else { return }
+                performSearch(showSearchOptions: true, searchCase: nil)
+            }
         }
         .onChange(of: searchText) {
             showSearchOptions = true
@@ -79,7 +88,7 @@ struct SearchMangasView: View {
             showSearchOptions = true
         }
         .sheet(isPresented: $showFilterSheet) {
-            SearchFiltersView()
+            SearchFiltersView(vm: $searchVM, isPresented: $showFilterSheet)
         }
         .onSubmit(of: .search) {
             performSearch(searchCase: nil)
@@ -91,6 +100,12 @@ struct SearchMangasView: View {
         showSearchResults = true
         searchableIsPresented = false
         searchVM.search(searchText, searchCase: searchCase)
+    }
+}
+
+extension SearchMangasView {
+    init () {
+        self.init(searchVM: SearchViewModel())
     }
 }
 

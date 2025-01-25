@@ -75,6 +75,7 @@
 				"Preview Content/Data/MangasByAuthor.json",
 				"Preview Content/Data/MangasByGenre.json",
 				"Preview Content/Data/MangasContains.json",
+				"Preview Content/Data/SearchManga.json",
 			);
 			target = 205285912D0709A8005247E8 /* mismangas-sdp24Tests */;
 		};

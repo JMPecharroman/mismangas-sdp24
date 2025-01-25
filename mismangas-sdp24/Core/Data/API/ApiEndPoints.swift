@@ -24,6 +24,7 @@ enum ApiEndPoint: EndPoint {
     case register(email: String, password: String)
     case renewToken(token: String)
     case searchAuthor(text: String)
+    case searchMangas(custom: CustomSearch, page: Int)
     case searchMangasBeginsWith(text: String)
     case searchMangasContains(text: String)
     case updateCollectionManga(collectionManga: CollectionManga, token: String)
@@ -57,10 +58,12 @@ enum ApiEndPoint: EndPoint {
                 .apiBaseURL.appendingPathComponent("list/mangaByTheme").appendingPathComponent(theme).appending(queryItems: [.page(page)])
             case .register:
                 .apiBaseURL.appendingPathComponent("users")
-            case .renewToken(let token):
+            case .renewToken:
                 .apiBaseURL.appendingPathComponent("/users/renew")
             case .searchAuthor(let text):
                 .apiBaseURL.appendingPathComponent("search/author").appendingPathComponent(text.toPathComponent)
+            case .searchMangas(_, let page):
+                .apiBaseURL.appendingPathComponent("search/manga").appending(queryItems: [.page(page)])
             case .searchMangasBeginsWith(let text):
                 .apiBaseURL.appendingPathComponent("search/mangasBeginsWith").appendingPathComponent(text.toPathComponent)
             case .searchMangasContains(let text):
@@ -76,6 +79,8 @@ enum ApiEndPoint: EndPoint {
         switch self {
             case .register(let email, let password):
                 RegisterRequestData(email: email, password: password)
+            case .searchMangas(let custom, _):
+                custom
             case .updateCollectionManga(let collectionManga, _):
                 UpdateCollectionMangaRequestData(with: collectionManga)
             default:
@@ -93,6 +98,8 @@ enum ApiEndPoint: EndPoint {
                 [.accept(.applicationJson), .appToken, .contentType(.applicationJsonCharsetUtf8)]
             case .renewToken(let token):
                 [.accept(.textPlain), .appToken, .authorizationBearer(token: token)]
+            case .searchMangas:
+                [.accept(.applicationJson), .contentType(.applicationJsonCharsetUtf8)]
             case .updateCollectionManga(_, let token):
                 [.accept(.applicationJson), .appToken, .authorizationBearer(token: token), .contentType(.applicationJsonCharsetUtf8)]
             case .userMangas(let token):
@@ -111,6 +118,8 @@ enum ApiEndPoint: EndPoint {
             case .register:
                 .post
             case .renewToken:
+                .post
+            case .searchMangas:
                 .post
             case .updateCollectionManga:
                 .post

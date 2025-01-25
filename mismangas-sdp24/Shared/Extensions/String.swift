@@ -13,6 +13,10 @@ extension String {
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: self)
     }
     
+    var nullifyIfEmpty: String? {
+        isEmpty ? nil : self
+    }
+    
     var toPathComponent: String {
         self.trimmingCharacters(in: .whitespacesAndNewlines)
     }

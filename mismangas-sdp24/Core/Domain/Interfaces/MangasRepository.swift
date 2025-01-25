@@ -10,6 +10,7 @@ import Foundation
 protocol MangasRepository: Sendable {
     
     // Lists
+    
     func getBestMangas() async throws -> [Manga]
     func getList(page: Int, per: Int) async throws -> MangasResponse
     
@@ -25,4 +26,5 @@ protocol MangasRepository: Sendable {
     func getAuthorsContains(_ text: String) async throws -> [Author]
     func getMangasBeginsWith(_ text: String) async throws -> [Manga]
     func getMangasContains(_ text: String) async throws -> [Manga]
+    func getMangasCustom(_ custom: CustomSearch, page: Int) async throws -> MangasResponse
 }

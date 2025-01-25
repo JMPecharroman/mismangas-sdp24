@@ -52,6 +52,10 @@ struct MangasRepositoryNetwork: MangasRepository, NetworkInteractor, Sendable {
     func getMangasContains(_ text: String) async throws -> [Manga] {
         try await getJSON(request: .get(ApiEndPoint.searchMangasContains(text: text)), type: [MangaDTO].self).compactMap(\.toManga)
     }
+    
+    func getMangasCustom(_ custom: CustomSearch, page: Int) async throws -> MangasResponse {
+        try await getJSON(request: .createRequest(from: ApiEndPoint.searchMangas(custom: custom, page: page)), type: ListMangasResponse.self).toMangasResponse
+    }
 }
 
 extension MangasRepository where Self == MangasRepositoryNetwork {
