@@ -88,7 +88,7 @@ final class CollectionViewModel {
         guard await repositoryIsInitialized() else { return }
         
         do {
-            let mangas = try await repository?.getAllMangas()
+            let mangas = try await repository?.getAllMangas().sorted(by: { $0.title < $1.title })
             await MainActor.run {
                 self.mangas = mangas ?? []
                 isLoading = false

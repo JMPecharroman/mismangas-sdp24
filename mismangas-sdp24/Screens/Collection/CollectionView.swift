@@ -18,7 +18,7 @@ struct CollectionView: View {
     @Environment(CollectionViewModel.self) private var collectionVM
     @Environment(SyncViewModel.self) private var syncVM
     
-    @Query var mangas: [CollectionMangaSD]
+    @Query(sort: \CollectionMangaSD.title) var mangas: [CollectionMangaSD]
     
     @State private var showDeleteConfirmation: Bool = false
     @State private var showLoginSheet: Bool = false
@@ -46,13 +46,17 @@ struct CollectionView: View {
                 if mangas.isEmpty {
                     CollectionIsEmpty()
                 } else {
-                    ForEach(mangas) {
-                        CollectionMangaListCell(manga: $0.toCollectionManga)
-                    }
-                    .onDelete {
-                        guard let index = $0.first else { return }
-                        selectedManga = mangas[index]
-                        showDeleteConfirmation = true
+                    ForEach(mangas) { manga in
+                        CollectionMangaListCell(manga: manga.toCollectionManga)
+                            .swipeActions {
+                                Button {
+                                    selectedManga = manga
+                                    showDeleteConfirmation = true
+                                } label: {
+                                    Text("Eliminar")
+                                }
+                                .tint(.red)
+                            }
                     }
                 }
             }
