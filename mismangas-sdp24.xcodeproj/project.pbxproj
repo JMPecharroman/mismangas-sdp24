@@ -6,7 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		201CA59E2D4580180005D46B /* mismangas-sdp24watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 201CA57B2D4580150005D46B /* mismangas-sdp24watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		201CA58B2D4580170005D46B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 204BDA522CFFA69F003A2989 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 201CA57A2D4580150005D46B;
+			remoteInfo = "mismangas-sdp24watch Watch App";
+		};
+		201CA5952D4580180005D46B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 204BDA522CFFA69F003A2989 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 201CA57A2D4580150005D46B;
+			remoteInfo = "mismangas-sdp24watch Watch App";
+		};
+		201CA59C2D4580180005D46B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 204BDA522CFFA69F003A2989 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 201CA57A2D4580150005D46B;
+			remoteInfo = "mismangas-sdp24watch Watch App";
+		};
 		205285962D0709A8005247E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 204BDA522CFFA69F003A2989 /* Project object */;
@@ -16,7 +41,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		201CA59F2D4580180005D46B /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				201CA59E2D4580180005D46B /* mismangas-sdp24watch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		201CA57B2D4580150005D46B /* mismangas-sdp24watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mismangas-sdp24watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		201CA58A2D4580170005D46B /* mismangas-sdp24watch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mismangas-sdp24watch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		201CA5942D4580180005D46B /* mismangas-sdp24watch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mismangas-sdp24watch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		204BDA5A2CFFA69F003A2989 /* mismangas-sdp24.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mismangas-sdp24.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		205285922D0709A8005247E8 /* mismangas-sdp24Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mismangas-sdp24Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -82,6 +124,16 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		201CA57C2D4580150005D46B /* mismangas-sdp24watch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "mismangas-sdp24watch";
+			sourceTree = "<group>";
+		};
+		201CA58D2D4580170005D46B /* mismangas-sdp24watchTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "mismangas-sdp24watchTests";
+			sourceTree = "<group>";
+		};
 		204BDA5C2CFFA69F003A2989 /* mismangas-sdp24 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -98,6 +150,27 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		201CA5782D4580150005D46B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		201CA5872D4580170005D46B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		201CA5912D4580180005D46B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		204BDA572CFFA69F003A2989 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -120,6 +193,8 @@
 			children = (
 				204BDA5C2CFFA69F003A2989 /* mismangas-sdp24 */,
 				205285932D0709A8005247E8 /* mismangas-sdp24Tests */,
+				201CA57C2D4580150005D46B /* mismangas-sdp24watch */,
+				201CA58D2D4580170005D46B /* mismangas-sdp24watchTests */,
 				204BDA5B2CFFA69F003A2989 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -129,6 +204,9 @@
 			children = (
 				204BDA5A2CFFA69F003A2989 /* mismangas-sdp24.app */,
 				205285922D0709A8005247E8 /* mismangas-sdp24Tests.xctest */,
+				201CA57B2D4580150005D46B /* mismangas-sdp24watch Watch App.app */,
+				201CA58A2D4580170005D46B /* mismangas-sdp24watch Watch AppTests.xctest */,
+				201CA5942D4580180005D46B /* mismangas-sdp24watch Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,6 +214,71 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		201CA57A2D4580150005D46B /* mismangas-sdp24watch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 201CA5A62D4580180005D46B /* Build configuration list for PBXNativeTarget "mismangas-sdp24watch Watch App" */;
+			buildPhases = (
+				201CA5772D4580150005D46B /* Sources */,
+				201CA5782D4580150005D46B /* Frameworks */,
+				201CA5792D4580150005D46B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				201CA57C2D4580150005D46B /* mismangas-sdp24watch */,
+			);
+			name = "mismangas-sdp24watch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "mismangas-sdp24watch Watch App";
+			productReference = 201CA57B2D4580150005D46B /* mismangas-sdp24watch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		201CA5892D4580170005D46B /* mismangas-sdp24watch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 201CA5A72D4580180005D46B /* Build configuration list for PBXNativeTarget "mismangas-sdp24watch Watch AppTests" */;
+			buildPhases = (
+				201CA5862D4580170005D46B /* Sources */,
+				201CA5872D4580170005D46B /* Frameworks */,
+				201CA5882D4580170005D46B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				201CA58C2D4580170005D46B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				201CA58D2D4580170005D46B /* mismangas-sdp24watchTests */,
+			);
+			name = "mismangas-sdp24watch Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "mismangas-sdp24watch Watch AppTests";
+			productReference = 201CA58A2D4580170005D46B /* mismangas-sdp24watch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		201CA5932D4580180005D46B /* mismangas-sdp24watch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 201CA5A82D4580180005D46B /* Build configuration list for PBXNativeTarget "mismangas-sdp24watch Watch AppUITests" */;
+			buildPhases = (
+				201CA5902D4580180005D46B /* Sources */,
+				201CA5912D4580180005D46B /* Frameworks */,
+				201CA5922D4580180005D46B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				201CA5962D4580180005D46B /* PBXTargetDependency */,
+			);
+			name = "mismangas-sdp24watch Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "mismangas-sdp24watch Watch AppUITests";
+			productReference = 201CA5942D4580180005D46B /* mismangas-sdp24watch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		204BDA592CFFA69F003A2989 /* mismangas-sdp24 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 204BDA682CFFA6A1003A2989 /* Build configuration list for PBXNativeTarget "mismangas-sdp24" */;
@@ -143,10 +286,12 @@
 				204BDA562CFFA69F003A2989 /* Sources */,
 				204BDA572CFFA69F003A2989 /* Frameworks */,
 				204BDA582CFFA69F003A2989 /* Resources */,
+				201CA59F2D4580180005D46B /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				201CA59D2D4580180005D46B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				204BDA5C2CFFA69F003A2989 /* mismangas-sdp24 */,
@@ -188,9 +333,20 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					201CA57A2D4580150005D46B = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					201CA5892D4580170005D46B = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 201CA57A2D4580150005D46B;
+					};
+					201CA5932D4580180005D46B = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 201CA57A2D4580150005D46B;
+					};
 					204BDA592CFFA69F003A2989 = {
 						CreatedOnToolsVersion = 16.1;
 					};
@@ -217,11 +373,35 @@
 			targets = (
 				204BDA592CFFA69F003A2989 /* mismangas-sdp24 */,
 				205285912D0709A8005247E8 /* mismangas-sdp24Tests */,
+				201CA57A2D4580150005D46B /* mismangas-sdp24watch Watch App */,
+				201CA5892D4580170005D46B /* mismangas-sdp24watch Watch AppTests */,
+				201CA5932D4580180005D46B /* mismangas-sdp24watch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		201CA5792D4580150005D46B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		201CA5882D4580170005D46B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		201CA5922D4580180005D46B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		204BDA582CFFA69F003A2989 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,6 +419,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		201CA5772D4580150005D46B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		201CA5862D4580170005D46B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		201CA5902D4580180005D46B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		204BDA562CFFA69F003A2989 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +457,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		201CA58C2D4580170005D46B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 201CA57A2D4580150005D46B /* mismangas-sdp24watch Watch App */;
+			targetProxy = 201CA58B2D4580170005D46B /* PBXContainerItemProxy */;
+		};
+		201CA5962D4580180005D46B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 201CA57A2D4580150005D46B /* mismangas-sdp24watch Watch App */;
+			targetProxy = 201CA5952D4580180005D46B /* PBXContainerItemProxy */;
+		};
+		201CA59D2D4580180005D46B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 201CA57A2D4580150005D46B /* mismangas-sdp24watch Watch App */;
+			targetProxy = 201CA59C2D4580180005D46B /* PBXContainerItemProxy */;
+		};
 		205285972D0709A8005247E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 204BDA592CFFA69F003A2989 /* mismangas-sdp24 */;
@@ -264,6 +480,144 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		201CA5A02D4580180005D46B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"mismangas-sdp24watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "mismangas-sdp24watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.jmpecharroman.mismangas-sdp24";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		201CA5A12D4580180005D46B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"mismangas-sdp24watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "mismangas-sdp24watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.jmpecharroman.mismangas-sdp24";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
+		201CA5A22D4580180005D46B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24watch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mismangas-sdp24watch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mismangas-sdp24watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		201CA5A32D4580180005D46B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24watch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mismangas-sdp24watch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mismangas-sdp24watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
+		201CA5A42D4580180005D46B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24watch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "mismangas-sdp24watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		201CA5A52D4580180005D46B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24watch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "mismangas-sdp24watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
 		204BDA662CFFA6A1003A2989 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -490,6 +844,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		201CA5A62D4580180005D46B /* Build configuration list for PBXNativeTarget "mismangas-sdp24watch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				201CA5A02D4580180005D46B /* Debug */,
+				201CA5A12D4580180005D46B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		201CA5A72D4580180005D46B /* Build configuration list for PBXNativeTarget "mismangas-sdp24watch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				201CA5A22D4580180005D46B /* Debug */,
+				201CA5A32D4580180005D46B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		201CA5A82D4580180005D46B /* Build configuration list for PBXNativeTarget "mismangas-sdp24watch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				201CA5A42D4580180005D46B /* Debug */,
+				201CA5A52D4580180005D46B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		204BDA552CFFA69F003A2989 /* Build configuration list for PBXProject "mismangas-sdp24" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
