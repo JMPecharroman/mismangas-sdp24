@@ -121,7 +121,7 @@ final class AuthViewModel {
                 isLoading = false
             }
         } catch {
-            print("Error: \(error.localizedDescription)")
+            print("Error: \(error)")
             await MainActor.run {
                 self.error = error
                 isLoading = false
@@ -131,7 +131,7 @@ final class AuthViewModel {
     
     private func validateForm(isRegister: Bool = false) throws {
         if email.isEmpty { throw AuthError.emailIsEmpty }
-        // TODO: Validar que es un email
+        if !email.isValidEmail { throw AuthError.emailNotValid }
         if password.isEmpty { throw AuthError.passwordIsEmpty }
         if password.count < 8 { throw AuthError.passwordIsTooShort(8) }
         if password.count > 16 { throw AuthError.passwordIsTooLong(16) }

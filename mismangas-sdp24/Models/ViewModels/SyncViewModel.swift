@@ -105,18 +105,18 @@ final class SyncViewModel {
     @RepositoryActor
     private func renewToken() async throws {
         guard let lastTokenRenew = await repositoryNetwork.lastTokenRenew else { return }
-        print("Distance in days: \(Date().daysFrom(lastTokenRenew))")
-        guard true || Date().daysFrom(lastTokenRenew) > 0 else { return }
+        guard Date().daysFrom(lastTokenRenew) > 0 else { return }
         guard let userToken = await authRepository.userToken else { return }
         
         let newToken = try await authRepository.renewToken(currentToken: userToken)
-        print("newToken: \(newToken)")
         await authRepository.tokenRenewed(newToken)
     }
     
     @RepositoryActor
     private func syncServerAndDatabase(fromLogin: Bool) async throws {
         guard let repository = await repository else { throw RepositoryError.notInitialized }
+        
+        // TODO: Subir los mangas no sincronizados.
         
         // Volcar del servidor a base de datos
         

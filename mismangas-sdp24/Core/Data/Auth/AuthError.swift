@@ -9,6 +9,7 @@ import Foundation
 
 enum AuthError: Error, LocalizedError {
     case emailIsEmpty
+    case emailNotValid
     case noActiveSession
     case passwordConfirmationIsEmpty
     case passwordIsEmpty
@@ -20,6 +21,7 @@ enum AuthError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
             case .emailIsEmpty: "Introduce el email"
+            case .emailNotValid: "El email introduccido no es válido"
             case .noActiveSession: "Debes inciar sesión para acceder a está función"
             case .passwordConfirmationIsEmpty: "Confirma tu contraseña"
             case .passwordIsEmpty: "Introduce tu contraseña"
