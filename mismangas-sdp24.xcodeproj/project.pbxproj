@@ -64,6 +64,83 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		201CA7952D45843E0005D46B /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24watch Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Data/API/ApiConfig.swift,
+				Core/Data/API/ApiEndPoints.swift,
+				Core/Data/API/RequestData/RegisterRequestData.swift,
+				Core/Data/API/RequestData/UpdateCollectionMangaRequestData.swift,
+				Core/Data/API/Responses/ListMangasResponse.swift,
+				Core/Data/API/URL.swift,
+				Core/Data/Auth/AuthError.swift,
+				Core/Data/Auth/AuthManager.swift,
+				Core/Data/DataBase/SwiftData/CollectionMangaSD.swift,
+				Core/Data/DTO/AuthorDTO.swift,
+				Core/Data/DTO/CollectionMangaDTO.swift,
+				Core/Data/DTO/DemographicDTO.swift,
+				Core/Data/DTO/GenreDTO.swift,
+				Core/Data/DTO/MangaDTO.swift,
+				Core/Data/DTO/ThemeDTO.swift,
+				"Core/Data/Mappers/Author+AuthorDTO.swift",
+				"Core/Data/Mappers/Category+DemographicDTO.swift",
+				"Core/Data/Mappers/Category+GenreDTO.swift",
+				"Core/Data/Mappers/Category+ThemeDTO.swift",
+				"Core/Data/Mappers/CollectionManga+CollectionMangaDTO.swift",
+				"Core/Data/Mappers/CollectionManga+CollectionMangaSD.swift",
+				"Core/Data/Mappers/Manga+MangaDTO.swift",
+				Core/Data/Network/EndPoint.swift,
+				Core/Data/Network/HeaderField.swift,
+				Core/Data/Network/HTTPMethod.swift,
+				Core/Data/Network/NetworkError.swift,
+				Core/Data/Network/NetworkInteractor.swift,
+				Core/Data/Network/URLQueryItem.swift,
+				Core/Data/Network/URLRequest.swift,
+				Core/Data/Network/URLSession.swift,
+				Core/Data/Repositories/AuthRepositoryNetwork.swift,
+				Core/Data/Repositories/CollectionApiRepositoryNetwork.swift,
+				Core/Data/Repositories/CollectionRepositoryDB.swift,
+				Core/Data/Repositories/RepositoryError.swift,
+				Core/Data/Storage/Keychain.swift,
+				Core/Data/Storage/KeyChainKeys.swift,
+				Core/Domain/Interfaces/AuthRepository.swift,
+				Core/Domain/Interfaces/CollectionApiRepository.swift,
+				Core/Domain/Interfaces/CollectionRepository.swift,
+				Core/Domain/Model/Author.swift,
+				Core/Domain/Model/Category.swift,
+				Core/Domain/Model/CategoryGroup.swift,
+				Core/Domain/Model/CollectionManga.swift,
+				Core/Domain/Model/CustomSearch.swift,
+				Core/Domain/Model/Manga.swift,
+				Core/Domain/Model/MangaStatus.swift,
+				Models/Presentation/CollectionMangaPresentation.swift,
+				Models/ViewModels/AuthViewModel.swift,
+				Models/ViewModels/CollectionMangaViewModel.swift,
+				Models/ViewModels/CollectionViewModel.swift,
+				Models/ViewModels/SyncViewModel.swift,
+				"Preview Content/Model/CollectionMangaPreview.swift",
+				"Preview Content/Model/MangaDTOPreview.swift",
+				"Preview Content/Model/MangaPreview.swift",
+				"Preview Content/Repository/AuthRepositoryPreview.swift",
+				"Preview Content/ViewModel/AuthViewModelPreview.swift",
+				Screens/Collection/Components/CollectionIsEmpty.swift,
+				Shared/Actors/RepositoryActor.swift,
+				Shared/ApiConfig.plist,
+				Shared/Components/Modifiers/LoadingViewModifier/LoadingViewModifier.swift,
+				Shared/Components/Others/ImageCached/ImageCachedView.swift,
+				Shared/Components/Others/ImageCached/ImageCachedViewModel.swift,
+				Shared/Components/Others/Poster/Poster.swift,
+				Shared/Extensions/Bundle.swift,
+				Shared/Extensions/Date.swift,
+				Shared/Extensions/DateFormatter.swift,
+				Shared/Extensions/NSNotification.swift,
+				Shared/Extensions/String.swift,
+				Shared/Extensions/UserDefaults.swift,
+				Shared/Utils/ImageDownloader.swift,
+				Shared/Utils/UserDefaultsKeys.swift,
+			);
+			target = 201CA57A2D4580150005D46B /* mismangas-sdp24watch Watch App */;
+		};
 		204A2A792D0767CF00B886A0 /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24Tests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -86,14 +163,12 @@
 				Core/Data/Network/URLRequest.swift,
 				Core/Data/Network/URLSession.swift,
 				Core/Data/Repositories/AuthorsRepositoryNetwork.swift,
-				Core/Data/Repositories/AuthRepositoryNetwork.swift,
 				Core/Data/Repositories/CategoriesRepositoryNetwork.swift,
 				Core/Data/Repositories/CollectionApiRepositoryNetwork.swift,
 				Core/Data/Repositories/CollectionRepositoryDB.swift,
 				Core/Data/Repositories/MangasRepositoryNetwork.swift,
 				Core/Data/Repositories/RepositoryError.swift,
 				Core/Domain/Interfaces/AuthorsRepository.swift,
-				Core/Domain/Interfaces/AuthRepository.swift,
 				Core/Domain/Interfaces/CategoriesRepository.swift,
 				Core/Domain/Interfaces/CollectionApiRepository.swift,
 				Core/Domain/Interfaces/CollectionRepository.swift,
@@ -138,6 +213,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				204A2A792D0767CF00B886A0 /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24Tests" target */,
+				201CA7952D45843E0005D46B /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24watch Watch App" target */,
 			);
 			path = "mismangas-sdp24";
 			sourceTree = "<group>";
@@ -487,7 +563,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"mismangas-sdp24watch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"mismangas-sdp24watch/Preview Content\" \"mismangas-sdp24/Preview Content\"";
 				DEVELOPMENT_TEAM = 52QFGH8723;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -517,7 +593,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"mismangas-sdp24watch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"mismangas-sdp24watch/Preview Content\" \"mismangas-sdp24/Preview Content\"";
 				DEVELOPMENT_TEAM = 52QFGH8723;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

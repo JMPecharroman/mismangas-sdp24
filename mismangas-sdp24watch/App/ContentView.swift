@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  mismangas-sdp24watch Watch App
+//  mismangas-sdp24watch
 //
 //  Created by José Mª Pecharromán on 25/1/25.
 //
@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @AppStorage(UserDefaultsKey.userIsLogged.rawValue) private var userIsLoggeed: Bool = false
+    
+    @Environment(\.modelContext) private var modelContext
+    @Environment(SyncViewModel.self) private var vm
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            if userIsLoggeed {
+                HomeView()
+            } else  {
+                LoginView()
+            }
         }
-        .padding()
+        .loading(vm.isSynchronizing, label: "Sincronizando...", opacity: 1.0)
+        .onAppear {
+            vm.onAppear(modelContext: modelContext)
+        }
     }
 }
 
