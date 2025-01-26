@@ -16,10 +16,18 @@ struct Poster: View {
             ImageCached(url: url)
                 .aspectRatio(150.0 / 225.0, contentMode: .fit)
                 .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                 .padding(.vertical, 4.0)
         }
+    }
+    
+    private var cornerRadius: CGFloat {
+        #if os(watchOS)
+        4.0
+        #else
+        10.0
+        #endif
     }
 }
 

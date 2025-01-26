@@ -34,7 +34,7 @@ struct ContentView: View {
         .sheet(isPresented: $showLoginView) {
             LoginView()
         }
-        .loading(vm.isSynchronizing, opacity: 1.0)
+        .loading(vm.isSynchronizing, label: "Sincronizando...", opacity: 1.0)
         .onAppear {
             vm.onAppear(modelContext: modelContext)
         }

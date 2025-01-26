@@ -25,28 +25,9 @@ extension Category {
     }
 }
 
-extension CollectionManga {
-    static var preview: CollectionManga {
-        CollectionMangaSD(manga: .preview).toCollectionManga
-    }
-}
-
-extension Manga {
-    static var preview: Manga {
-        MangaDTO.preview.toManga!
-    }
-}
-
 extension Array where Element == Manga {
     static var preview: [Manga] {
         let listMangas: ListMangasResponse = try! Bundle.main.getJSON("ListMangasMockData")
         return listMangas.items.compactMap(\.toManga)
-    }
-}
-
-extension MangaDTO {
-    static var preview: MangaDTO {
-        let listMangas: ListMangasResponse = try! Bundle.main.getJSON("ListMangasMockData")
-        return listMangas.items.first!
     }
 }

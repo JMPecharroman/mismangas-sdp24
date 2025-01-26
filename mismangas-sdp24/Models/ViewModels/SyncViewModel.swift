@@ -38,15 +38,11 @@ final class SyncViewModel {
     // MARK: - Interface
     
     func onAppear(modelContext: ModelContext) {
-        Task {
-            if repository == nil {
-                repository = await .swiftData(context: modelContext)
-            }
-            await MainActor.run {
-                if !firstSyncCompleted {
-                    sync()
-                }
-            }
+        if repository == nil {
+            repository = .swiftData(context: modelContext)
+        }
+        if !firstSyncCompleted {
+            sync()
         }
     }
     

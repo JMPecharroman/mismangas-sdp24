@@ -5,12 +5,6 @@
 //  Created by José Mª Pecharromán on 15/12/24.
 //
 
-extension AuthViewModel {
-    static var preview: AuthViewModel {
-        AuthViewModel(repository: .preview)
-    }
-}
-
 extension AuthorViewModel {
     static var preview: AuthorViewModel {
         AuthorViewModel(author: .preview, repository: .preview)
