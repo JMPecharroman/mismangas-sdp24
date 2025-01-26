@@ -22,12 +22,14 @@ struct MangaHeader: View {
                 
                 Text(manga.title)
                     .font(.title)
+                    .multilineTextAlignment(.center)
                     .bold()
                     .padding(.horizontal, 16.0)
                 
                 if let titleJapanese = manga.titleJapanese, !titleJapanese.isEmpty {
                     Text(titleJapanese)
                         .font(.subheadline)
+                        .multilineTextAlignment(.center)
                         .lineLimit(2)
                         .padding(.horizontal, 16.0)
                         .frame(maxWidth: 360.0)

@@ -12,6 +12,11 @@ struct HomeView: View {
         NavigationStack {
             List {
                 NavigationLink {
+                    FeaturedMangas()
+                } label: {
+                    Label(FeaturedMangas.viewTitle, systemImage: "star")
+                }
+                NavigationLink {
                     CollectionView()
                 } label: {
                     Label(CollectionView.viewTitle, systemImage: "books.vertical")
