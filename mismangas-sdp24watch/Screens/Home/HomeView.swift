@@ -16,6 +16,11 @@ struct HomeView: View {
                 } label: {
                     Label(CollectionView.viewTitle, systemImage: "books.vertical")
                 }
+                NavigationLink {
+                    AccountView()
+                } label: {
+                    Label(AccountView.viewTitle, systemImage: "person")
+                }
             }
             .navigationTitle("Mis Mangas")
         }

@@ -204,11 +204,21 @@
 			);
 			target = 205285912D0709A8005247E8 /* mismangas-sdp24Tests */;
 		};
+		20B0602F2D4669DC00D643B5 /* Exceptions for "mismangas-sdp24watch" folder in "mismangas-sdp24" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Screens/Account/AccountView.swift,
+			);
+			target = 204BDA592CFFA69F003A2989 /* mismangas-sdp24 */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		201CA57C2D4580150005D46B /* mismangas-sdp24watch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				20B0602F2D4669DC00D643B5 /* Exceptions for "mismangas-sdp24watch" folder in "mismangas-sdp24" target */,
+			);
 			path = "mismangas-sdp24watch";
 			sourceTree = "<group>";
 		};

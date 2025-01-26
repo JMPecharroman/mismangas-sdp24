@@ -141,21 +141,6 @@ struct LoginView: View {
             .onChange(of: userIsLogged) {
                 dismiss()
             }
-            // TODO: Eliminar esto
-//            .alert(isLogin ? "Inicio de sesión" : "Registro", isPresented: $vm.requestSuccessful) {
-//                Button {
-//                    if isLogin {
-//                        dismiss()
-//                    } else {
-//                        isLogin.toggle()
-//                        vm.passwordConfirmation = ""
-//                    }
-//                } label: {
-//                    Text("Aceptar")
-//                }
-//            } message: {
-//                Text(isLogin ? "Has iniciado sesión correctamente" : "Te has registrado correctamente. Ya puedes inicar sesiñón con tu cuenta.")
-//            }
         }
     }
 }
