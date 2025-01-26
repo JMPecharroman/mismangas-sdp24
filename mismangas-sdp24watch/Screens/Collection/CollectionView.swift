@@ -22,7 +22,11 @@ struct CollectionView: View {
                 CollectionIsEmpty()
             } else {
                 ForEach(mangas) { manga in
-                    CollectionMangaListCell(manga: manga.toCollectionManga)
+                    NavigationLink {
+                        CollectionMangaView(manga)
+                    } label:  {
+                        CollectionMangaListCell(manga: manga.toCollectionManga)
+                    }
                 }
             }
         }

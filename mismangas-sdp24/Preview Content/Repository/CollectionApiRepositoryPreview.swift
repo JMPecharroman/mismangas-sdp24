@@ -7,10 +7,9 @@
 
 import Foundation
 
-@RepositoryActor
 struct CollectionApiRepositoryPreview: CollectionApiRepository {
     
-    private static var mangas: [CollectionManga] = [.preview]
+    nonisolated(unsafe) private static var mangas: [CollectionManga] = [.preview]
     
     func add(_ manga: CollectionManga) async throws {
         Self.mangas.append(manga)

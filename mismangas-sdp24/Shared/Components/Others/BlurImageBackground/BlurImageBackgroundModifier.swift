@@ -10,18 +10,19 @@ import SwiftUI
 struct BlurImageBackgroundModifier: ViewModifier {
     
     let url: URL?
+    let fullCover: Bool
     
     func body(content: Content) -> some View {
         content
             .background {
-                BlurImageBackground(url: url)
+                BlurImageBackground(url: url, fullCover: fullCover)
             }
     }
 }
 
 extension View {
-    func blurImageBackground(url: URL?) -> some View {
-        modifier(BlurImageBackgroundModifier(url: url))
+    func blurImageBackground(url: URL?, fullCover: Bool = false) -> some View {
+        modifier(BlurImageBackgroundModifier(url: url, fullCover: fullCover))
     }
 }
 

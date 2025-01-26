@@ -11,9 +11,17 @@ struct CardBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.secondarySystemBackground))
+                RoundedRectangle(cornerRadius: .cornerRadius)
+                    .fill(Color(backgroundColor))
             }
+    }
+    
+    private var backgroundColor: UIColor {
+        #if os(watchOS)
+        .darkGray
+        #else
+        .secondarySystemBackground
+        #endif
     }
 }
 

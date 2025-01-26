@@ -117,6 +117,11 @@ final class CollectionMangaViewModel {
         }
     }
     
+    func volumeIsOwned(_ volume: Int) -> Bool {
+        guard let volumesOwned = data?.volumesOwned else { return false }
+        return volumesOwned.contains(volume)
+    }
+    
     func volumeIsRead(_ volume: Int) -> Bool {
         guard let readingVolume = data?.readingVolume else { return false }
         return volume <= readingVolume
@@ -126,6 +131,7 @@ final class CollectionMangaViewModel {
         var volumes: [VolumeData] = []
         
         guard let data else { return volumes }
+        guard data.totalVolumes > 0 else { return volumes }
         
         (1...data.totalVolumes).forEach {
             let volume = VolumeData(

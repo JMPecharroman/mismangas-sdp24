@@ -13,7 +13,7 @@ struct CollectionMangaHeaderView: View {
     
     var body: some View {
         VStack(spacing: 8.0) {
-            Poster(url:collectionManga.cover)
+            Poster(url: collectionManga.cover)
                 .frame(height: 180.0)
             Text(collectionManga.title)
                 .font(.title3)
