@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Manga: Identifiable, Hashable {
+struct Manga: Identifiable, Hashable, Sendable {
     let entityId = UUID()
     let id: Int
     let title: String

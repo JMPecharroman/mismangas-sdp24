@@ -21,7 +21,7 @@ struct ImageCached: View {
         } else {
             VStack {
                 ProgressView()
-                    .controlSize(.extraLarge)
+                    .controlSize(isWatch ? .mini : .extraLarge)
                     .onAppear {
                         Task {
                             await viewModel.getImageAsync(url: url)
@@ -30,5 +30,13 @@ struct ImageCached: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+    }
+    
+    private var isWatch: Bool {
+        #if os(watchOS)
+        true
+        #else
+        false
+        #endif
     }
 }

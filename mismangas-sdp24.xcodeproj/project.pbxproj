@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		201CA59E2D4580180005D46B /* mismangas-sdp24watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 201CA57B2D4580150005D46B /* mismangas-sdp24watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		20C977192D46A67200E6591B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C977182D46A67200E6591B /* WidgetKit.framework */; };
+		20C9771B2D46A67200E6591B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C9771A2D46A67200E6591B /* SwiftUI.framework */; };
+		20C977262D46A67400E6591B /* FeaturedMangasWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 20C977162D46A67200E6591B /* FeaturedMangasWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +42,13 @@
 			remoteGlobalIDString = 204BDA592CFFA69F003A2989;
 			remoteInfo = "mismangas-sdp24";
 		};
+		20C977242D46A67400E6591B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 204BDA522CFFA69F003A2989 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 20C977152D46A67200E6591B;
+			remoteInfo = FeaturedMangasWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +63,17 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		20C977272D46A67400E6591B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				20C977262D46A67400E6591B /* FeaturedMangasWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +82,9 @@
 		201CA5942D4580180005D46B /* mismangas-sdp24watch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mismangas-sdp24watch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		204BDA5A2CFFA69F003A2989 /* mismangas-sdp24.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mismangas-sdp24.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		205285922D0709A8005247E8 /* mismangas-sdp24Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mismangas-sdp24Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		20C977162D46A67200E6591B /* FeaturedMangasWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeaturedMangasWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		20C977182D46A67200E6591B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		20C9771A2D46A67200E6591B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -127,6 +151,7 @@
 				Models/ViewModels/MangasViewModel.swift,
 				Models/ViewModels/MangaViewModel.swift,
 				Models/ViewModels/SyncViewModel.swift,
+				"Preview Content/Data/BestMangasMockData.json",
 				"Preview Content/Model/CollectionMangaPreview.swift",
 				"Preview Content/Model/MangaDTOPreview.swift",
 				"Preview Content/Model/MangaPreview.swift",
@@ -146,6 +171,7 @@
 				Shared/Components/Others/CardBackground/CardBackgroundModifier.swift,
 				Shared/Components/Others/ImageCached/ImageCachedView.swift,
 				Shared/Components/Others/ImageCached/ImageCachedViewModel.swift,
+				Shared/Components/Others/MangaBadgesView/MangaBadgesView.swift,
 				Shared/Components/Others/Poster/Poster.swift,
 				Shared/Extensions/Bundle.swift,
 				Shared/Extensions/CGFloat.swift,
@@ -221,6 +247,66 @@
 			);
 			target = 204BDA592CFFA69F003A2989 /* mismangas-sdp24 */;
 		};
+		20C9772B2D46A67400E6591B /* Exceptions for "FeaturedMangasWidget" folder in "FeaturedMangasWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 20C977152D46A67200E6591B /* FeaturedMangasWidgetExtension */;
+		};
+		20C9772F2D46A6CD00E6591B /* Exceptions for "mismangas-sdp24" folder in "FeaturedMangasWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Data/API/ApiConfig.swift,
+				Core/Data/API/ApiEndPoints.swift,
+				Core/Data/API/RequestData/RegisterRequestData.swift,
+				Core/Data/API/RequestData/UpdateCollectionMangaRequestData.swift,
+				Core/Data/API/Responses/ListMangasResponse.swift,
+				Core/Data/API/URL.swift,
+				Core/Data/DTO/AuthorDTO.swift,
+				Core/Data/DTO/DemographicDTO.swift,
+				Core/Data/DTO/GenreDTO.swift,
+				Core/Data/DTO/MangaDTO.swift,
+				Core/Data/DTO/ThemeDTO.swift,
+				"Core/Data/Mappers/Author+AuthorDTO.swift",
+				"Core/Data/Mappers/Category+DemographicDTO.swift",
+				"Core/Data/Mappers/Category+GenreDTO.swift",
+				"Core/Data/Mappers/Category+ThemeDTO.swift",
+				"Core/Data/Mappers/Manga+MangaDTO.swift",
+				Core/Data/Network/EndPoint.swift,
+				Core/Data/Network/HeaderField.swift,
+				Core/Data/Network/HTTPMethod.swift,
+				Core/Data/Network/Network.swift,
+				Core/Data/Network/NetworkError.swift,
+				Core/Data/Network/NetworkInteractor.swift,
+				Core/Data/Network/URLQueryItem.swift,
+				Core/Data/Network/URLRequest.swift,
+				Core/Data/Network/URLSession.swift,
+				Core/Domain/Model/Author.swift,
+				Core/Domain/Model/Category.swift,
+				Core/Domain/Model/CategoryGroup.swift,
+				Core/Domain/Model/CollectionManga.swift,
+				Core/Domain/Model/CustomSearch.swift,
+				Core/Domain/Model/Manga.swift,
+				Core/Domain/Model/MangaStatus.swift,
+				Models/Presentation/MangaPresentation.swift,
+				Models/Presentation/MangaStatusPresentation.swift,
+				"Preview Content/Data/BestMangasMockData.json",
+				Shared/Actors/RepositoryActor.swift,
+				Shared/Components/Others/MangaBadgesView/MangaBadgesView.swift,
+				Shared/Extensions/Bundle.swift,
+				Shared/Extensions/DateFormatter.swift,
+				Shared/Extensions/String.swift,
+			);
+			target = 20C977152D46A67200E6591B /* FeaturedMangasWidgetExtension */;
+		};
+		20C9773E2D46A8A200E6591B /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Data/Network/Network.swift,
+			);
+			target = 204BDA592CFFA69F003A2989 /* mismangas-sdp24 */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -240,8 +326,10 @@
 		204BDA5C2CFFA69F003A2989 /* mismangas-sdp24 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				20C9773E2D46A8A200E6591B /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24" target */,
 				204A2A792D0767CF00B886A0 /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24Tests" target */,
 				201CA7952D45843E0005D46B /* Exceptions for "mismangas-sdp24" folder in "mismangas-sdp24watch Watch App" target */,
+				20C9772F2D46A6CD00E6591B /* Exceptions for "mismangas-sdp24" folder in "FeaturedMangasWidgetExtension" target */,
 			);
 			path = "mismangas-sdp24";
 			sourceTree = "<group>";
@@ -249,6 +337,14 @@
 		205285932D0709A8005247E8 /* mismangas-sdp24Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "mismangas-sdp24Tests";
+			sourceTree = "<group>";
+		};
+		20C9771C2D46A67200E6591B /* FeaturedMangasWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				20C9772B2D46A67400E6591B /* Exceptions for "FeaturedMangasWidget" folder in "FeaturedMangasWidgetExtension" target */,
+			);
+			path = FeaturedMangasWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -289,6 +385,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		20C977132D46A67200E6591B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20C9771B2D46A67200E6591B /* SwiftUI.framework in Frameworks */,
+				20C977192D46A67200E6591B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -299,6 +404,8 @@
 				205285932D0709A8005247E8 /* mismangas-sdp24Tests */,
 				201CA57C2D4580150005D46B /* mismangas-sdp24watch */,
 				201CA58D2D4580170005D46B /* mismangas-sdp24watchTests */,
+				20C9771C2D46A67200E6591B /* FeaturedMangasWidget */,
+				20C977172D46A67200E6591B /* Frameworks */,
 				204BDA5B2CFFA69F003A2989 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -311,8 +418,18 @@
 				201CA57B2D4580150005D46B /* mismangas-sdp24watch Watch App.app */,
 				201CA58A2D4580170005D46B /* mismangas-sdp24watch Watch AppTests.xctest */,
 				201CA5942D4580180005D46B /* mismangas-sdp24watch Watch AppUITests.xctest */,
+				20C977162D46A67200E6591B /* FeaturedMangasWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		20C977172D46A67200E6591B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20C977182D46A67200E6591B /* WidgetKit.framework */,
+				20C9771A2D46A67200E6591B /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,11 +508,13 @@
 				204BDA572CFFA69F003A2989 /* Frameworks */,
 				204BDA582CFFA69F003A2989 /* Resources */,
 				201CA59F2D4580180005D46B /* Embed Watch Content */,
+				20C977272D46A67400E6591B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				201CA59D2D4580180005D46B /* PBXTargetDependency */,
+				20C977252D46A67400E6591B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				204BDA5C2CFFA69F003A2989 /* mismangas-sdp24 */,
@@ -430,6 +549,28 @@
 			productReference = 205285922D0709A8005247E8 /* mismangas-sdp24Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		20C977152D46A67200E6591B /* FeaturedMangasWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20C9772A2D46A67400E6591B /* Build configuration list for PBXNativeTarget "FeaturedMangasWidgetExtension" */;
+			buildPhases = (
+				20C977122D46A67200E6591B /* Sources */,
+				20C977132D46A67200E6591B /* Frameworks */,
+				20C977142D46A67200E6591B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				20C9771C2D46A67200E6591B /* FeaturedMangasWidget */,
+			);
+			name = FeaturedMangasWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = FeaturedMangasWidgetExtension;
+			productReference = 20C977162D46A67200E6591B /* FeaturedMangasWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -458,6 +599,9 @@
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = 204BDA592CFFA69F003A2989;
 					};
+					20C977152D46A67200E6591B = {
+						CreatedOnToolsVersion = 16.2;
+					};
 				};
 			};
 			buildConfigurationList = 204BDA552CFFA69F003A2989 /* Build configuration list for PBXProject "mismangas-sdp24" */;
@@ -480,6 +624,7 @@
 				201CA57A2D4580150005D46B /* mismangas-sdp24watch Watch App */,
 				201CA5892D4580170005D46B /* mismangas-sdp24watch Watch AppTests */,
 				201CA5932D4580180005D46B /* mismangas-sdp24watch Watch AppUITests */,
+				20C977152D46A67200E6591B /* FeaturedMangasWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -514,6 +659,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		205285902D0709A8005247E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20C977142D46A67200E6591B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -558,6 +710,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		20C977122D46A67200E6591B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -580,6 +739,11 @@
 			isa = PBXTargetDependency;
 			target = 204BDA592CFFA69F003A2989 /* mismangas-sdp24 */;
 			targetProxy = 205285962D0709A8005247E8 /* PBXContainerItemProxy */;
+		};
+		20C977252D46A67400E6591B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 20C977152D46A67200E6591B /* FeaturedMangasWidgetExtension */;
+			targetProxy = 20C977242D46A67400E6591B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -945,6 +1109,62 @@
 			};
 			name = Release;
 		};
+		20C977282D46A67400E6591B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeaturedMangasWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FeaturedMangasWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24.FeaturedMangasWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		20C977292D46A67400E6591B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52QFGH8723;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeaturedMangasWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FeaturedMangasWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jmpecharroman.mismangas-sdp24.FeaturedMangasWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -998,6 +1218,15 @@
 			buildConfigurations = (
 				205285992D0709A8005247E8 /* Debug */,
 				2052859A2D0709A8005247E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		20C9772A2D46A67400E6591B /* Build configuration list for PBXNativeTarget "FeaturedMangasWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20C977282D46A67400E6591B /* Debug */,
+				20C977292D46A67400E6591B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

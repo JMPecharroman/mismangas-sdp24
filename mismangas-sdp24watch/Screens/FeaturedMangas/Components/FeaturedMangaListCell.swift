@@ -20,15 +20,7 @@ struct FeaturedMangaListCell: View {
             VStack(alignment: .leading, spacing: 2.0) {
                 Text(manga.title)
                     .lineLimit(1)
-                HStack {
-                    Text(manga.yearLabel)
-                    Text("\(Image(systemName: "star.fill"))")
-                        .font(.footnote)
-                    + Text(" \(manga.scoreLabel)")
-                }
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
+                MangaBadgesView(manga: manga, showStatus: false)
             }
         }
     }
