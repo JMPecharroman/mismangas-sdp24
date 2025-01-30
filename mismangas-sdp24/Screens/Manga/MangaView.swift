@@ -24,9 +24,7 @@ struct MangaView: View {
                     
                     AuthorsCarrousel(authors: vm.manga.authors)
 
-                    SectionHeader(text: "Categorías", button: "Ver todas") {
-                        MangaCategoriesView(manga: vm.manga)
-                    }
+                    SectionHeader(text: "Categorías")
                     .padding(.horizontal)
                     
                     MangaCategoriesGrid(manga: vm.manga)

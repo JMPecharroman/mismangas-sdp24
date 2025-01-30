@@ -7,7 +7,12 @@
 
 import Foundation
 
+/// Datos de una demografía en la API.
 struct DemographicDTO: Codable {
+    
+    /// Identificador único de la demografía.
     let id: String
+    
+    /// Nombre de la demografía.
     let demographic: String
 }

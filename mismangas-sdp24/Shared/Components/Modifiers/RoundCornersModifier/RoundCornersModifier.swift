@@ -7,9 +7,13 @@
 
 import SwiftUI
 
+/// Modificador para aplicar esquinas redondeadas a una vista.
 struct RoundCornersModifier: ViewModifier {
     
+    /// Esquinas a las que se aplicará el radio de redondeo.
     let corners: [ViewCorner]
+    
+    /// Radio de redondeo de las esquinas.
     let radius: CGFloat
     
     func body(content: Content) -> some View {
@@ -26,21 +30,14 @@ struct RoundCornersModifier: ViewModifier {
 }
 
 extension View {
+    
+    /// Aplica esquinas redondeadas a la vista.
+    ///
+    /// - Parameters:
+    ///   - corners: Esquinas a redondear.
+    ///   - radius: Radio del redondeo. Valor por defecto: `12.0`.
+    /// - Returns: Una vista con las esquinas redondeadas aplicadas.
     func roundCorners(_ corners: [ViewCorner], radius: CGFloat = 12.0) -> some View {
         modifier(RoundCornersModifier(corners: corners, radius: radius))
     }
-}
-
-enum ViewCorner {
-    case topLeading
-    case topTrailing
-    case bottomLeading
-    case bottomTrailing
-}
-
-extension Array where Element == ViewCorner {
-    static var allCorners: [ViewCorner] { [.topLeading, .topTrailing, .bottomLeading, .bottomTrailing] }
-    static var top: [ViewCorner] { [.topLeading, .topTrailing] }
-    static var bottom: [ViewCorner] { [.bottomLeading, .bottomTrailing] }
-    static var none: [ViewCorner] { [] }
 }

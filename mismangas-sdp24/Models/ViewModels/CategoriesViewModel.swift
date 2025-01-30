@@ -7,31 +7,50 @@
 
 import SwiftUI
 
+/// ViewModel que gestiona la recuperación y el estado de las categorías de manga.
 @Observable @MainActor
 final class CategoriesViewModel {
     
+    /// Repositorio de categorías para recuperar los datos de la API.
     private let repository: CategoriesRepository
     
+    /// Lista de demografías disponibles.
     private var demographics: [String] = []
+    /// Error al cargar demografías.
     private var demographicsError: Error?
+    /// Indica si se están cargando las demografías.
     private var isLoadingDemographics = false
     
+    /// Lista de géneros disponibles.
     private var genres: [String] = []
+    /// Error al cargar géneros.
     private var genresError: Error?
+    /// Indica si se están cargando los géneros.
     private var isLoadingGenres = false
     
+    /// Lista de temáticas disponibles.
     private var themes: [String] = []
+    /// Error al cargar temáticas.
     private var themesError: Error?
+    /// Indica si se están cargando las temáticas.
     private var isLoadingThemes = false
     
+    /// Límite de elementos a mostrar cuando se decide dividir la selección.
     private let splitLimit: Int = 8
     
+    // MARK: - Initialization
+    
+    /// Inicializa el ViewModel con un repositorio.
+    /// - Parameter repository: Repositorio a utilizar para obtener datos. Por defecto, usa `.api`.
     init(repository: CategoriesRepository = .api) {
         self.repository = repository
     }
     
     // MARK: - Interface
     
+    /// Obtiene el error asociado a una categoría.
+    /// - Parameter group: Grupo de categoría a consultar.
+    /// - Returns: Error asociado si existe, `nil` en caso contrario.
     func error(for group: CategoryGroup) -> Error? {
         switch group {
             case .demographic: demographicsError
@@ -40,6 +59,9 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Indica si una categoría está en proceso de carga.
+    /// - Parameter group: Grupo de categoría a consultar.
+    /// - Returns: `true` si está cargando, `false` en caso contrario.
     func isLoading(_ group: CategoryGroup) -> Bool {
         switch group {
             case .demographic: isLoadingDemographics
@@ -48,6 +70,9 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Obtiene los elementos de una categoría.
+    /// - Parameter group: Grupo de categoría a consultar.
+    /// - Returns: Lista de elementos disponibles en la categoría.
     func items(for group: CategoryGroup) -> [String]  {
         switch group {
             case .demographic: demographics
@@ -56,6 +81,9 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Obtiene una selección de elementos para mostrar.
+    /// - Parameter group: Grupo de categoría a consultar.
+    /// - Returns: Lista de elementos seleccionados, limitada si se supera el umbral de `splitLimit`.
     func itemsSelection(for group: CategoryGroup) -> [String] {
         let items = items(for: group)
         
@@ -66,10 +94,14 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Determina si los elementos de una categoría deben dividirse para la vista.
+    /// - Parameter group: Grupo de categoría a consultar.
+    /// - Returns: `true` si la cantidad de elementos supera `splitLimit`, `false` en caso contrario.
     func splitItems(for group: CategoryGroup) -> Bool {
         items(for: group).count > splitLimit
     }
     
+    /// Acción a ejecutar cuando la vista aparece. Carga las categorías si están vacías.
     func onAppear() {
         if demographics.isEmpty {
             refreshDemocratics()
@@ -82,6 +114,8 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Refresca los datos de una categoría.
+    /// - Parameter group: Grupo de categoría a refrescar.
     func refresh(group: CategoryGroup) {
         switch group {
             case .demographic: refreshDemocratics()
@@ -92,6 +126,7 @@ final class CategoriesViewModel {
     
     // MARK: - Internal
     
+    /// Obtiene las demografías desde el repositorio.
     @RepositoryActor
     private func getDemographics() async {
         do {
@@ -109,6 +144,7 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Obtiene los géneros desde el repositorio.
     @RepositoryActor
     private func getGenres() async {
         do {
@@ -126,6 +162,7 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Obtiene las temáticas desde el repositorio.
     @RepositoryActor
     private func getThemes() async {
         do {
@@ -143,6 +180,7 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Refresca la lista de demografías.
     private func refreshDemocratics() {
         guard !isLoadingDemographics else { return }
         
@@ -154,6 +192,7 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Refresca la lista de géneros.
     private func refreshGenres() {
         guard !isLoadingGenres else { return }
         
@@ -165,6 +204,7 @@ final class CategoriesViewModel {
         }
     }
     
+    /// Refresca la lista de temáticas.
     private func refreshThemes() {
         guard !isLoadingThemes else { return }
         

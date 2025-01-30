@@ -5,7 +5,6 @@
 //  Created by José Mª Pecharromán on 9/12/24.
 //
 
-
 import SwiftUI
 
 struct ImageCached: View {

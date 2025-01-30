@@ -9,27 +9,67 @@ import Foundation
 
 enum ApiEndPoint: EndPoint {
     
+    /// Obtiene los mejores mangas según su puntuación.
     case bestMangas
+    
+    /// Elimina un manga de la colección del usuario.
     case deleteCollectionManga(mangaId: Int, token: String)
+    
+    /// Recupera la lista de todos los autores disponibles en la base de datos.
     case listAuthors
+    
+    /// Obtiene la lista de demografías en las que se clasifican los mangas.
     case listDemographics
+    
+    /// Obtiene la lista de géneros de los mangas.
     case listGenres
+    
+    /// Obtiene un listado de mangas con paginación.
     case listMangas(page: Int)
+    
+    /// Obtiene la lista de temáticas de los mangas.
     case listThemes
+    
+    /// Inicia sesión en el sistema.
     case login(email: String, password: String)
+    
+    /// Recupera los mangas de un autor específico.
     case mangasByAuthor(author: Author, page: Int)
+    
+    /// Obtiene los mangas de una demografía específica.
     case mangasByDemographic(demographic: String, page: Int)
+    
+    /// Obtiene los mangas de un género específico.
     case mangasByGenre(genre: String, page: Int)
+    
+    /// Obtiene los mangas de una temática específica.
     case mangasByTheme(theme: String, page: Int)
+    
+    /// Registra un nuevo usuario en el sistema.
     case register(email: String, password: String)
+    
+    /// Renueva el token de sesión de un usuario.
     case renewToken(token: String)
+    
+    /// Busca autores cuyo nombre coincida con el texto proporcionado.
     case searchAuthor(text: String)
+    
+    /// Realiza una búsqueda personalizada de mangas.
     case searchMangas(custom: CustomSearch, page: Int)
+    
+    /// Busca mangas cuyos títulos comiencen con un texto específico.
     case searchMangasBeginsWith(text: String)
+    
+    /// Busca mangas que contengan un texto específico en su título.
     case searchMangasContains(text: String)
+    
+    /// Actualiza la colección de mangas del usuario.
     case updateCollectionManga(collectionManga: CollectionManga, token: String)
+    
+    /// Obtiene la colección de mangas guardada por el usuario.
     case userMangas(token: String)
     
+    /// Obtiene la URL completa del endpoint correspondiente.
     var url: URL {
         switch self {
             case .bestMangas:
@@ -75,6 +115,7 @@ enum ApiEndPoint: EndPoint {
         }
     }
     
+    /// Cuerpo de la solicitud HTTP en caso de ser necesario.
     var body: Encodable? {
         switch self {
             case .register(let email, let password):
@@ -88,6 +129,7 @@ enum ApiEndPoint: EndPoint {
         }
     }
     
+    /// Cabeceras HTTP asociadas a cada endpoint.
     var headers: [HeaderField] {
         switch self {
             case .deleteCollectionManga(_ , let token):
@@ -109,6 +151,7 @@ enum ApiEndPoint: EndPoint {
         }
     }
     
+    /// Método HTTP correspondiente a cada endpoint.
     var method: HTTPMethod {
         switch self {
             case .deleteCollectionManga:

@@ -7,13 +7,29 @@
 
 import Foundation
 
+/// Representa los diferentes campos de cabecera HTTP utilizados en la API.
 enum HeaderField {
+    
+    /// Campo de cabecera `Accept`.
     case accept(String)
+    
+    /// Campo de cabecera `App-Token`. Se obtiene de la configuración de la API.
     case appToken
+    
+    /// Campo de cabecera `Authorization` con autenticación básica.
+    /// - Parameters:
+    ///   - email: Correo electrónico del usuario.
+    ///   - password: Contraseña del usuario.
     case authorizationBasic(email: String, password: String)
+    
+    /// Campo de cabecera `Authorization` con autenticación `Bearer`.
+    /// - Parameter token: Token de autenticación.
     case authorizationBearer(token: String)
+    
+    /// Campo de cabecera `Content-Type`.
     case contentType(String)
     
+    /// Clave del campo de cabecera HTTP.
     var key: String {
         switch self {
             case .accept: "Accept"
@@ -24,6 +40,7 @@ enum HeaderField {
         }
     }
     
+    /// Valor del campo de cabecera HTTP.
     var value: String {
         switch self {
             case .accept(let value):

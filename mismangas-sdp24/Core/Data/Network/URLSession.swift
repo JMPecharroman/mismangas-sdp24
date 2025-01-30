@@ -8,6 +8,12 @@
 import Foundation
 
 extension URLSession {
+    
+    /// Obtiene datos desde una URL de manera asíncrona.
+    ///
+    /// - Parameter url: Dirección web desde donde se descargan los datos.
+    /// - Returns: Una tupla con los datos obtenidos y la respuesta HTTP.
+    /// - Throws: `NetworkError` si ocurre un error durante la descarga.
     func getData(from url: URL) async throws(NetworkError) -> (data: Data, response: HTTPURLResponse) {
         do {
             let (data, response) = try await data(from: url)
@@ -22,6 +28,11 @@ extension URLSession {
         }
     }
     
+    /// Obtiene datos a partir de una solicitud `URLRequest` de manera asíncrona.
+    ///
+    /// - Parameter request: La solicitud de red que se enviará.
+    /// - Returns: Una tupla con los datos obtenidos y la respuesta HTTP.
+    /// - Throws: `NetworkError` si ocurre un error en la petición.
     func getData(for request: URLRequest) async throws(NetworkError) -> (data: Data, response: HTTPURLResponse) {
         do {
             let (data, response) = try await data(for: request)

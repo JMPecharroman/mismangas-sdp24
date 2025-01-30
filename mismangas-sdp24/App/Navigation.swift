@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Define destinos de navegación para distintas entidades de la aplicación.
 struct NavigationDestinationsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -35,11 +36,15 @@ struct NavigationDestinationsModifier: ViewModifier {
 }
 
 extension View {
+    /// Aplica `NavigationDestinationsModifier` a cualquier vista.
+    /// - Returns: Una vista modificada con los destinos de navegación predefinidos.
     func navigationDestinations() -> some View {
         modifier(NavigationDestinationsModifier())
     }
 }
 
+/// Enum que define los destinos de navegación personalizados dentro de la aplicación.
+/// Utilizado en conjunto con `navigationDestination(for:)`.
 enum Destination: Hashable {
     case mangasByCategory(category: String, group: CategoryGroup)
 }

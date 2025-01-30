@@ -7,7 +7,12 @@
 
 import Foundation
 
+/// Datos de un género de manga.
 struct GenreDTO: Codable {
+    
+    /// Identificador único del género.
     let id: String
+    
+    /// Nombre del género.
     let genre: String
 }

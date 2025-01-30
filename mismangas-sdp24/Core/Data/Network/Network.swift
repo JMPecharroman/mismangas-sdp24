@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// Interacción con la red para gestionar las peticiones HTTP.
 struct Network: NetworkInteractor {
+    
+    /// Sesión compartida utilizada para realizar las solicitudes de red.
     var urlSession: URLSession { .shared }
 }

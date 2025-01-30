@@ -7,17 +7,42 @@
 
 import Foundation
 
+/// Errores relacionados con la autenticación de usuarios.
+///
+/// Esta enumeración define los posibles errores que pueden surgir durante el proceso de autenticación,
+/// incluyendo validaciones de email, contraseñas y sesiones.
 enum AuthError: Error, LocalizedError {
+    
+    /// El email está vacío.
     case emailIsEmpty
+    
+    /// El email introducido no es válido.
     case emailNotValid
+    
+    /// No hay una sesión activa.
     case noActiveSession
+    
+    /// La confirmación de la contraseña está vacía.
     case passwordConfirmationIsEmpty
+    
+    /// La contraseña está vacía.
     case passwordIsEmpty
+    
+    /// La contraseña supera la longitud máxima permitida.
+    /// - Parameter lenght: Longitud máxima permitida.
     case passwordIsTooLong(Int)
+    
+    /// La contraseña no alcanza la longitud mínima requerida.
+    /// - Parameter lenght: Longitud mínima requerida.
     case passwordIsTooShort(Int)
+    
+    /// Las contraseñas no coinciden.
     case passwordsDoNotMatch
+    
+    /// La sesión ha expirado.
     case sessionExpired
     
+    /// Descripción textual del error.
     var errorDescription: String? {
         switch self {
             case .emailIsEmpty: "Introduce el email"

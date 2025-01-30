@@ -7,11 +7,16 @@
 
 import SwiftUI
 
+/// Vista principal de la aplicación que gestiona la navegación entre la pantalla de inicio y el login.
 struct ContentView: View {
     
+    /// Estado que indica si el usuario ha iniciado sesión.
     @AppStorage(UserDefaultsKey.userIsLogged.rawValue) private var userIsLoggeed: Bool = false
     
+    /// Contexto del modelo para la gestión de datos con SwiftData.
     @Environment(\.modelContext) private var modelContext
+    
+    /// ViewModel encargado de la sincronización de datos.
     @Environment(SyncViewModel.self) private var vm
     
     var body: some View {
